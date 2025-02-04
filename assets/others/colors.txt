@@ -1,0 +1,43 @@
+
+ Colors App
+
+ ---------------------------
+ | Light mode | Dark  mode |
+ ---------------------------
+ |   000000   |   FFFFFF   |
+ ---------------------------
+ |   EEEEEE   |   222222   |
+ ---------------------------
+ |   23DBDC   |   0E5758   | (sky-blue background)
+ ---------------------------
+ |   E35C5C   |   E35C5C   | (pink heart)
+ ---------------------------
+ |   3CFF00   |   30CC00   | (outside green weight)
+ ---------------------------
+ |   8AFF66   |   124D00   | (inside green weight)
+ ---------------------------
+ |   F3E2A5   |   443709   | (cream list tags)
+ ---------------------------
+ |   FF9D00   |   CC7E00   | (outside cream weight)
+ ---------------------------
+ |   FFD084   |   4D2F00   | (inside cream weight)
+ ---------------------------
+ |   5A490C   |   E1B61E   | (circle selection)
+ ---------------------------
+ |   7D6D02   |   C8AE04   | (yellow validation password)
+ ---------------------------
+ |   760D0D   |   FF0000   | (red validation password)
+ ---------------------------
+ |   124D00   |   30CC00   | (green validation password)
+ ---------------------------
+ |   760D0D   |   B81414   | (message error validation)
+ ---------------------------
+ |      |      |
+ ---------------------------
+ |      |      |
+ --------------------------
+
+
+ Notes:
+
+ - Inside weight color have 80% of opacity

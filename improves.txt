@@ -1,0 +1,68 @@
+
+DB:
+ - Create another database called app on the mongoDB cluster 0, and use that
+ - Fix the refer of the sessionID (where it gonna be? On users' table?)
+ - Save the last mode used on DB user's table
+ 
+
+Backend:
+ - Disengage the functions of the front
+ - Close session
+ - Get users from db and send it to front
+
+
+Front:
+ - Mockups:
+    . ListCategories scroll
+    . ElementCategory
+    . ListRecipies scroll
+    . ElementRecipy (^)
+    . Plus
+    . EditCatgories
+    . EditCategory
+    ✔ DetailsRecipy
+    ✔ UserAccount
+    ✔ OtherAccounts
+  ✔✔ Logo
+  ✔✔ SvgIcon
+  ✔✔ Message error validation and icon
+  ✔✔ Message
+  ✔✔ SimpleInput (Input)
+  ✔✔ ContrButton1 (ButtonSign)
+  ✔✔ RegisterInput (use Input)
+  ✔✔ ContrButton2
+  ✔✔ ButtonIcon (optimice ThemeModeButton)
+
+ - Components:
+   . PopUp Delete Username
+ 
+ - Functions:
+   . Add function to the Forgot Usernames button on Forgot Password mockup (it must send to the 
+     email the usernames associated and with a toast sending the user to check the email)
+
+
+
+ Aesthetic:
+ - DISENGAGE THE COMPONENTS! Login must be clean and simple, with styles only at fist, and custom components with childrens
+ - Animation fade when the mode changed (dark-light)
+ - Once the styles of an components are ready, add it on the compStyles, and not inline in the component
+ - Create an animation to change pages (fade or slide to a side)
+
+
+
+✔✔ Check margins of elements to fix the move up on press sign in
+✔✔ Create an function on icon password, when isHiddenIconQuestion is true, go to the forgot password
+✔✔ The ButtonBack must have position absolute, to always be in the screen and not only up there
+✔✔ Take an init the app with the theme mode on user's phone
+✔✔ Unable sugestions on password's TextInput 
+✔✔ Show messages to success or error in each change of page
+✔✔ Fix the position of (?) on login, to go to ForgotPassword
+✔✔ Fix the error when defaultValueUsernameLogin is === ''
+✔✔ When EnterPasswordInput updates, check if ConfirmPasswordInput and EnterPasswordInput are equal
+
+
+Caption:
+
+ -  Listed (not finished)
+ ✔  Working on that
+✔✔ Finished
