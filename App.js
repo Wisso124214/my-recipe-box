@@ -23,7 +23,7 @@ import DebugMenu from './components/debugMenu/DebugMenu';
 
 export default function App() {
   const devMode = {
-  power: 'off',
+  power: 'on',
     on: {
       timeLoading: 3000,
       screenLoading: false,
