@@ -25,7 +25,7 @@ export default function App() {
   const devMode = {
   power: 'on',
     on: {
-      timeLoading: 3000,
+      timeLoading: 0,
       screenLoading: false,
       debugMenuEnabled: true,
       showDebugMenu: false,
@@ -33,15 +33,15 @@ export default function App() {
       page: 0,
       pagefp: 0,
       varpage: 'strpage',
-      appState: 'running',
-      autoFocusInputFP2: false,
+      appState: 'initializing',
+      autoFocusInputFP2: true,
       registerDebugging: true,
       usernameDefault: 'UserURU',
       emailDefault: 'luisdavidbustosnunez@gmail.com',
       passwordDefault: 'Password123$',
     },
     off: {
-      timeLoading: 3000,
+      timeLoading: 0,
       screenLoading: false,
       debugMenuEnabled: false,
       showDebugMenu: false,
