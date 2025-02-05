@@ -85,7 +85,7 @@ const Login = ({ data }) => {
                   })
                   .catch((error) => {
                     idRes = idRes < 2 ? 2 : idRes;
-                    console.log(error);
+                    console.log(JSON.stringify(error, null, 2));
                   })
               }
             })
@@ -94,7 +94,7 @@ const Login = ({ data }) => {
               idRes = idRes < 1 ? 1 : idRes;
             }
           }).catch((error) => {
-            console.log(error)
+            console.log(JSON.stringify(error, null, 2))
           })
         } else {
           idRes = idRes < 1 ? 1 : idRes;

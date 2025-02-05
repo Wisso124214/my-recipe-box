@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "my-recipy-box",
-    "slug": "my-recipy-box",
+    "name": "my-recipe-box",
+    "slug": "my-recipe-box",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -18,13 +18,19 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/logo.webp",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.wisso124214.myrecipebox"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
       "expo-secure-store"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "7c3b2b16-4a92-459a-be99-a58453783f45"
+      }
+    }
   }
 }

@@ -171,7 +171,7 @@ const Register = ({ data }) => {
         }
         await encryptData(id_contact, objValidations.username.stateValue[0], objValidations.password.stateValue[0], dataLogic)
         
-        
+        setLoading(false)
         cleanInputs(objValidations)
         redirectPage('detailsRecipy', 1000, setStrPage);
       } else {
@@ -309,7 +309,7 @@ const Register = ({ data }) => {
                             lineNumbers: 1,
                             text: 'Must have at least 6 characters',
                           });
-                        } else if (listUsernames.includes(text)) {
+                        } else if (listUsernames.length > 0 && listUsernames.includes(text)) {
                           objValidations.username.dataMessage.dataValidation[1]({
                             hidden: false,
                             lineNumbers: 1,

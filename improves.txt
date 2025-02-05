@@ -1,6 +1,5 @@
 
 DB:
- - Create another database called app on the mongoDB cluster 0, and use that
  - Fix the refer of the sessionID (where it gonna be? On users' table?)
  - Save the last mode used on DB user's table
  
@@ -49,7 +48,7 @@ Front:
  - Create an animation to change pages (fade or slide to a side)
 
 
-
+✔✔ Create another database called app on the mongoDB cluster 0, and use that
 ✔✔ Check margins of elements to fix the move up on press sign in
 ✔✔ Create an function on icon password, when isHiddenIconQuestion is true, go to the forgot password
 ✔✔ The ButtonBack must have position absolute, to always be in the screen and not only up there

@@ -12,9 +12,9 @@ export async function getListUsernames(setListUsernames, username) {
     await res.data.forEach((objusername) => {
       arr.push(objusername.username)
     })
-    setListUsernames(arr)
+    setListUsernames(arr);
   }).catch((error) => {
-    console.log(error)
+    console.log(JSON.stringify(error, null, 2))
   })
 }
 
@@ -99,12 +99,12 @@ export const setMainSession = async (id_device, id_session) => {
           console.log('Main session set')
         })
         .catch((error) => {
-          console.log(error);
+          console.log(JSON.stringify(error, null, 2));
         })
       }
     })
   }).catch((error) => {
-    console.log(error)
+    console.log(JSON.stringify(error, null, 2))
   })
   return id;
 }
@@ -142,16 +142,16 @@ export const setSession = async (id_device, id_user, state) => {
         })
       })
       .catch((error) => {
-        console.log(error);
+        console.log(JSON.stringify(error, null, 2));
       })
     } else {
       await axios.put(`${SERVER_URL}/sessions/${id}`, objsession)
       .catch((error) => {
-        console.log(error);
+        console.log(JSON.stringify(error, null, 2));
       })
     }
   }).catch((error) => {
-    console.log(error)
+    console.log(JSON.stringify(error, null, 2))
   })
   return id;
 }
@@ -168,7 +168,7 @@ export const getIdUser = async (username) => {
       }
     })
   }).catch((error) => {
-    console.log(error)
+    console.log(JSON.stringify(error, null, 2))
   })
   return id;
 }
@@ -190,12 +190,12 @@ export const getIdContact = async (email) => {
       await axios.post(`${SERVER_URL}/contacts`, {
         email: email,
       }).catch((error) => {
-        console.log(error, 'Error setting contact');
+        console.log(JSON.stringify(error, null, 2), 'Error setting contact');
       })
       id = await getIdContact(email);
     }
   }).catch((error) => {
-    console.log(error, 'Error getting contacts')
+    console.log(JSON.stringify(error, null, 2), 'Error getting contacts')
   })
   return id;
 }
@@ -219,11 +219,11 @@ export const setIdDevice = async () => {
       axios.post(`${SERVER_URL}/devices`, {
         code: uniqueId,
       }).catch((error) => {
-        console.log(error);
+        console.log(JSON.stringify(error, null, 2));
       }) 
     }
   }).catch((error) => {
-    console.log(error)
+    console.log(JSON.stringify(error, null, 2))
   })
   return uniqueId;
 }
@@ -254,7 +254,7 @@ export const encryptData = async (id_contact, username, password, data) => {
             setMessage('Sign up successful', theme[mode].successColor, methods)
           })
           .catch((error)=>{
-            console.log(error)
+            console.log(JSON.stringify(error, null, 2))
             setMessage('Error', theme[mode].errorColor, methods)
           })
 

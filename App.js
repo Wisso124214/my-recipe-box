@@ -287,7 +287,7 @@ export default function App() {
         axios.post(`${SERVER_URL}/devices`, {
           code: uniqueId,
         }).catch((error) => {
-          console.log(error);
+          console.log(JSON.stringify(error, null, 2));
         })
       }
     })

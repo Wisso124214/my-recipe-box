@@ -68,7 +68,7 @@ app.get('/contacts', async (req, res) => {
     res.json(contacts);
   } catch (error) {
     res.status(500).json({ message: error.message });
-    console.log(error);
+    console.log(JSON.stringify(error, null, 2));
   }
 });
 
@@ -79,7 +79,7 @@ app.post('/contacts', async (req, res) => {
     res.json(contact);
   } catch (error) {
     res.status(402).json({ message: error.message });
-    console.log(error);
+    console.log(JSON.stringify(error, null, 2));
   }
 });
 
@@ -90,7 +90,7 @@ app.put('/contacts/:id', async (req, res) => {
     res.json(contact);
   } catch (error) {
     res.status(400).json({ message: error.message });
-    console.log(error);
+    console.log(JSON.stringify(error, null, 2));
   }
 });
 
@@ -101,7 +101,7 @@ app.delete('/contacts/:id', async (req, res) => {
     res.json({ message: 'Contact deleted' });
   } catch (error) {
     res.status(500).json({ message: error.message });
-    console.log(error);
+    console.log(JSON.stringify(error, null, 2));
   }
 });
 
@@ -116,7 +116,7 @@ app.get('/devices', async (req, res) => {
     res.json(devices);
   } catch (error) {
     res.status(500).json({ message: error.message });
-    console.log(error);
+    console.log(JSON.stringify(error, null, 2));
   }
 });
 
@@ -127,7 +127,7 @@ app.post('/devices', async (req, res) => {
     res.json(device);
   } catch (error) {
     res.status(400).json({ message: error.message });
-    console.log(error);
+    console.log(JSON.stringify(error, null, 2));
   }
 });
 
@@ -138,7 +138,7 @@ app.put('/devices/:id', async (req, res) => {
     res.json(device);
   } catch (error) {
     res.status(400).json({ message: error.message });
-    console.log(error);
+    console.log(JSON.stringify(error, null, 2));
   }
 });
 
@@ -149,7 +149,7 @@ app.delete('/devices/:id', async (req, res) => {
     res.json({ message: 'Device deleted' });
   } catch (error) {
     res.status(500).json({ message: error.message });
-    console.log(error);
+    console.log(JSON.stringify(error, null, 2));
   }
 });
 
@@ -164,7 +164,7 @@ app.get('/sessions', async (req, res) => {
     res.json(sessions);
   } catch (error) {
     res.status(500).json({ message: error.message });
-    console.log(error);
+    console.log(JSON.stringify(error, null, 2));
   }
 });
 
@@ -175,7 +175,7 @@ app.post('/sessions', async (req, res) => {
     res.json(session);
   } catch (error) {
     res.status(403).json({ message: error.message });
-    console.log(error);
+    console.log(JSON.stringify(error, null, 2));
   }
 });
 
@@ -186,7 +186,7 @@ app.put('/sessions/:id', async (req, res) => {
     res.json(session);
   } catch (error) {
     res.status(400).json({ message: error.message });
-    console.log(error);
+    console.log(JSON.stringify(error, null, 2));
   }
 });
 
@@ -197,7 +197,7 @@ app.delete('/sessions/:id', async (req, res) => {
     res.json({ message: 'Session deleted' });
   } catch (error) {
     res.status(500).json({ message: error.message });
-    console.log(error);
+    console.log(JSON.stringify(error, null, 2));
   }
 });
 
@@ -212,7 +212,7 @@ app.get('/users', async (req, res) => {
     res.json(users);
   } catch (error) {
     res.status(500).json({ message: error.message });
-    console.log(error);
+    console.log(JSON.stringify(error, null, 2));
   }
 });
 
@@ -223,7 +223,7 @@ app.post('/users', async (req, res) => {
     res.json(user);
   } catch (error) {
     res.status(403).json({ message: error.message });
-    console.log(error);
+    console.log(JSON.stringify(error, null, 2));
   }
 });
 
@@ -234,7 +234,7 @@ app.put('/users/:id', async (req, res) => {
     res.json(user);
   } catch (error) {
     res.status(400).json({ message: error.message });
-    console.log(error);
+    console.log(JSON.stringify(error, null, 2));
   }
 });
 
@@ -245,6 +245,6 @@ app.delete('/users/:id', async (req, res) => {
     res.json({ message: 'User deleted' });
   } catch (error) {
     res.status(500).json({ message: error.message });
-    console.log(error);
+    console.log(JSON.stringify(error, null, 2));
   }
 });

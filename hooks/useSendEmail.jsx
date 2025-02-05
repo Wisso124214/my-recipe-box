@@ -15,7 +15,7 @@ const useSendEmail = ({ subject }) => {
           },
           (error, event) => {
             if (error) {
-              console.log(error)
+              console.log(JSON.stringify(error, null, 2))
               return reject(error);
             }
 

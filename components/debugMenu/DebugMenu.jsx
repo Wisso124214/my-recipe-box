@@ -31,7 +31,7 @@ const DebugMenu = ({ data }) => {
     })
     .catch((error)=>{
       ToastAndroid.showWithGravityAndOffset( 'ERROR sending email', ToastAndroid.LONG, ToastAndroid.BOTTOM, 25, 50, );
-      console.log(error)
+      console.log(JSON.stringify(error, null, 2))
     })*/
 
     if (SERVER_URL) {

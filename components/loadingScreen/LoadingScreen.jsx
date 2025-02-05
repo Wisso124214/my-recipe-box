@@ -26,7 +26,7 @@ const LoadingScreen = ({ data }) => {
           textShadowOffset: {width: -3, height: 3},
           textShadowRadius: 8 } 
         } >
-          My Recipy Box
+          My Recipe Box
       </Text>
     </View>
   );
