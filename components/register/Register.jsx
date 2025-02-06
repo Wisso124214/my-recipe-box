@@ -22,6 +22,7 @@ const Register = ({ data }) => {
 
   const [listUsernames, setListUsernames] = useState([])
 
+  //component styles
   const compStyles = {
     header: {
       fontSize: 65 * consts.px,
@@ -61,7 +62,7 @@ const Register = ({ data }) => {
     hidden: false,
   }
   
-  // Hidden en true sería "validation error", hidden en false sería "validation success"
+  // Hidden on true it is "validation error", hidden on false it is "validation success"
   const objValidations = {
     username: {
       stateValue: useState(''),
@@ -111,6 +112,7 @@ const Register = ({ data }) => {
   useEffect(() => {
     SettingListUsernames(setListUsernames, objValidations.username.stateValue[0])
     
+    //this is for debugging, it will fill the inputs with default values
     if (devMode[devMode.power].registerDebugging) {
       objValidations.username.dataMessage.dataValidation[0].hidden = true
       objValidations.email.dataMessage.dataValidation[0].hidden = true
@@ -124,6 +126,7 @@ const Register = ({ data }) => {
     }
   }, [])
   
+  //set the list of usernames, this is for the validation of the username, to be unique
   const SettingListUsernames = async (setListUsernames, username) => {
     setLoading(true)
     await getListUsernames(setListUsernames, username)
@@ -132,6 +135,7 @@ const Register = ({ data }) => {
 
   const handleRegister = async (objValidations) => {
 
+    //check all fields are filled
     const allFilled = 
       objValidations.username.stateValue[0] !== '' &&
       objValidations.email.stateValue[0] !== '' &&
@@ -144,6 +148,7 @@ const Register = ({ data }) => {
       setIsHiddenMssg(false);
       
     } else {
+      //check all error validations are hidden, i mean within errors
       const validation = 
         objValidations.username.dataMessage.dataValidation[0].hidden &&
         objValidations.email.dataMessage.dataValidation[0].hidden &&
@@ -152,9 +157,11 @@ const Register = ({ data }) => {
 
       if (validation) {
 
+        //set the component loading over the screen
         setLoading(true)
         const id_contact = await getIdContact(objValidations.email.stateValue[0]);
 
+        //the methods and props to be passed to the function
         const dataLogic = { 
           setIsKeyboardVisible, 
           setListUsernames, 

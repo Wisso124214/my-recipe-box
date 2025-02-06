@@ -125,20 +125,25 @@ export const getIdContact = async (email) => {
 }
 
 export const saveDataRegister = async (id_contact, username, password, data, setIdMainSession) => {
+  //does not print the console.log
   console.log('saveDataRegister');
+
+  //a key to identify the device
   const id_device = getAndroidId() || getIosIdForVendorAsync();
   const { setIsKeyboardVisible, setListUsernames, listUsernames, setLoading, mode, theme, methods } = data
   
+  //this closes the keyboard
   setIsKeyboardVisible(false)
   bcrypt.genSalt(10, (err, salt) => {
     if (!err) {
 
+      //add the new username to the list
       setListUsernames([...listUsernames, username]);
 
+      //hash the password
       bcrypt.hash(password, salt, async (err, hashedPassword) => {
 
         if(!err) {
-          console.log('No error');
 
           await axios.post(`${SERVER_URL}/user`, {
             id_device: id_device,
