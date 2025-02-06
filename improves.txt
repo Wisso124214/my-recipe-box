@@ -1,17 +1,24 @@
 
 DB:
- - Fix the refer of the sessionID (where it gonna be? On users' table?)
- - Save the last mode used on DB user's table
+  - Fix the refer of the sessionID (where it gonna be? On users' table?)
+  - Save the last mode used on DB user's table
+  - Add CRUD and tables to:
+    . recipe
+    . group
+    . recipe_group
+    . difficult
+  ✔✔ user_session
  
 
 Backend:
- - Disengage the functions of the front
- - Close session
- - Get users from db and send it to front
+  - Disengage the functions of the front
+  - Close session
+  - Get users from db and send it to front
+✔✔ Delete from all back end functions the id_device
 
 
 Front:
- - Mockups:
+  - Mockups:
     . ListCategories scroll
     . ElementCategory
     . ListRecipies scroll
@@ -32,13 +39,18 @@ Front:
   ✔✔ ContrButton2
   ✔✔ ButtonIcon (optimice ThemeModeButton)
 
- - Components:
+  - Components:
    . PopUp Delete Username
  
- - Functions:
-   . Add function to the Forgot Usernames button on Forgot Password mockup (it must send to the 
-     email the usernames associated and with a toast sending the user to check the email)
-
+  - Functions:
+    . Add function to the Forgot Usernames button on Forgot Password mockup (it must send to the 
+      email the usernames associated and with a toast sending the user to check the email)
+  
+  - Others: 
+    . Fix the redirection when log in
+    . Fix the setIdMainSession on login
+    . Change the «Sign in» for «Log in» on buttons
+  ✔✔ Get back to use isInputFocus and isKeyboardVisible (with GitHub version repo)
 
 
  Aesthetic:

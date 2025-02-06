@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 const CreatePassword = ({ data, style }) => {
 
   const { theme, mode, consts, objValidations, dataInput, newDataMessage, isInputFocus,
-          setIsInputFocus, isKeyboardVisible, setIsKeyboardVisible, nInputSelected, 
+    setIsInputFocus, isKeyboardVisible, setIsKeyboardVisible, nInputSelected, 
           setnInputSelected, compStyles, showPassword } = data;
   
   const isSecretWriting = (showPassword === undefined || showPassword === false) ? true : showPassword;

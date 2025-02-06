@@ -3,15 +3,16 @@ import { View, Text, ToastAndroid } from 'react-native';
 import IconButton from '../iconButton/IconButton';
 import ThemeModeButton from '../iconButton/ThemeModeButton';
 import ContrastingButton from '../contrastingButton/ContrastingButton';
-import { closeMainSession } from '../../utils/logicSession';
+import { closeSession } from '../../utils/logicSession';
+import { set } from 'lodash';
 
 const DetailsRecipy = ({ data }) => {
 
-  const { mode, theme, consts, setStrPage } = data;
+  const { mode, theme, consts, setStrPage, idMainSession, setIdMainSession } = data;
 
   const handleCloseSession = async () => {
 
-    await closeMainSession();
+    await closeSession(idMainSession, setIdMainSession);
     setStrPage('login');
   }
 

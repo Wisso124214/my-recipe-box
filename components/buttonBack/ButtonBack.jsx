@@ -5,7 +5,7 @@ import SvgIconProvider from '../svg/svgIconProvider';
 const ButtonBack = ({ dataButtonBack, styleview }) => {
 
   const { theme, mode, consts, setIsInputFocus, isInputFocus, onPress } = dataButtonBack;
-  let { showBack } = dataButtonBack
+  let { showBack } = dataButtonBack;
 
   showBack = showBack === undefined ? isInputFocus : showBack
 

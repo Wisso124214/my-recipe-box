@@ -9,7 +9,7 @@ import ButtonBack from '../buttonBack/ButtonBack';
 const ForgotPass1 = ({ dataForgotPassword }) => {
   const { dataPages, compStyles, setPagefp } = dataForgotPassword;
   const { styles, mode, theme, consts, dataInput, showDebugMenu, setShowDebugMenu, 
-          dataButtonBack, isInputFocus, setIsInputFocus, setStrPage 
+    dataButtonBack, isInputFocus, setIsInputFocus, setStrPage 
         } = dataPages;
 
   return(

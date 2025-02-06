@@ -8,8 +8,8 @@ import Message from "../message/Message";
 import SvgIconProvider from "../svg/svgIconProvider";
 import bcrypt from 'react-native-bcrypt';
 import axios from 'axios';
-import * as Application from 'expo-application'
 import { SERVER_URL, configFront } from "../../config/config";
+import { redirectPage } from "../../utils/logicSession";
 
 const Login = ({ data }) => {
   
@@ -32,6 +32,7 @@ const Login = ({ data }) => {
     }
 
     setLoading(true);
+    setIsKeyboardVisible(false);
 
     //establecer un número de error, si es 100 no hay error. 
     //Solo reemplaza valor de la variable si aumenta, no si disminuye
@@ -46,31 +47,29 @@ const Login = ({ data }) => {
     await axios.get(`${SERVER_URL}/users`,
       { params: { username: textInput[0] } }
     ).then(async (res) => {
-      
+
       setIsKeyboardVisible(false)
       res.data.forEach(async (objuser) => {
 
         if (objuser.username === textInput[0] && bcrypt.compareSync(textInput[1], objuser.password)) {
 
           const id_user = objuser._id;
-          const id_device = Application.getAndroidId() || Application.getIosIdForVendorAsync();
 
           await axios.get(`${SERVER_URL}/sessions`,
-            { params: { id_device: id_device, id_user: id_user } }
+            { params: { id_user: id_user } }
           ).then(async (res) => {
             let isFound = false;
 
             await res.data.forEach(async (objsession) => {
-              if (objsession.id_device === id_device && objsession.id_user === id_user) {
+              if (objsession.id_user === id_user) {
                 isFound = true;
                 const id_session = objsession._id;
                 const session = {
-                  id_device: id_device,
                   id_user: id_user,
                   state: 'open',
                   date: new Date(),
                 }
-                await axios.put(`${SERVER_URL}/sessions/${id_session}`, session)
+                await axios.put(`${SERVER_URL}/session/${id_session}`, session)
                   .then((res) => {
                     
                     idRes = idRes < 100 ? 100 : idRes;
@@ -79,9 +78,8 @@ const Login = ({ data }) => {
                     setColorMssg(theme[mode].successColor);
                     setIsHiddenIconQuestion(true);
                     setIsHiddenMssg(false);
-                    setTimeout(() => {
-                      setStrPage('detailsRecipy');
-                    }, 1000);
+                    setIdMainSession(id_session);
+                    redirectPage('detailsRecipy', 1000);
                   })
                   .catch((error) => {
                     idRes = idRes < 2 ? 2 : idRes;

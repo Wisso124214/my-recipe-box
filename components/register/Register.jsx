@@ -6,7 +6,7 @@ import ButtonBack from "../buttonBack/ButtonBack";
 import ContrastingButton from "../contrastingButton/ContrastingButton";
 import Message from "../message/Message";
 import CreatePassword from "../createPassword/CreatePassword";
-import { encryptData, getIdContact, getListUsernames, setMessage, redirectPage } from '../../utils/logicSession';
+import { saveDataRegister, getIdContact, getListUsernames, setMessage, redirectPage } from '../../utils/logicSession';
 import { configFront } from '../../config/config';
 
 const Register = ({ data }) => {
@@ -153,7 +153,7 @@ const Register = ({ data }) => {
       if (validation) {
 
         setLoading(true)
-        const id_contact = await getIdContact(objValidations.email.stateValue[0])
+        const id_contact = await getIdContact(objValidations.email.stateValue[0]);
 
         const dataLogic = { 
           setIsKeyboardVisible, 
@@ -163,16 +163,16 @@ const Register = ({ data }) => {
           mode, 
           theme,
           methods: {
-            setTestMssg: setTestMssg,
-            setColorMssg: setColorMssg,
-            setIsHiddenMssg: setIsHiddenMssg,
-            setLoading: setLoading,
+            setTestMssg,
+            setColorMssg,
+            setIsHiddenMssg,
+            setLoading,
           }
         }
-        await encryptData(id_contact, objValidations.username.stateValue[0], objValidations.password.stateValue[0], dataLogic)
+        await saveDataRegister(id_contact, objValidations.username.stateValue[0], objValidations.password.stateValue[0], dataLogic, setIdMainSession);
         
-        setLoading(false)
-        cleanInputs(objValidations)
+        setLoading(false);
+        cleanInputs(objValidations);
         redirectPage('detailsRecipy', 1000, setStrPage);
       } else {
         setTestMssg('Please correct the errors');

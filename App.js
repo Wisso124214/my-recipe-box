@@ -3,7 +3,6 @@ import * as NavigationBar from 'expo-navigation-bar';
 import {
   Text, 
   View, 
-  TouchableOpacity,
   Animated,
   Appearance,
   ActivityIndicator,
@@ -16,9 +15,6 @@ import Register from './components/register/Register';
 import DetailsRecipy from './components/detailsRecipy/DetailsRecipy';
 import DeviceAccounts from './components/deviceAccounts/DeviceAccounts';
 import UserAccounts from './components/userAccounts/UserAccounts';
-import axios from 'axios';
-import { SERVER_URL } from './config/config';
-import * as Application from 'expo-application'
 import DebugMenu from './components/debugMenu/DebugMenu';
 
 export default function App() {
@@ -71,10 +67,15 @@ export default function App() {
   const [defaultValueUsernameLogin, setDefaultValueUsernameLogin] = useState('');
   const [loading, setLoading] = useState(false);
   const [textLoading, setTextLoading] = useState('Loading...');
+  const [idMainSession, setIdMainSession] = useState('');
 
   const [isHiddenMssg, setIsHiddenMssg] = useState(true);
   const [textMssg, setTestMssg] = useState('Login successful');
   const [colorMssg, setColorMssg] = useState(theme[mode].successColor);
+
+  useEffect(()=>{
+    console.log('idMainSession: ', idMainSession);
+  },[idMainSession])
 
   const consts = {
    px: 392.7/709,
@@ -165,83 +166,85 @@ export default function App() {
   };
   
   const dataInput = {
-    mode: mode,
-    theme: theme,
-    styles: styles,
-    consts: consts,
-    isInputFocus: isInputFocus,
-    setIsInputFocus: setIsInputFocus,
+    mode,
+    theme,
+    styles,
+    consts,
+    isInputFocus,
+    setIsInputFocus,
   }
   
   const dataMssg = {
-    isHiddenMssg: isHiddenMssg,
-    setIsHiddenMssg: setIsHiddenMssg,
-    textMssg: textMssg,
-    setTestMssg: setTestMssg,
-    colorMssg: colorMssg,
-    setColorMssg: setColorMssg,
+    isHiddenMssg,
+    setIsHiddenMssg,
+    textMssg,
+    setTestMssg,
+    colorMssg,
+    setColorMssg,
   }
 
   const dataButtonBack = {
-    theme: theme,
-    mode: mode,
-    consts: consts,
-    setIsInputFocus: setIsInputFocus,
-    isInputFocus: isInputFocus,
+    theme,
+    mode,
+    consts,
+    isInputFocus,
+    setIsInputFocus,
     onPress: () => {
       setIsInputFocus(false)
     },
   }
 
   const dataPinInput = {
-    theme: theme,
-    mode: mode,
-    consts: consts,
-    styles: styles,
-    dataInput: dataInput,
+    theme,
+    mode,
+    consts,
+    styles,
+    dataInput,
     isPinInput: false,
   }
 
   const dataIconButton = {
-    theme: theme,
-    mode: mode,
-    setMode: setMode,
-    consts: consts,
-    styles: styles,
+    theme,
+    mode,
+    setMode,
+    consts,
+    styles,
   }
 
   const dataMessage = {
-    theme: theme,
-    mode: mode,
-    consts: consts,
+    theme,
+    mode,
+    consts,
   }
 
   const dataPages = {
-    theme: theme,
-    mode: mode,
-    consts: consts,
-    isInputFocus: isInputFocus,
-    setIsInputFocus: setIsInputFocus,
-    devMode: devMode,
-    styles: styles,
-    showDebugMenu: showDebugMenu,
-    setShowDebugMenu: setShowDebugMenu,
-    strpage: strpage,
-    setStrPage: setStrPage,
-    bgColorNavBar: bgColorNavBar,
-    setBgColorNavBar: setBgColorNavBar,
-    defaultValueUsernameLogin: defaultValueUsernameLogin,
-    setDefaultValueUsernameLogin: setDefaultValueUsernameLogin,
-    loading: loading,
-    setLoading: setLoading,
-    setTextLoading: setTextLoading,
+    theme,
+    mode,
+    consts,
+    isInputFocus,
+    setIsInputFocus,
+    devMode,
+    styles,
+    showDebugMenu,
+    setShowDebugMenu,
+    strpage,
+    setStrPage,
+    bgColorNavBar,
+    setBgColorNavBar,
+    defaultValueUsernameLogin,
+    setDefaultValueUsernameLogin,
+    loading,
+    setLoading,
+    setTextLoading,
+    idMainSession,
+    setIdMainSession,
 
-    dataInput: dataInput,
-    dataMssg: dataMssg,
-    dataButtonBack: dataButtonBack,
-    dataPinInput: dataPinInput,
-    dataIconButton: dataIconButton,
-    dataMessage: dataMessage,
+    dataInput,
+    dataMssg,
+    dataButtonBack,
+    dataPinInput,
+    dataIconButton,
+    dataMessage,
   }
 
   const objdebug = {
@@ -268,29 +271,6 @@ export default function App() {
       duration: 100,
       useNativeDriver: true,
     }).start();
-
-    const uniqueId = Application.getAndroidId() || Application.getIosIdForVendorAsync();
-
-    axios.get(`${SERVER_URL}/devices`,
-      { params: { code: uniqueId } }
-    ).then(async (res) => {
-      let isRegistered = false;
-
-      await res.data.forEach((objdevice) => {
-        if (objdevice.code === uniqueId && !isRegistered) {
-          isRegistered = true;
-          //console.log('id: ', objdevice._id);
-        }
-      })
-      
-      if (!isRegistered) {
-        axios.post(`${SERVER_URL}/devices`, {
-          code: uniqueId,
-        }).catch((error) => {
-          console.log(JSON.stringify(error, null, 2));
-        })
-      }
-    })
   }, []);
 
   useEffect(() => {

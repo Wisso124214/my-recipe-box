@@ -62,7 +62,7 @@ const UserAccounts = ({ data, style }) => {
             onPress: ()=>{
               setStrPage('deviceAccounts')
             }
-          }} 
+          }}
           styleview={{
             position: 'absolute',
             width: '30%',
