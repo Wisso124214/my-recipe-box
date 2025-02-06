@@ -272,9 +272,7 @@ export default function App() {
     }).start();
 
     async () => {
-      await getItem('asd').then((value) => {
-        console.log('asd', value);
-      })
+      console.log('asd', await getItem('asd'));
     }
   }, []);
   

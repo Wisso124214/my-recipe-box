@@ -1,6 +1,6 @@
 import bcrypt from 'react-native-bcrypt';
 import { ToastAndroid } from 'react-native';
-import * as Application from 'expo-application'
+import { getAndroidId, getIosIdForVendorAsync } from 'expo-application';
 import axios from 'axios';
 import { SERVER_URL } from '../config/config';
 
@@ -14,7 +14,7 @@ export async function getListUsernames(setListUsernames, username) {
     })
     setListUsernames(arr);
   }).catch((error) => {
-    handleError(err, 'Error getting users');
+    handleError(error, 'Error getting users');
   })
 }
 
@@ -28,7 +28,7 @@ export const closeSession = async (idMainSession, setIdMainSession) => {
     setIdMainSession('');
   })
   .catch((error) => {
-    handleError(err, 'Error closing session');
+    handleError(error, 'Error closing session');
   })
 
   ToastAndroid.showWithGravityAndOffset( 'ERROR closing session', ToastAndroid.LONG, ToastAndroid.BOTTOM, 25, 50, );
@@ -66,16 +66,16 @@ export const setSession = async (id_user, state) => {
         })
       })
       .catch((error) => {
-        handleError(err, 'Error setting session');
+        handleError(error, 'Error setting session');
       })
     } else {
       await axios.put(`${SERVER_URL}/session/${id}`, objsession)
       .catch((error) => {
-        handleError(err, 'Error setting session');
+        handleError(error, 'Error setting session');
       })
     }
   }).catch((error) => {
-    handleError(err, 'Error setting session');
+    handleError(error, 'Error setting session');
   })
   return id;
 }
@@ -92,7 +92,7 @@ export const getIdUser = async (username) => {
       }
     })
   }).catch((error) => {
-    handleError(err, 'Error getting users');
+    handleError(error, 'Error getting users');
   })
   return id;
 }
@@ -114,64 +114,73 @@ export const getIdContact = async (email) => {
       await axios.post(`${SERVER_URL}/contact`, {
         email: email,
       }).catch((error) => {
-        handleError(err, 'Error getting contacts');
+        handleError(error, 'Error getting contacts');
       })
       id = await getIdContact(email);
     }
   }).catch((error) => {
-    handleError(err, 'Error getting contacts');
+    handleError(error, 'Error getting contacts');
   })
   return id;
 }
 
 export const saveDataRegister = async (id_contact, username, password, data, setIdMainSession) => {
-
+  console.log('saveDataRegister');
+  const id_device = getAndroidId() || getIosIdForVendorAsync();
   const { setIsKeyboardVisible, setListUsernames, listUsernames, setLoading, mode, theme, methods } = data
   
   setIsKeyboardVisible(false)
   bcrypt.genSalt(10, (err, salt) => {
     if (!err) {
 
-      setListUsernames([...listUsernames, username])
+      setListUsernames([...listUsernames, username]);
 
       bcrypt.hash(password, salt, async (err, hashedPassword) => {
 
-        await axios.post(`${SERVER_URL}/user`, {
-          username: username,
-          password: hashedPassword,
-          id_contact: id_contact,
-        })
-        .then(()=>{
-          axios.get(`${SERVER_URL}/users`,
-            { params: { username: username } }
-          ).then(async (res) => {
-            let id_user = '';
-            await res.data.forEach((objuser) => {
-              if (objuser.username === username && id_user === '') {
-                id_user = objuser._id;
-              }
-            })
-            await setSession(id_user, 'open')
-            .then(async (id_session) => {
-              await axios.post(`${SERVER_URL}/userSession`, {
-                id_user: id_user,
-                id_session: id_session,
+        if(!err) {
+          console.log('No error');
+
+          await axios.post(`${SERVER_URL}/user`, {
+            id_device: id_device,
+            username: username,
+            password: hashedPassword,
+            id_contact: id_contact,
+          })
+          .then(async ()=>{
+            console.log('user posted');
+            await axios.get(`${SERVER_URL}/users`,
+              { params: { username: username } }
+            ).then(async (res) => {
+              let id_user = '';
+              await res.data.forEach((objuser) => {
+                if (objuser.username === username && objuser.id_device === id_device && id_user === '') {
+                  id_user = objuser._id;
+                }
               })
-              .then(()=>{
+              await setSession(id_user, 'open')
+              .then(async (id_session) => {
+                console.log('id_session: ', id_session);
                 setIdMainSession(id_session);
               })
               .catch((error) => {
-                handleError(err, 'Error Registering');
+                setLoading(false);
+                handleError(error, 'Error Registering');
+              })
+              }).catch((error) => {
+                setLoading(false);
+                handleError(error, 'Error Registering');
               })
             }).catch((error) => {
-              handleError(err, 'Error Registering');
+              setLoading(false);
+              handleError(error, 'Error Registering');
             })
-          }).catch((error) => {
+          } else {
+            setLoading(false);
             handleError(err, 'Error Registering');
-          })
+          }
         })
-      })
     } else {
+      setLoading(false);
       handleError(err, 'Error Registering');
     }
   })

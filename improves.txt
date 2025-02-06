@@ -1,16 +1,17 @@
 
 DB:
-  - Fix the refer of the sessionID (where it gonna be? On users' table?)
-  - Save the last mode used on DB user's table
-  - Add CRUD and tables to:
-    . recipe
-    . group
-    . recipe_group
-    . difficult
-  ✔✔ user_session
+    - Fix the refer of the sessionID
+    - Add CRUD and tables to:
+      . recipe
+      . group
+      . recipe_group
+      . difficult
+    ✔✔ user_session
+  ✔✔ Save the last mode used on DB user's table
  
 
 Backend:
+  - Add id_device on CRUD session's table
   - Fix login function (the id_user is not on session table, it is on user_session table)
   - Delete id_user from session table and it's crud functions
   - Disengage the functions of the front

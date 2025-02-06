@@ -33,6 +33,7 @@ const userSchema = new mongoose.Schema({
 });
 
 const sessionSchema = new mongoose.Schema({
+  id_device: String,
   id_user: String,
   state: String,
   date: Date,
@@ -47,16 +48,11 @@ const contactSchema = new mongoose.Schema({
   email: String,
 });
 
-const userSessionSchema = new mongoose.Schema({
-  id_user: String,
-  id_session: String,
-});
 
 
 const Contact = mongoose.model('Contact', contactSchema);
 const Session = mongoose.model('Session', sessionSchema);
 const User = mongoose.model('User', userSchema);
-const UserSession = mongoose.model('UserSession', userSessionSchema);
 
 /********/
 //Contact
@@ -171,6 +167,8 @@ app.get('/users', async (req, res) => {
 app.post('/user', async (req, res) => {
   try {
     const user = new User(req.body);
+    console.log(JSON.stringify(req.body, null, 2));
+    console.log(JSON.stringify(user, null, 2));
     await user.save();
     res.json(user);
   } catch (error) {
@@ -202,39 +200,5 @@ app.delete('/user/:id', async (req, res) => {
 });
 
 
-/************/
-//UserSession
-/************/
 
-app.get('/usersessions', async (req, res) => {
-  try {
-    const usersessions = await UserSession.find();
-    res.json(usersessions);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-    console.log(JSON.stringify(error, null, 2));
-  }
-});
-
-app.post('/usersession', async (req, res) => {
-  try {
-    const usersession = new UserSession(req.body);
-    await usersession.save();
-    res.json(usersession);
-  } catch (error) {
-    res.status(403).json({ message: error.message });
-    console.log(JSON.stringify(error, null, 2));
-  }
-});
-
-app.delete('/usersession/:id', async (req, res) => {
-  try {
-    const { id } = req.params;
-    await UserSession.findByIdAndDelete(id);
-    res.json({ message: 'UserSession deleted' });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-    console.log(JSON.stringify(error, null, 2));
-  }
-});
 

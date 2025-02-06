@@ -63,17 +63,24 @@ const Login = ({ data }) => {
             let isFound = false;
 
             await res.data.forEach(async (objsession) => {
-              if (objsession.id_user === id_user) {
+              if (objsession.id_user === id_user && !isFound) {
                 isFound = true;
                 const id_session = objsession._id;
+                console.log('id_session: ', id_session);
+
+                const date_4 = new Date();  //-4 GMT
+                date_4.setHours(date_4.getHours() - 4);
+
                 const session = {
                   id_user: id_user,
                   state: 'open',
-                  date: new Date(),
+                  date: date_4,
                 }
                 await axios.put(`${SERVER_URL}/session/${id_session}`, session)
                   .then((res) => {
                     
+                    setLoading(false);
+                    console.log('Login successfulllllll');
                     idRes = idRes < 100 ? 100 : idRes;
                     setIdMainSession(id_session);
                     redirectPage('detailsRecipy', 1000, setStrPage);

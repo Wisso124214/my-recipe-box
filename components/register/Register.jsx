@@ -169,11 +169,22 @@ const Register = ({ data }) => {
             setLoading,
           }
         }
-        await saveDataRegister(id_contact, objValidations.username.stateValue[0], objValidations.password.stateValue[0], dataLogic, setIdMainSession);
+
+        console.log('validation true');
+        saveDataRegister(id_contact, objValidations.username.stateValue[0], objValidations.password.stateValue[0], dataLogic, setIdMainSession)
+        .then(() => {
+          setLoading(false);
+          cleanInputs(objValidations);
+          redirectPage('detailsRecipy', 1000, setStrPage);
+        })
+        .catch((error) => {
+          setLoading(false);
+          setTestMssg('Error registering. Try again later');
+          setColorMssg(theme[mode].errorColor);
+          setIsHiddenMssg(false);
+          console.log(JSON.stringify(error, null, 2));
+        });
         
-        setLoading(false);
-        cleanInputs(objValidations);
-        redirectPage('detailsRecipy', 1000, setStrPage);
       } else {
         setTestMssg('Please correct the errors');
         setColorMssg(theme[mode].errorColor);
