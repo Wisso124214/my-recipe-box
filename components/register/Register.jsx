@@ -462,7 +462,7 @@ const Register = ({ data }) => {
               textShadowRadius: 6,
               
             }}>
-            Sign in.
+            Log in.
           </Text>
         </TouchableOpacity>
       </View>

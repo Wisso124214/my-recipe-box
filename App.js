@@ -16,6 +16,7 @@ import DetailsRecipy from './components/detailsRecipy/DetailsRecipy';
 import DeviceAccounts from './components/deviceAccounts/DeviceAccounts';
 import UserAccounts from './components/userAccounts/UserAccounts';
 import DebugMenu from './components/debugMenu/DebugMenu';
+import { setItem, getItem } from './utils/AsyncStorage.js';
 
 export default function App() {
   const devMode = {
@@ -53,8 +54,11 @@ export default function App() {
       passwordDefault: '',
     },
   }
+
+  const [mode, setMode] = useState(Appearance.getColorScheme());
+  const [modeSetted, setModeSetted] = useState(false);
+  const [idMainSession, setIdMainSession] = useState('');
   
-  const [mode, setMode] = useState(Appearance.getColorScheme())
   const [page, setPage] = useState(devMode[devMode.power].page);
   const [strpage, setStrPage] = useState(devMode[devMode.power].strpage);
   const opacityref = useRef(new Animated.Value(0)).current;
@@ -67,15 +71,10 @@ export default function App() {
   const [defaultValueUsernameLogin, setDefaultValueUsernameLogin] = useState('');
   const [loading, setLoading] = useState(false);
   const [textLoading, setTextLoading] = useState('Loading...');
-  const [idMainSession, setIdMainSession] = useState('');
 
   const [isHiddenMssg, setIsHiddenMssg] = useState(true);
   const [textMssg, setTestMssg] = useState('Login successful');
   const [colorMssg, setColorMssg] = useState(theme[mode].successColor);
-
-  useEffect(()=>{
-    console.log('idMainSession: ', idMainSession);
-  },[idMainSession])
 
   const consts = {
    px: 392.7/709,
@@ -271,9 +270,42 @@ export default function App() {
       duration: 100,
       useNativeDriver: true,
     }).start();
+
+    async () => {
+      await getItem('asd').then((value) => {
+        console.log('asd', value);
+      })
+    }
   }, []);
+  
+  useEffect(() => {
+    async () => {
+      if (idMainSession !== '')
+        await setItem('idMainSession', idMainSession);
+    }
+  }, [idMainSession])
+
 
   useEffect(() => {
+
+    async () => {
+      await getItem('mode').then((value) => {
+        if (!modeSetted) {
+          if (value === null) {
+            setItem('mode', Appearance.getColorScheme()).then(() => {
+              setModeSetted(true);
+            });
+            setMode(Appearance.getColorScheme());
+          } else {
+            setMode(value);
+            setModeSetted(true);
+          }
+        } else {
+          setItem('mode', mode);
+        }
+      });
+    }
+
     Animated.timing(bgColor, {
       toValue: mode === 'dark' ? 1 : 0,
       duration: 1000,

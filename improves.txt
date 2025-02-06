@@ -11,6 +11,8 @@ DB:
  
 
 Backend:
+  - Fix login function (the id_user is not on session table, it is on user_session table)
+  - Delete id_user from session table and it's crud functions
   - Disengage the functions of the front
   - Close session
   - Get users from db and send it to front
@@ -49,7 +51,7 @@ Front:
   - Others: 
     . Fix the redirection when log in
     . Fix the setIdMainSession on login
-    . Change the «Sign in» for «Log in» on buttons
+  ✔✔ Change the «Sign in» for «Log in» on buttons
   ✔✔ Get back to use isInputFocus and isKeyboardVisible (with GitHub version repo)
 
 

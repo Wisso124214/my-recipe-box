@@ -10,6 +10,7 @@ import bcrypt from 'react-native-bcrypt';
 import axios from 'axios';
 import { SERVER_URL, configFront } from "../../config/config";
 import { redirectPage } from "../../utils/logicSession";
+import { err } from "react-native-svg";
 
 const Login = ({ data }) => {
   
@@ -33,6 +34,7 @@ const Login = ({ data }) => {
 
     setLoading(true);
     setIsKeyboardVisible(false);
+    setIsInputFocus(false);
 
     //establecer un número de error, si es 100 no hay error. 
     //Solo reemplaza valor de la variable si aumenta, no si disminuye
@@ -73,13 +75,8 @@ const Login = ({ data }) => {
                   .then((res) => {
                     
                     idRes = idRes < 100 ? 100 : idRes;
-                    setLoading(false);
-                    setTestMssg('Login successful');
-                    setColorMssg(theme[mode].successColor);
-                    setIsHiddenIconQuestion(true);
-                    setIsHiddenMssg(false);
                     setIdMainSession(id_session);
-                    redirectPage('detailsRecipy', 1000);
+                    redirectPage('detailsRecipy', 1000, setStrPage);
                   })
                   .catch((error) => {
                     idRes = idRes < 2 ? 2 : idRes;
@@ -110,10 +107,10 @@ const Login = ({ data }) => {
           color = theme[mode].errorColor;
           setLineNumbers(1);
           break;
-          case 2:
-            errorMssg = 'Error logging in. Try again';
-            color = theme[mode].errorColor;
-            setLineNumbers(1);
+        case 2:
+          errorMssg = 'Error logging in. Try again';
+          color = theme[mode].errorColor;
+          setLineNumbers(1);
           break;
         case 100:
           errorMssg = 'Login successful';
@@ -126,6 +123,7 @@ const Login = ({ data }) => {
           setLineNumbers(1);
           break;
       }
+      console.log(errorMssg);
       setLoading(false);
       setTestMssg(errorMssg);
       setColorMssg(color);
@@ -283,7 +281,7 @@ const Login = ({ data }) => {
             </View>
 
             <ContrastingButton 
-              text="Sign in" 
+              text="Log in" 
               theme={theme} 
               mode={mode} 
               consts={consts} 
