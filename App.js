@@ -1,5 +1,3 @@
-//updating
-
 import { useEffect, useRef, useState } from 'react';
 import * as NavigationBar from 'expo-navigation-bar';
 import {
