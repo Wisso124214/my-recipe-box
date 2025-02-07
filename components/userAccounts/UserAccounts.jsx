@@ -18,19 +18,19 @@ const UserAccounts = ({ data, style }) => {
   const [textMessagePopUp, setTextMessagePopUp] = useState('The username has been changed');
 
   const dataPopUp = {
-    theme: theme,
-    mode: mode,
-    consts: consts,
-    isInputPopUpVisible: isInputPopUpVisible,
-    setIsInputPopUpVisible: setIsInputPopUpVisible,
-    typeSelected: typeSelected,
-    valueSelected: valueSelected,
-    setValueSelected: setValueSelected,
-    dataInput: dataInput,
-    styles: styles,
-    setTextMessagePopUp: setTextMessagePopUp,
-    setIsMessagePopUpVisible: setIsMessagePopUpVisible,
-    setOtherUsername: setOtherUsername,
+    theme,
+    mode,
+    consts,
+    isInputPopUpVisible,
+    setIsInputPopUpVisible,
+    typeSelected,
+    valueSelected,
+    setValueSelected,
+    dataInput,
+    styles,
+    setTextMessagePopUp,
+    setIsMessagePopUpVisible,
+    setOtherUsername,
   }
 
   return(
@@ -88,7 +88,6 @@ const UserAccounts = ({ data, style }) => {
               color: theme[mode].icons,
               textAlign: "center",
               width: '100%',
-              
             }} 
           >My Accounts</Text>
         </View>
@@ -96,13 +95,14 @@ const UserAccounts = ({ data, style }) => {
 
       <ListAccounts
         onlyUsernames
+        nameParent='UserAccounts'
         data={{ 
           ...data,
-          valueSelected: otherUsername,
-          setValueSelected: setValueSelected,
-          setIsInputPopUpVisible: setIsInputPopUpVisible,
-          setTypeSelected: setTypeSelected,
-          otherUsername: otherUsername,
+          valueSelected,
+          setValueSelected,
+          setIsInputPopUpVisible,
+          setTypeSelected,
+          otherUsername,
          }}
 
         style={{
@@ -119,11 +119,11 @@ const UserAccounts = ({ data, style }) => {
       <InputPopUp data={{ ...dataPopUp }} />
       <MessagePopUp
         data={{ 
-          styles: styles,
-          consts: consts,
-          theme: theme,
-          mode: mode,
-          setIsMessagePopUpVisible: setIsMessagePopUpVisible,
+          styles,
+          consts,
+          theme,
+          mode,
+          setIsMessagePopUpVisible,
         }} 
         text={textMessagePopUp}
         isVisible={isMessagePopUpVisible}

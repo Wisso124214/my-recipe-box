@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 
-const MessagePopUp = ({ data, text, style, isVisible }) => {
+const MessagePopUp = ({ data, text, style, isVisible, content, stylesViewContent }) => {
 
-  const { styles, consts, setIsMessagePopUpVisible } = data;
+  const { styles, consts, setIsMessagePopUpVisible, theme, mode } = data;
 
   return(
     isVisible ?
@@ -13,37 +13,44 @@ const MessagePopUp = ({ data, text, style, isVisible }) => {
           ...style,
         }}
       >
-        <View
-          style={{
-            ...styles.popUp.container,
-            height: 'auto',
-            paddingBottom: 50*consts.px,
-          }}
-        >
-          <Text style={{
-            ...styles.popUp.title,
-            fontSize: 30*consts.px,
-            width: 350*consts.px,
-          }}
-          >{ text }</Text>
-
-          <TouchableOpacity 
+        {
+          content === undefined ?
+          <View
             style={{
-              ...styles.popUp.button,
-              marginTop: 20*consts.px,
-              borderColor: data.theme[data.mode].noIcons,
-              borderWidth: 5*consts.px,
+              ...styles.popUp.container,
+              height: 'auto',
+              paddingBottom: 50*consts.px,
             }}
-            onPress={()=>setIsMessagePopUpVisible(false)}
           >
-            <Text 
+            <Text style={{
+              ...styles.popUp.title,
+              fontSize: 30*consts.px,
+              width: 350*consts.px,
+            }}
+            >{ text }</Text>
+
+            <TouchableOpacity 
               style={{
-                ...styles.popUp.textButton,
-                height: '200%',
+                ...styles.popUp.button,
+                marginTop: 20*consts.px,
+                borderColor: theme[mode].noIcons,
+                borderWidth: 5*consts.px,
               }}
-            >OK</Text>
-          </TouchableOpacity>
-        </View>
+              onPress={()=>setIsMessagePopUpVisible(false)}
+            >
+              <Text 
+                style={{
+                  ...styles.popUp.textButton,
+                  height: '200%',
+                }}
+              >OK</Text>
+            </TouchableOpacity>
+          </View>
+          :
+          <>
+            { content }
+          </>
+        }
       </View>
     : null
   )

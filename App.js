@@ -1,3 +1,5 @@
+//updating
+
 import { useEffect, useRef, useState } from 'react';
 import * as NavigationBar from 'expo-navigation-bar';
 import {
@@ -17,6 +19,7 @@ import DeviceAccounts from './components/deviceAccounts/DeviceAccounts';
 import UserAccounts from './components/userAccounts/UserAccounts';
 import DebugMenu from './components/debugMenu/DebugMenu';
 import { setItem, getItem } from './utils/AsyncStorage.js';
+import ListRecipies from './components/listRecipies/ListRecipies.jsx';
 
 export default function App() {
   const devMode = {
@@ -25,8 +28,8 @@ export default function App() {
       timeLoading: 0,
       screenLoading: false,
       debugMenuEnabled: true,
-      showDebugMenu: false,
-      strpage: 'login',
+      showDebugMenu: true,
+      strpage: 'listRecipies',
       page: 0,
       pagefp: 0,
       varpage: 'strpage',
@@ -77,8 +80,10 @@ export default function App() {
   const [colorMssg, setColorMssg] = useState(theme[mode].successColor);
 
   const consts = {
-   px: 392.7/709,
-   expo: 392.7/(709*2),
+    px: 392.7/709,
+    expo: 392.7/(709*2),
+    widthScreen: 709,
+    heightScreen: 1552,
   };
   
   let styles = {
@@ -160,6 +165,7 @@ export default function App() {
         fontSize: 30*consts.px,
         fontWeight: 'bold',
         textAlign: 'center',
+        color: theme[mode].noIcons,
       }
     }
   };
@@ -254,6 +260,7 @@ export default function App() {
     detailsRecipy:  <DetailsRecipy data={dataPages} />,
     deviceAccounts: <DeviceAccounts data={dataPages} />,
     userAccounts: <UserAccounts data={dataPages} />,
+    listRecipies: <ListRecipies data={dataPages} />,
   }
   const arrdebug = Object.keys(objdebug);
   
@@ -414,7 +421,7 @@ export const theme = {
     icons: "#eeeeee",
     noIcons: "#292929",
     noMode: 'light',
-    errorColor: '#B81414',
+    errorColor: '#C20A0A',
     noErrorColor: '#A11212',
     successColor: '#30CC00',
     highSafety: '#30CC00',
@@ -434,7 +441,7 @@ export const theme = {
     noIcons: "#eeeeee",
     noMode: 'dark',
     errorColor: '#A11212',
-    noErrorColor: '#B81414',
+    noErrorColor: '#C20A0A',
     successColor: '#124D00',
     highSafety: '#124D00',
     mediumSafety: '#7D6D02',

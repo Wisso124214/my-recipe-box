@@ -15,7 +15,7 @@ const Input = (props) => {
   const [seePassword, setSeePassword] = React.useState(false);
   
   const left = props.centered !== undefined ? 0 : 40 * consts.expo;
-  const finalValue = isLoginInput ? props.dataInput.stateValue[0][index] : value ? value : '';
+  const finalValue = isLoginInput ? props.dataInput.stateValue[0][index] : value ? value : defaultValue ? defaultValue : '';
 
   const compStyles = {
     container: {

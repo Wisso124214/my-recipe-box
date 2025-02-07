@@ -1,6 +1,5 @@
 import { Text, Touchable, TouchableOpacity, View } from "react-native";
 import SvgIconProvider from "../svg/svgIconProvider";
-import { size } from "lodash";
 
 const Menu = ({ items, data }) => {
   
@@ -51,6 +50,7 @@ const Menu = ({ items, data }) => {
             <TouchableOpacity
               key={index}
               activeOpacity={0.5}
+              zIndex={10}
               onPress={()=>arr[index].onPress ? arr[index].onPress() : console.log(arr[index].title)}
               style={{
                 flexDirection: 'row',

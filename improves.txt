@@ -22,16 +22,17 @@ Backend:
 
 Front:
   - Mockups:
+    . ListRecipies scroll (time, difficult, ingredients)
+    . ElementRecipy (^)
     . ListCategories scroll
     . ElementCategory
-    . ListRecipies scroll
-    . ElementRecipy (^)
     . Plus
     . EditCatgories
     . EditCategory
+    ✔ InputPopUp (missing validation after)
     ✔ DetailsRecipy
-    ✔ UserAccount
-    ✔ OtherAccounts
+    ✔ DeviceAccounts (missing add functions to exit and delete the main account)
+  ✔✔ UserAccounts
   ✔✔ Logo
   ✔✔ SvgIcon
   ✔✔ Message error validation and icon
@@ -41,6 +42,7 @@ Front:
   ✔✔ RegisterInput (use Input)
   ✔✔ ContrButton2
   ✔✔ ButtonIcon (optimice ThemeModeButton)
+  ✔✔ ForgotPassword
 
   - Components:
    . PopUp Delete Username

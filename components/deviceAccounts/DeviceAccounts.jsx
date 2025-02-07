@@ -37,20 +37,20 @@ const DeviceAccounts = ({ data }) => {
   }
 
   const dataPopUp = {
-    theme: theme,
-    mode: mode,
-    consts: consts,
-    isInputPopUpVisible: isInputPopUpVisible,
-    setIsInputPopUpVisible: setIsInputPopUpVisible,
-    typeSelected: typeSelected,
-    valueSelected: valueSelected,
-    setValueSelected: setValueSelected,
-    dataInput: dataInput,
-    styles: styles,
-    setUsername: setUsername,
-    setEmail: setEmail,
-    setTextMessagePopUp: setTextMessagePopUp,
-    setIsMessagePopUpVisible: setIsMessagePopUpVisible,
+    theme,
+    mode,
+    consts,
+    isInputPopUpVisible,
+    setIsInputPopUpVisible,
+    typeSelected,
+    valueSelected,
+    setValueSelected,
+    dataInput,
+    styles,
+    setUsername,
+    setEmail,
+    setTextMessagePopUp,
+    setIsMessagePopUpVisible,
   }
 
   return(
@@ -124,7 +124,7 @@ const DeviceAccounts = ({ data }) => {
           }} 
         >
           <IconButton 
-            onPress={()=>setIsMenuShow(!isMenuShow)}
+            onPress={()=>{setIsMenuShow(!isMenuShow)}}
             dataIconButton={ dataIconButton }
             dCodeIcon="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"
             sizeButton={60*consts.px}
@@ -213,7 +213,14 @@ const DeviceAccounts = ({ data }) => {
       >Open accounts</Text>
 
       <ListAccounts 
-        data={ data }
+        data={{
+          ...data,
+          valueSelected,
+          setValueSelected,
+          setIsInputPopUpVisible,
+          setTypeSelected,
+        }}
+        nameParent='DeviceAccounts'
         style={{
           position: 'absolute',
           top: 840*consts.px,
@@ -224,11 +231,11 @@ const DeviceAccounts = ({ data }) => {
       <InputPopUp data={{ ...dataPopUp }} />
       <MessagePopUp 
         data={{ 
-          styles: styles,
-          consts: consts,
-          theme: theme,
-          mode: mode,
-          setIsMessagePopUpVisible: setIsMessagePopUpVisible,
+          styles,
+          consts,
+          theme,
+          mode,
+          setIsMessagePopUpVisible,
         }} 
         text={textMessagePopUp}
         isVisible={isMessagePopUpVisible}
@@ -236,13 +243,13 @@ const DeviceAccounts = ({ data }) => {
       
       <Menu 
         data={{
-          theme: theme,
-          mode: mode,
-          consts: consts,
+          theme,
+          mode,
+          consts,
+          setStrPage,
           isShow: isMenuShow,
-          setStrPage: setStrPage,
         }}
-      ></Menu>
+      />
 
     </View>
   )

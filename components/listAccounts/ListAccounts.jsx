@@ -5,13 +5,13 @@ import SvgIconProvider from "../svg/svgIconProvider";
 import { useEffect, useState } from "react";
 import ContrastingSmallButton from "../contrastingSmallButton/ContrastingSmallButton";
 import InputPopUp from "../popUp/InputPopUp";
-import { set } from "lodash";
+import MessagePopUp from "../popUp/MessagePopUp";
 
-const ListAccounts = ({ data, style, styleAddButton, onlyUsernames }) => {
+const ListAccounts = ({ data, nameParent, style, styleAddButton, onlyUsernames }) => {
   
   onlyUsernames = onlyUsernames === undefined ? false : true;
 
-  const { theme, mode, consts, setStrPage, setIsInputPopUpVisible, setValueSelected, setTypeSelected, otherUsername, setDefaultValueUsernameLogin } = data;
+  const { styles, theme, mode, consts, setStrPage, setIsInputPopUpVisible, setValueSelected, setTypeSelected, otherUsername, setDefaultValueUsernameLogin, valueSelected } = data;
 
   const maxLengthType = {
     'username': 30,
@@ -21,6 +21,7 @@ const ListAccounts = ({ data, style, styleAddButton, onlyUsernames }) => {
 
   const [idEditing, setIdEditing] = useState(-1);
   const [render, setRender] = useState(false);
+  const [indexDelete, setIndexDelete] = useState(-1);
 
   const deviceAccounts = [
     {
@@ -161,15 +162,10 @@ const ListAccounts = ({ data, style, styleAddButton, onlyUsernames }) => {
   ]
   
   const [accounts, setAccounts] = useState(onlyUsernames ? userAccounts : deviceAccounts);
+  const [isMessagePopUpVisible, setIsMessagePopUpVisible] = useState(false);
 
   useEffect(()=>{
     if (accounts[idEditing]) {
-      /*setAccounts(accounts.map((acc, index) => {
-        if (index === idEditing) {
-          acc.username = otherUsername;
-        }
-        return acc;
-      })) */
       accounts[idEditing].username = otherUsername;
       setRender(!render);
     }
@@ -179,21 +175,152 @@ const ListAccounts = ({ data, style, styleAddButton, onlyUsernames }) => {
   const editUsername = (account) => {
     setIsInputPopUpVisible(true);
     setValueSelected(account.item.username);
+
     setTypeSelected('username-other');
     setIdEditing(account.index);
   }
 
   return(
-    <View
-      style={{
-        ...style,
-      }}
-    >
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        data={accounts}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={ (account) => (
+    <>
+      <MessagePopUp 
+        data={{
+          setIsMessagePopUpVisible,
+          consts,
+          styles,
+          theme,
+          mode,
+        }}
+        text="The session has been closed"
+        stylesViewContent={{
+          paddingVertical: 50*consts.px,
+        }}
+        content={ nameParent === 'UserAccounts' ?
+          <View
+            style={{
+              ...styles.popUp.container,
+              width: 500*consts.px,
+              paddingTop: 50*consts.px,
+              paddingBottom: 40*consts.px,
+              height: 'auto',
+            }}
+          >
+            <View
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+              }}
+            >
+              <Text
+                style={{
+                  color: theme[mode].noColor+'a0',
+                  fontSize: 34*consts.px,
+                  textAlign: 'center',
+                  fontWeight: 'bold',
+                }}
+              >Are you sure do you want to </Text>
+              <Text
+                style={{
+                  color: theme[mode].noColor+'a0',
+                  fontSize: 34*consts.px,
+                  textAlign: 'center',
+                  fontWeight: 'bold',
+                }}
+              >delete the next username?</Text>
+            </View>
+            <View>
+              <Text
+                style={{
+                  color: theme[mode].noColor,
+                  fontSize: 38*consts.px,
+                  textAlign: 'center',
+                  marginTop: 30*consts.px,
+                  marginBottom: 30*consts.px,
+                  fontWeight: 'bold',
+                }}
+              >{valueSelected}</Text>
+            </View>
+            <View
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+              }}
+            >
+              <Text
+                style={{
+                  color: theme[mode].errorColor,
+                  fontSize: 34*consts.px,
+                  textAlign: 'center',
+                  fontWeight: 'bold',
+                }}
+              >It will not be possible to </Text>
+              <Text
+                style={{
+                  color: theme[mode].errorColor,
+                  fontSize: 34*consts.px,
+                  textAlign: 'center',
+                  fontWeight: 'bold',
+                }}
+              >recover the data</Text>
+            </View>
+
+            <View
+            style={{
+              flexDirection: 'row',
+              marginTop: 40*consts.px,
+            }}
+          >
+            <TouchableOpacity
+              style={{
+                ...styles.popUp.button,
+                marginRight: 10*consts.px,
+                width: 210*consts.px,
+              }}
+              onPress={()=>{
+                setIsMessagePopUpVisible(false);
+              }}
+            >
+              <Text style={{
+                ...styles.popUp.textButton,
+                color: theme[mode].noColor,
+                top: -5*consts.px,
+                }} >Cancel</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                ...styles.popUp.button,
+                marginLeft: 10*consts.px,
+                backgroundColor: theme[mode].errorColor,
+                width: 210*consts.px,
+              }}
+              onPress={()=>{
+                setIsMessagePopUpVisible(false);
+                accounts.splice(indexDelete, 1);
+                setRender(!render);
+              }}
+            >
+              <Text style={{
+                ...styles.popUp.textButton,
+                color: theme[mode].color,
+                top: -5*consts.px,
+                }} >Delete</Text>
+            </TouchableOpacity>
+          </View>
+          </View>
+          : undefined
+        }
+        isVisible={isMessagePopUpVisible}
+      />
+      <View
+        style={{
+          ...style,
+        }}
+      >
+
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          data={accounts}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={ (account) => (
             <View
               style={{
                 width: 550*consts.px,
@@ -219,7 +346,7 @@ const ListAccounts = ({ data, style, styleAddButton, onlyUsernames }) => {
                   clipRule="evenodd"
                 />
               </Svg>
-  
+
               <Text
                 style={{
                   position: 'absolute',
@@ -314,9 +441,15 @@ const ListAccounts = ({ data, style, styleAddButton, onlyUsernames }) => {
               >
                 <TouchableOpacity
                   onPress={()=>{
-                    //setAccounts(accounts.filter((acc) => acc.username !== account.item.username))
-                    accounts.splice(account.index, 1);
-                    setRender(!render);
+                    //confirm delete
+                    setIsMessagePopUpVisible(true);
+                    setValueSelected(account.item.username);
+                    if (nameParent === 'UserAccounts') {
+                      setIndexDelete(account.index);
+                    } else {
+                      accounts.splice(account.index, 1);
+                      setRender(!render);
+                    }
                   }}
                 >
                   <SvgIconProvider
@@ -328,18 +461,19 @@ const ListAccounts = ({ data, style, styleAddButton, onlyUsernames }) => {
               </View>
             </View>
           )}
-      />
-      <ContrastingSmallButton 
-        data={data}
-        text="Add another account"
-        style={styleAddButton}
-        buttonprops={{
-          onPress: () => {
-            setStrPage('login');
-          }
-        }}
-      />
-    </View>
+        />
+        <ContrastingSmallButton 
+          data={data}
+          text="Add another account"
+          style={styleAddButton}
+          buttonprops={{
+            onPress: () => {
+              setStrPage('login');
+            }
+          }}
+        />
+      </View>
+    </>
   )
 }
 

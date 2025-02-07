@@ -65,7 +65,7 @@ const InputPopUp = ({ data, style }) => {
 
         <Input
           centered
-          placeholder={typeSelected.replace(typeSelected[0], typeSelected[0].toUpperCase())}
+          placeholder={typeSelected.replace(typeSelected[0], typeSelected[0].toUpperCase()).split('-')[0]}
           mode={mode}
           theme={theme}
           consts={consts}
