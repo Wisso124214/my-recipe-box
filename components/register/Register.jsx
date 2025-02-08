@@ -128,9 +128,11 @@ const Register = ({ data }) => {
   
   //set the list of usernames, this is for the validation of the username, to be unique
   const SettingListUsernames = async (setListUsernames, username) => {
-    setLoading(true)
-    await getListUsernames(setListUsernames, username)
-    setLoading(false)
+    if (devModeMode[devMode.power].registerDebugging) {
+      setLoading(true)
+      await getListUsernames(setListUsernames, username)
+      setLoading(false)
+    }
   }
 
   const handleRegister = async (objValidations) => {
