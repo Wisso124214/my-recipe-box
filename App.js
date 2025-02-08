@@ -428,6 +428,22 @@ export const theme = {
     contrastingYellow: '#E1B61E',
     opacityPopUp: 0.33,
     delete: '#E61919',
+    contrastingGreen: '#1CB09C',
+    favorite: '#69C17C',
+    difficulty: {
+      easy: {
+        background: '#124D00',
+        border: '#30CC00',
+      },
+      medium: {
+        background: '#4D2F00',
+        border: '#CC7E00',
+      },
+      hard: {
+        background: '#4D0000',
+        border: '#FF0000',
+      },
+    },
   },
   light: {
     backgroundColor: '#FF7900',
@@ -447,5 +463,21 @@ export const theme = {
     contrastingYellow: '#5A490C',
     opacityPopUp: 0.5,
     delete: '#FF0000',
+    contrastingGreen: '#0A423B',
+    favorite: '#347E44',
+    difficulty: {
+      easy: {
+        background: '#B1FF99',
+        border: '#3CFF00',
+      },
+      medium: {
+        background: '#FFD084',
+        border: '#FF9D00',
+      },
+      hard: {
+        background: '#FF9999',
+        border: '#FF0000',
+      },
+    },
   },
 }
