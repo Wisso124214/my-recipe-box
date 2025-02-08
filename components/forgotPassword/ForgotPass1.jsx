@@ -91,7 +91,7 @@ const ForgotPass1 = ({ dataForgotPassword }) => {
                 fontSize: 35 * consts.px,
                 fontWeight: 'bold',
                 height: 60 * consts.px,
-                textShadowColor: theme[mode].noColor,
+                textShadowColor: theme[mode].shadowTitle,
                 textShadowOffset: { width: 2, height: 2 },
                 textShadowRadius: 6,
                 textDecorationLine: 'underline',

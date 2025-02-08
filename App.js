@@ -450,7 +450,7 @@ export const theme = {
     noBackgroundColor: '#803C00',
     color: '#000000',
     noColor: '#ffffff',
-    shadowTitle: '#777777',
+    shadowTitle: '#dddddd',
     icons: "#292929",
     noIcons: "#eeeeee",
     noMode: 'dark',
