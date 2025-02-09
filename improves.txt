@@ -1,11 +1,12 @@
 
 DB:
+    - Disengage to the schema seen on class (routes, controllers...)
     - Fix the refer of the sessionID
     - Add CRUD and tables to:
       . recipe
       . group
       . recipe_group
-      . difficult
+      . difficulty
     ✔✔ user_session
   ✔✔ Save the last mode used on DB user's table
  
@@ -22,16 +23,16 @@ Backend:
 
 Front:
   - Mockups:
-    . ListRecipies scroll (time, difficult, ingredients)
-    . ElementRecipy (^)
+    . ListRecipies scroll (missing categories and bottomMenu)
     . ListCategories scroll
     . ElementCategory
     . Plus
-    . EditCatgories
+    . EditCategories
     . EditCategory
     ✔ InputPopUp (missing validation after)
     ✔ DetailsRecipy
     ✔ DeviceAccounts (missing add functions to exit and delete the main account)
+  ✔✔ ElementRecipy (time, difficulty, ingredients)
   ✔✔ UserAccounts
   ✔✔ Logo
   ✔✔ SvgIcon
@@ -52,8 +53,12 @@ Front:
       email the usernames associated and with a toast sending the user to check the email)
   
   - Others: 
+    . Add an animation or something to do the iconQuestion more visible and clickeable
+    . Change the input placeholder font to mali
     . Fix the redirection when log in
     . Fix the setIdMainSession on login
+  ✔✔ Fix the iconQuestion position and become it with a contrasting color
+  ✔✔ Fix the text components 'cause i changed the family font
   ✔✔ Change the «Sign in» for «Log in» on buttons
   ✔✔ Get back to use isInputFocus and isKeyboardVisible (with GitHub version repo)
 

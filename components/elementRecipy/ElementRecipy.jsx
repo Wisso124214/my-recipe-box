@@ -14,7 +14,7 @@ const ElementRecipy = ({ data, index, recipy }) => {
   const heightElement = 200*consts.px;
   const widthElement = ((consts.widthScreen*0.9))*consts.px;
   const maxLengthTitle = 20;
-  const maxLengthIngredientName = 16;
+  const maxLengthIngredientName = 20;
   const maxLengthDifficulty = 6;
   const ingredientsPerColumn = 5;
   const maxColIngredients = 1;
@@ -48,15 +48,14 @@ const ElementRecipy = ({ data, index, recipy }) => {
         <Text
           key={'title-'+index}
           style={{
+            fontFamily: styles.fonts.mali.bold,
             position: 'absolute',
             left: heightElement,
             color: theme[mode].color,
-            paddingTop: 20*consts.px,
             paddingLeft: 30*consts.px,
-            fontSize: 32*consts.px,
+            fontSize: 30*consts.px,
             width: widthElement - heightElement,
             overflow: 'hidden',
-            fontWeight: 'bold',
             textDecorationLine: 'underline',
           }}
         >
@@ -70,7 +69,7 @@ const ElementRecipy = ({ data, index, recipy }) => {
             display: 'flex',
             flexDirection: 'row',
             left: heightElement,
-            top: 65*consts.px,
+            top: 60*consts.px,
           }}
         >
         {
@@ -97,9 +96,11 @@ const ElementRecipy = ({ data, index, recipy }) => {
                       <Text
                         key={'ingredient-text-'+index+'-'+i+'-'+j}
                         style={{
+                          fontFamily: styles.fonts.mali.regular,
                           color: theme[mode].color,
                           paddingLeft: 30*consts.px,
-                          fontSize: 18*consts.px,
+                          fontSize: 14*consts.px,
+                          height: 23*consts.px,
                         }}
                       >
                         {'•  ('+ingredients[i*ingredientsPerColumn+j].measure+') '+ (ingredients[i*ingredientsPerColumn+j].name.split('').length > maxLengthIngredientName ? ingredients[i*ingredientsPerColumn+j].name.split('').filter((word, i) =>i<maxLengthIngredientName).join('')+'...' : ingredients[i*ingredientsPerColumn+j].name)}
@@ -109,9 +110,10 @@ const ElementRecipy = ({ data, index, recipy }) => {
                           <Text
                             key={'ingredient-ellipsis-'+index+'-'+i+'-'+j}
                             style={{
+                              fontFamily: styles.fonts.mali.regular,
                               color: theme[mode].color,
                               paddingLeft: 30*consts.px,
-                              fontSize: 18*consts.px,
+                              fontSize: 14*consts.px,
                               position: 'absolute',
                               top: 18*consts.px,
                             }}
@@ -153,12 +155,13 @@ const ElementRecipy = ({ data, index, recipy }) => {
           <Text
             key={'clock-text-'+index}
             style={{
+              fontFamily: styles.fonts.mali.regular,
               position: 'absolute',
               left: widthElement - (18*2)*consts.px - 145*consts.px + 20*consts.px,
-              top: -(18*2)*consts.px - 100*consts.px,
+              top: -(18*2)*consts.px - 107*consts.px,
               color: theme[mode].color,
               paddingLeft: 30*consts.px,
-              fontSize: 18*consts.px,
+              fontSize: 16*consts.px,
             }}
           >
             {'Prep: '+recipy.timePrep+' min\nCook: '+recipy.timeCook+' min'}
@@ -216,12 +219,13 @@ const ElementRecipy = ({ data, index, recipy }) => {
           <Text
             key={'dish-text-'+index}
             style={{
+              fontFamily: styles.fonts.mali.regular,
               position: 'absolute',
               left: 185*consts.px,
-              top: 15*consts.px,
+              top: 7*consts.px,
               color: theme[mode].color,
               paddingLeft: 30*consts.px,
-              fontSize: 18*consts.px,
+              fontSize: 16*consts.px,
             }}
           >
             {'Serves: '+recipy.serves}
@@ -271,9 +275,9 @@ const ElementRecipy = ({ data, index, recipy }) => {
               alignSelf: 'flex-end',
               backgroundColor: theme[mode].difficulty[recipy.difficulty.name].background,
               paddingHorizontal: 22*consts.px,
-              paddingVertical: 5*consts.px,
               borderRadius: 50*consts.px,
-              
+              height: 35*consts.px,
+
               borderWidth: 2*consts.px,
               borderColor: theme[mode].difficulty[recipy.difficulty.name].border,
             }}
@@ -281,10 +285,12 @@ const ElementRecipy = ({ data, index, recipy }) => {
             <Text
               key={'difficulty-text-'+index}
               style={{
+                fontFamily: styles.fonts.mali.bold,
                 color: theme[mode].color,
-                fontSize: 18*consts.px,
-                fontWeight: 'bold',
+                fontSize: 14*consts.px,
                 textAlign: 'center',
+                top: -2*consts.px,
+                alignSelf: 'center',
               }}
             >
               {(recipy.difficulty.name.split('')[0].toUpperCase() + recipy.difficulty.name.slice(1)).split('').length > maxLengthDifficulty ? (recipy.difficulty.name.split('')[0].toUpperCase() + recipy.difficulty.name.slice(1)).split('').filter((word, i) =>i < maxLengthDifficulty).join('')+'...' : (recipy.difficulty.name.split('')[0].toUpperCase() + recipy.difficulty.name.slice(1))}

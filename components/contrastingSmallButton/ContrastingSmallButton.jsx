@@ -1,7 +1,7 @@
 import { TouchableOpacity, Text } from "react-native";
 import { configFront } from "../../config/config";
 
-const ContrastingSmallButton = ({ data, style, text, buttonprops }) => {
+const ContrastingSmallButton = ({ data, style, text, buttonprops, styles }) => {
   
   const { theme, mode, consts } = data;
   
@@ -25,9 +25,9 @@ const ContrastingSmallButton = ({ data, style, text, buttonprops }) => {
     >
       <Text
         style={{
+          fontFamily: styles.fonts.mali.bold,
           color: theme[mode].noColor,
-          fontSize: 28*consts.px,
-          fontWeight: 'bold',
+          fontSize: 26*consts.px,
         }}
       >{text}</Text>
     </TouchableOpacity>

@@ -24,7 +24,7 @@ const MessagePopUp = ({ data, text, style, isVisible, content, stylesViewContent
           >
             <Text style={{
               ...styles.popUp.title,
-              fontSize: 30*consts.px,
+              fontSize: 28*consts.px,
               width: 350*consts.px,
             }}
             >{ text }</Text>
@@ -41,7 +41,7 @@ const MessagePopUp = ({ data, text, style, isVisible, content, stylesViewContent
               <Text 
                 style={{
                   ...styles.popUp.textButton,
-                  height: '200%',
+                  height: '310%',
                 }}
               >OK</Text>
             </TouchableOpacity>

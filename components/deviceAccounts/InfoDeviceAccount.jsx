@@ -3,7 +3,7 @@ import Svg, { Path } from "react-native-svg";
 import Tooltip from "../tooltip/Tooltip";
 import { useState } from "react";
 
-const InfoUserAccount = ({ data, text, type, maxLength, style }) => {
+const InfoDeviceAccount = ({ data, text, type, maxLength, style, styles }) => {
 
   const { theme, mode, consts, setIsInputPopUpVisible, setTypeSelected, setValueSelected } = data;
   const [isShow, setIsShow] = useState(false);
@@ -28,7 +28,7 @@ const InfoUserAccount = ({ data, text, type, maxLength, style }) => {
         flexDirection: 'row',
         width: '100%',
         alignItems: 'center',
-        marginVertical: 12*consts.px,
+        marginVertical: 2*consts.px,
         ...style,
       }}
     >
@@ -53,9 +53,10 @@ const InfoUserAccount = ({ data, text, type, maxLength, style }) => {
       </Svg>
       <Text
         style={{
+          fontFamily: styles.fonts.mali.bold,
           color: theme[mode].color,
           fontSize: 30*consts.px,
-          fontWeight: 'bold',
+          marginTop: -5*consts.px,
         }}
       >
         {text.length > maxLength ? text.slice(0, maxLength) + '...' : text}
@@ -82,4 +83,4 @@ const InfoUserAccount = ({ data, text, type, maxLength, style }) => {
   )
 }
 
-export default InfoUserAccount;
+export default InfoDeviceAccount;

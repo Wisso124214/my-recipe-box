@@ -5,8 +5,8 @@ import { useEffect, useState } from "react";
 const CreatePassword = ({ data, style }) => {
 
   const { theme, mode, consts, objValidations, dataInput, newDataMessage, isInputFocus,
-    setIsInputFocus, isKeyboardVisible, setIsKeyboardVisible, nInputSelected, 
-          setnInputSelected, compStyles, showPassword } = data;
+    setIsInputFocus, isKeyboardVisible, setIsKeyboardVisible, nInputSelected, styles,
+    setnInputSelected, compStyles, showPassword } = data;
   
   const isSecretWriting = (showPassword === undefined || showPassword === false) ? true : showPassword;
   const [passwordState, setPasswordState] = useState('high');
@@ -145,10 +145,10 @@ const CreatePassword = ({ data, style }) => {
             >
               <Text
                 style={{
-                  fontSize: 30 * consts.px,
+                  fontFamily: styles.fonts.mali.bold,
+                  fontSize: 28 * consts.px,
                   color: theme[mode][passwordState + 'Safety'],
-                  marginTop: 20 * consts.px,
-                  fontWeight: 'bold',
+                  marginTop: 10 * consts.px,
                 }}
               >
                 { passwordState.length > 0 ? (passwordState + ' safety').replace(passwordState[0], passwordState[0].toUpperCase()) : null }
@@ -159,7 +159,7 @@ const CreatePassword = ({ data, style }) => {
                   width: passwordState === 'low' ? 110 * consts.px : passwordState === 'medium' ? 230 * consts.px : 350 * consts.px,
                   backgroundColor: theme[mode][passwordState + 'Safety'],
                   borderRadius: 10 * consts.px,
-                  marginBottom: 30 * consts.px,
+                  marginBottom: 20 * consts.px,
                 }}
               ></View>
             </View>

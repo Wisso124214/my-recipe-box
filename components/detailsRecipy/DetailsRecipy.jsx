@@ -4,11 +4,10 @@ import IconButton from '../iconButton/IconButton';
 import ThemeModeButton from '../iconButton/ThemeModeButton';
 import ContrastingButton from '../contrastingButton/ContrastingButton';
 import { closeSession } from '../../utils/logicSession';
-import { set } from 'lodash';
 
 const DetailsRecipy = ({ data }) => {
 
-  const { mode, theme, consts, setStrPage, idMainSession, setIdMainSession } = data;
+  const { mode, theme, consts, setStrPage, idMainSession, setIdMainSession, styles } = data;
 
   const handleCloseSession = async () => {
 
@@ -55,14 +54,15 @@ const DetailsRecipy = ({ data }) => {
         justifyContent: 'center',
       }}
     >
-      <Text style={{color: theme[mode].color}} >You have already logged in</Text>
+      <Text style={{color: theme[mode].color, fontFamily: styles.fonts.mali.regular,}} >You have already logged in</Text>
       
       <ContrastingButton
         text="Log out"
         theme={theme} 
         mode={mode} 
         consts={consts} 
-        styles={{ marginVertical: 30 * consts.px }}
+        style={{ marginVertical: 30 * consts.px }}
+        styles={styles}
         onPress={handleCloseSession}
       />
       

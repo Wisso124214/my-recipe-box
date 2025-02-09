@@ -2,12 +2,12 @@ import { View, Text, TouchableOpacity, TouchableHighlight } from "react-native";
 import ButtonBack from "../buttonBack/ButtonBack";
 import IconButton from "../iconButton/IconButton";
 import Svg, { Path } from "react-native-svg";
-import InfoUserAccount from "./InfoDeviceAccount";
 import InputPopUp from "../popUp/InputPopUp";
 import { useEffect, useState } from "react";
 import Menu from "../menu/Menu";
 import ListAccounts from "../listAccounts/ListAccounts";
 import MessagePopUp from "../popUp/MessagePopUp";
+import InfoDeviceAccount from "./InfoDeviceAccount";
 
 const DeviceAccounts = ({ data }) => {
   
@@ -104,12 +104,12 @@ const DeviceAccounts = ({ data }) => {
           >
           <Text 
             style={{
-              fontWeight: 'bold',
+              fontFamily: styles.fonts.mali.bold,
               fontSize: 45 * consts.px,
               color: theme[mode].icons,
               textAlign: "center",
               width: '100%',
-              
+              top: -27*consts.px,
             }} 
           >User Account</Text>
         </View>
@@ -136,6 +136,7 @@ const DeviceAccounts = ({ data }) => {
             }}
             styleButton={{ 
               marginHorizontal: 10,
+              top: -20*consts.px,
             }}
           />
         </View>
@@ -185,18 +186,20 @@ const DeviceAccounts = ({ data }) => {
             flex: 1,
           }}
           >
-          <InfoUserAccount 
+          <InfoDeviceAccount 
             data={dataIUA}
             type="username"
             text={username}
             maxLength="20"
+            styles={styles}
           />
 
-          <InfoUserAccount 
+          <InfoDeviceAccount 
             data={dataIUA}
             type="email"
             text={email}
             maxLength="25"
+            styles={styles}
           />
         </View>
 
@@ -204,11 +207,11 @@ const DeviceAccounts = ({ data }) => {
 
       <Text
         style={{
+          fontFamily: styles.fonts.mali.bold,
           position: 'absolute',
-          top: 740*consts.px,
+          top: 720*consts.px,
           fontSize: 40*consts.px,
           color: theme[mode].icons,
-          fontWeight: 'bold',
         }}
       >Open accounts</Text>
 
@@ -247,6 +250,7 @@ const DeviceAccounts = ({ data }) => {
           mode,
           consts,
           setStrPage,
+          styles,
           isShow: isMenuShow,
         }}
       />

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useFonts } from 'expo-font';
 import * as NavigationBar from 'expo-navigation-bar';
 import {
   Text, 
@@ -27,13 +28,14 @@ export default function App() {
       screenLoading: false,
       debugMenuEnabled: true,
       showDebugMenu: true,
-      strpage: 'listRecipies',
+      strpage: 'login',
       page: 0,
       pagefp: 0,
       varpage: 'strpage',
       appState: 'initializing',
       autoFocusInputFP2: true,
       registerDebugging: true,
+      isFetchingDB: false,
       usernameDefault: 'UserURU',
       emailDefault: 'luisdavidbustosnunez@gmail.com',
       passwordDefault: 'Password123$',
@@ -50,6 +52,7 @@ export default function App() {
       appState: 'initializing',
       autoFocusInputFP2: true,
       registerDebugging: false,
+      isFetchingDB: true,
       usernameDefault: '',
       emailDefault: '',
       passwordDefault: '',
@@ -72,6 +75,20 @@ export default function App() {
   const [defaultValueUsernameLogin, setDefaultValueUsernameLogin] = useState('');
   const [loading, setLoading] = useState(false);
   const [textLoading, setTextLoading] = useState('Loading...');
+  const [fontLoaded, fontLoadedError] = useFonts({
+    'mali': require('./assets/fonts/mali/Mali-Regular.ttf'),
+    'mali-bold': require('./assets/fonts/mali/Mali-Bold.ttf'),
+    'mali-italic': require('./assets/fonts/mali/Mali-Italic.ttf'),
+    'mali-bold-italic': require('./assets/fonts/mali/Mali-BoldItalic.ttf'),
+    'mali-extra-light': require('./assets/fonts/mali/Mali-ExtraLight.ttf'),
+    'mali-extra-light-italic': require('./assets/fonts/mali/Mali-ExtraLightItalic.ttf'),
+    'mali-light': require('./assets/fonts/mali/Mali-Light.ttf'),
+    'mali-light-italic': require('./assets/fonts/mali/Mali-LightItalic.ttf'),
+    'mali-medium': require('./assets/fonts/mali/Mali-Medium.ttf'),
+    'mali-medium-italic': require('./assets/fonts/mali/Mali-MediumItalic.ttf'),
+    'mali-semi-bold': require('./assets/fonts/mali/Mali-SemiBold.ttf'),
+    'mali-semi-bold-italic': require('./assets/fonts/mali/Mali-SemiBoldItalic.ttf'),
+  });
 
   const [isHiddenMssg, setIsHiddenMssg] = useState(true);
   const [textMssg, setTestMssg] = useState('Login successful');
@@ -83,9 +100,24 @@ export default function App() {
     widthScreen: 709,
     heightScreen: 1552,
   };
-  
+
   let styles = {
-    
+    fonts: {
+      mali: {
+        regular: 'mali',
+        bold: 'mali-bold',
+        italic: 'mali-italic',
+        boldItalic: 'mali-bold-italic',
+        extraLight: 'mali-extra-light',
+        extraLightItalic: 'mali-extra-light-italic',
+        light: 'mali-light',
+        lightItalic: 'mali-light-italic',
+        medium: 'mali-medium',
+        mediumItalic: 'mali-medium-italic',
+        semiBold: 'mali-semi-bold',
+        semiBoldItalic: 'mali-semi-bold-italic',
+      }
+    },
     container:
     {
       flex: 1,
@@ -106,6 +138,7 @@ export default function App() {
       backgroundColor: '#ddd',
       width: 'min-content',
       marginHorizontal: 5,
+      fontFamily: 'mali',
     },
     icons: {
       small: {
@@ -137,19 +170,21 @@ export default function App() {
         color: theme[mode].noColor,
         fontSize: 35*consts.px,
         textAlign: 'center',
-        fontWeight: 'bold',
-        marginTop: 40*consts.px,
-        marginBottom: 30*consts.px,
+        marginTop: 30*consts.px,
+        marginBottom: 20*consts.px,
+        fontFamily: 'mali-bold',
       },
       input: {
         borderColor: theme[mode].noColor,
         width: 350*consts.px,
         color: theme[mode].noColor,
+        fontFamily: 'mali',
       },
       placeholderInput: {
         cursorColor: theme[mode].noColor,
         selectionColor: mode,
         placeholderTextColor: theme[mode].noIcons+'cc',
+        fontFamily: 'mali',
       },
       button: {
         borderRadius: 30*consts.px,
@@ -158,12 +193,13 @@ export default function App() {
         height: 70*consts.px,
         alignItems: 'center',
         justifyContent: 'center',
+        fontFamily: 'mali',
       },
       textButton: {
-        fontSize: 30*consts.px,
-        fontWeight: 'bold',
+        fontSize: 28*consts.px,
         textAlign: 'center',
         color: theme[mode].noIcons,
+        fontFamily: 'mali-bold',
       }
     }
   };
@@ -276,9 +312,9 @@ export default function App() {
       useNativeDriver: true,
     }).start();
 
-    async () => {
+    (async () => {
       console.log('asd', await getItem('asd'));
-    }
+    })()
   }, []);
   
   useEffect(() => {
@@ -366,6 +402,12 @@ export default function App() {
     }
   }, [strpage])
 
+
+  //loading font...
+  if (!fontLoaded && !fontLoadedError) {
+    return <LoadingScreen data={dataPages} />;
+  }
+
   return (
       <Animated.View 
         key={'uniqueKey'}
@@ -393,15 +435,16 @@ export default function App() {
 
         <DebugMenu
           data={{
-            styles: styles,
-            setPage: setPage,
-            page: page,
-            arrdebug: arrdebug,
-            dataIconButton: dataIconButton,
-            showDebugMenu: showDebugMenu,
-            theme: theme,
-            mode: mode,
-            setLoading: setLoading,
+            styles,
+            setPage,
+            page,
+            arrdebug,
+            dataIconButton,
+            showDebugMenu,
+            theme,
+            mode,
+            setLoading,
+            consts,
           }}
         />
         
@@ -429,6 +472,7 @@ export const theme = {
     opacityPopUp: 0.33,
     delete: '#E61919',
     contrastingGreen: '#1CB09C',
+    noContrastingGreen: '#0A423B',
     favorite: '#69C17C',
     difficulty: {
       easy: {
@@ -464,6 +508,7 @@ export const theme = {
     opacityPopUp: 0.5,
     delete: '#FF0000',
     contrastingGreen: '#0A423B',
+    noContrastingGreen: '#1CB09C',
     favorite: '#347E44',
     difficulty: {
       easy: {

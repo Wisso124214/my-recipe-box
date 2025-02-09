@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import Svg, { Path } from "react-native-svg"
 import Input from '../input/Input';
@@ -9,8 +9,19 @@ import ButtonBack from '../buttonBack/ButtonBack';
 const ForgotPass1 = ({ dataForgotPassword }) => {
   const { dataPages, compStyles, setPagefp } = dataForgotPassword;
   const { styles, mode, theme, consts, dataInput, showDebugMenu, setShowDebugMenu, 
-    dataButtonBack, isInputFocus, setIsInputFocus, setStrPage 
-        } = dataPages;
+    dataButtonBack, isInputFocus, setIsInputFocus, setStrPage,
+  } = dataPages;
+
+  const delay = 100;
+  const [isDelay, setIsDelay] = React.useState(false);
+
+  useEffect(()=>{
+    if (!isInputFocus) {
+      setTimeout(() => {
+        setIsDelay(true);
+      }, delay);
+    }
+  }, [isInputFocus])
 
   return(
     <View style={ compStyles.container } >
@@ -21,7 +32,7 @@ const ForgotPass1 = ({ dataForgotPassword }) => {
           isInputFocus: true,
           onPress: ()=>{
             if(isInputFocus){
-              setIsInputFocus(false)
+              setIsInputFocus(false);
             }else{
               setStrPage('login')
             }
@@ -40,7 +51,7 @@ const ForgotPass1 = ({ dataForgotPassword }) => {
         style={{ 
           width: 230*consts.px, 
           height: 230*consts.px,
-          marginBottom: 60*consts.px,
+          marginBottom: 30*consts.px,
         }}
         onPress={()=> setShowDebugMenu(!showDebugMenu) }
       >
@@ -71,10 +82,11 @@ const ForgotPass1 = ({ dataForgotPassword }) => {
         theme={theme} 
         mode={mode} 
         onPress={()=> setPagefp(1)}
-        consts={consts} styles={styles} />
+        consts={consts} 
+        styles={styles} />
       
       {
-        !isInputFocus ? 
+        !isInputFocus && isDelay ?
         <View
           style={{
             display: 'flex',
@@ -87,9 +99,9 @@ const ForgotPass1 = ({ dataForgotPassword }) => {
           >
             <Text
               style={{
+                fontFamily: styles.fonts.mali.bold,
                 color: theme[mode].color,
                 fontSize: 35 * consts.px,
-                fontWeight: 'bold',
                 height: 60 * consts.px,
                 textShadowColor: theme[mode].shadowTitle,
                 textShadowOffset: { width: 2, height: 2 },

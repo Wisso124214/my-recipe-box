@@ -2,7 +2,7 @@ import { Text, TouchableOpacity, View } from "react-native";
 import { configFront } from "../../config/config";
 
 
-const ContrastingButton = ({ text, theme, mode, consts, styles, onPress })=>{
+const ContrastingButton = ({ text, theme, mode, consts, style, onPress, styles })=>{
   return (
     <View>
       <TouchableOpacity
@@ -15,15 +15,15 @@ const ContrastingButton = ({ text, theme, mode, consts, styles, onPress })=>{
           backgroundColor: theme[mode].icons,
           justifyContent: 'center',
           alignItems: 'center',
-          ...styles,
+          ...style,
         }} 
         onPress={ onPress }
         >
         <Text 
           style={{ 
-            color: theme[mode].noColor, 
-            fontWeight: 'bold', 
-            fontSize: 35*consts.px,
+            fontFamily: styles.fonts.mali.bold,
+            color: theme[mode].noColor,  
+            fontSize: 32*consts.px,
             textShadowColor: theme[mode].noColor,
             textShadowOffset: {width: 1, height: 0},
             textShadowRadius: 1,

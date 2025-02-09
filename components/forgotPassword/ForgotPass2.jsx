@@ -96,7 +96,8 @@ const ForgotPass2 = ({ dataForgotPassword }) => {
         text="Send" 
         theme={theme} 
         mode={mode} 
-        consts={consts} styles={styles}
+        styles={styles}
+        consts={consts}
         onPress={()=>setPagefp(pagefp+1)} />
     </View>
   )

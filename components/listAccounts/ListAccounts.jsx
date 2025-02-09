@@ -199,7 +199,7 @@ const ListAccounts = ({ data, nameParent, style, styleAddButton, onlyUsernames }
             style={{
               ...styles.popUp.container,
               width: 500*consts.px,
-              paddingTop: 50*consts.px,
+              paddingTop: 30*consts.px,
               paddingBottom: 40*consts.px,
               height: 'auto',
             }}
@@ -212,30 +212,33 @@ const ListAccounts = ({ data, nameParent, style, styleAddButton, onlyUsernames }
             >
               <Text
                 style={{
+                  fontFamily: styles.fonts.mali.bold,
                   color: theme[mode].noColor+'a0',
-                  fontSize: 34*consts.px,
+                  fontSize: 28*consts.px,
                   textAlign: 'center',
-                  fontWeight: 'bold',
+                  height: 50*consts.px,
                 }}
               >Are you sure do you want to </Text>
               <Text
                 style={{
+                  fontFamily: styles.fonts.mali.bold,
                   color: theme[mode].noColor+'a0',
-                  fontSize: 34*consts.px,
+                  fontSize: 28*consts.px,
                   textAlign: 'center',
-                  fontWeight: 'bold',
+                  height: 50*consts.px,
+                  marginTop: -10*consts.px,
                 }}
               >delete the next username?</Text>
             </View>
             <View>
               <Text
                 style={{
+                  fontFamily: styles.fonts.mali.bold,
                   color: theme[mode].noColor,
                   fontSize: 38*consts.px,
                   textAlign: 'center',
-                  marginTop: 30*consts.px,
-                  marginBottom: 30*consts.px,
-                  fontWeight: 'bold',
+                  marginTop: 10*consts.px,
+                  marginBottom: 10*consts.px,
                 }}
               >{valueSelected}</Text>
             </View>
@@ -247,18 +250,21 @@ const ListAccounts = ({ data, nameParent, style, styleAddButton, onlyUsernames }
             >
               <Text
                 style={{
+                  fontFamily: styles.fonts.mali.bold,
                   color: theme[mode].errorColor,
-                  fontSize: 34*consts.px,
+                  fontSize: 28*consts.px,
                   textAlign: 'center',
-                  fontWeight: 'bold',
+                  height: 50*consts.px,
                 }}
               >It will not be possible to </Text>
               <Text
                 style={{
+                  fontFamily: styles.fonts.mali.bold,
                   color: theme[mode].errorColor,
-                  fontSize: 34*consts.px,
+                  fontSize: 28*consts.px,
                   textAlign: 'center',
-                  fontWeight: 'bold',
+                  height: 50*consts.px,
+                  marginTop: -10*consts.px,
                 }}
               >recover the data</Text>
             </View>
@@ -283,6 +289,7 @@ const ListAccounts = ({ data, nameParent, style, styleAddButton, onlyUsernames }
                 ...styles.popUp.textButton,
                 color: theme[mode].noColor,
                 top: -5*consts.px,
+                height: 50*consts.px,
                 }} >Cancel</Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -302,6 +309,7 @@ const ListAccounts = ({ data, nameParent, style, styleAddButton, onlyUsernames }
                 ...styles.popUp.textButton,
                 color: theme[mode].color,
                 top: -5*consts.px,
+                height: 50*consts.px,
                 }} >Delete</Text>
             </TouchableOpacity>
           </View>
@@ -349,11 +357,12 @@ const ListAccounts = ({ data, nameParent, style, styleAddButton, onlyUsernames }
 
               <Text
                 style={{
+                  fontFamily: styles.fonts.mali.medium,
                   position: 'absolute',
                   color: theme[mode].color,
                   fontSize: onlyUsernames ? 30*consts.px : 25*consts.px,
                   left: 120*consts.px,
-                  top: onlyUsernames ? 30*consts.px : 22*consts.px,
+                  top: onlyUsernames ? 15*consts.px : 10*consts.px,
                 }}
               >
                 {account.item.username.length > maxLengthType[onlyUsernames ? 'onlyUsername' : 'username'] ? account.item.username.slice(0, maxLengthType[onlyUsernames ? 'onlyUsername' : 'username']) + '...' : account.item.username}
@@ -362,11 +371,12 @@ const ListAccounts = ({ data, nameParent, style, styleAddButton, onlyUsernames }
                 !onlyUsernames ? 
                 <Text
                   style={{
+                    fontFamily: styles.fonts.mali.mediumItalic,
                     position: 'absolute',
                     color: theme[mode].color,
                     fontSize: 20*consts.px,
                     left: 140*consts.px,
-                    top: 55*consts.px,
+                    top: 47*consts.px,
                   }}
                 >
                   {account.item.email.length > maxLengthType['email'] ? account.item.email.slice(0, maxLengthType['email']) + '...' : account.item.email}
@@ -466,6 +476,7 @@ const ListAccounts = ({ data, nameParent, style, styleAddButton, onlyUsernames }
           data={data}
           text="Add another account"
           style={styleAddButton}
+          styles={styles}
           buttonprops={{
             onPress: () => {
               setStrPage('login');

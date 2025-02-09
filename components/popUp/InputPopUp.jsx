@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Text, Touchable, TouchableOpacity, View } from "react-native";
 import Input from "../input/Input";
+import { FontFamilyIcon } from "@radix-ui/react-icons";
 
 const InputPopUp = ({ data, style }) => {
 
@@ -104,7 +105,8 @@ const InputPopUp = ({ data, style }) => {
               <Text style={{
                 ...styles.popUp.textButton,
                 color: theme[mode].noColor,
-                top: -5*consts.px,
+                top: -8*consts.px,
+                height: 50*consts.px,
                 }} >Cancel</Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -121,7 +123,8 @@ const InputPopUp = ({ data, style }) => {
               <Text style={{
                 ...styles.popUp.textButton,
                 color: theme[mode].color,
-                top: -5*consts.px,
+                top: -8*consts.px,
+                height: 50*consts.px,
                 }} >Done</Text>
             </TouchableOpacity>
           </View>

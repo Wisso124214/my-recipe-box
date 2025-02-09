@@ -21,6 +21,6 @@ export const SERVER_URL = `${config.PROTOCOL}://${config.SERVER_IP}:${config.POR
 //module.exports = config;
 
 export const configFront = {
-  logoSize: 300,
+  logoSize: 350,
   activeOpacity: 0.7,
 }

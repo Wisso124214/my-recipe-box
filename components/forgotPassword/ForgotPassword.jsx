@@ -1,18 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
-import Svg, { Path } from "react-native-svg"
-import Input from '../input/Input';
-import ButtonSign from '../contrastingButton/ContrastingButton';
-import ButtonBack from '../buttonBack/ButtonBack';
 import ForgotPass1 from './ForgotPass1';
-import { set } from 'lodash';
 import ForgotPass2 from './ForgotPass2';
 import ForgotPass3 from './ForgotPass3';
-import ForgotUsernames from '../forgotUsernames/ForgotUsernames';
 
 const ForgotPassword = ({ data }) => {
   
-  const { theme, mode, consts, devMode, dataPinInput } = data;
+  const { theme, mode, consts, devMode, dataPinInput, styles } = data;
   const [pagefp, setPagefp] = useState(devMode[devMode.power].pagefp);
 
   const compStyles = {
@@ -22,26 +16,30 @@ const ForgotPassword = ({ data }) => {
       alignItems: 'center',
       width: 709 * consts.px,      
       height: '100%',
+      fontFamily: styles.fonts.mali.regular,
     },
     header: {
-      fontWeight: 'bold',
+      fontFamily: styles.fonts.mali.bold,
       fontSize: 35 * consts.px,
       color: theme[mode].icons,
-      marginTop: 120 * consts.px,
-      marginBottom: 80 * consts.px,
+      marginTop: 100 * consts.px,
+      marginBottom: 40 * consts.px,
     },
     title: {
+      fontFamily: styles.fonts.mali.bold,
       fontSize: 45 * consts.px,
       color: theme[mode].color,
-      fontWeight: 'bold',
       marginBottom: 30 * consts.px,
     },
     text: {
+      fontFamily: styles.fonts.mali.medium,
       fontSize: 25 * consts.px,
       color: theme[mode].color,
-      marginBottom: 60 * consts.px,
+      marginBottom: 30 * consts.px,
+      top: -30 * consts.px,
     },
     input: {
+      fontFamily: styles.fonts.mali.regular,
       marginBottom: 50 * consts.px,
     },
   }

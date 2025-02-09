@@ -7,7 +7,7 @@ import { SERVER_URL } from '../../config/config'
 
 const DebugMenu = ({ data }) => {
 
-  const { styles, setPage, page, arrdebug, dataIconButton, showDebugMenu, theme, mode, setLoading } = data;
+  const { consts, styles, setPage, page, arrdebug, dataIconButton, showDebugMenu, theme, mode, setLoading } = data;
   
   const datatransporter = {
     service: 'gmail',
@@ -113,9 +113,11 @@ const DebugMenu = ({ data }) => {
       >
         <Text
           style={{
+            fontFamily: styles.fonts.mali.bold,
             textAlign: 'center',
             color: theme[mode].errorColor,
-            fontWeight: 'bold',
+            fontSize: 20*consts.px,
+            top: -2*consts.px,
           }}
         >Send email</Text>
       </TouchableOpacity>
@@ -136,7 +138,11 @@ const DebugMenu = ({ data }) => {
       >
         <Text
           style={{
+            fontFamily: styles.fonts.mali.bold,
             textAlign: 'center',
+            position: 'absolute',
+            top: -24,
+            right: 3,
           }}
         > {"<"} </Text>
       </TouchableOpacity>
@@ -145,7 +151,13 @@ const DebugMenu = ({ data }) => {
         //onPress={() => setPage(page > 0 ? page-1 : debug.length-1)}
         style={{ ...styles.simpleButtons, justifyContent: 'center', alignItems: 'center', height: 30, paddingVertical: 2, paddingHorizontal: 6, top: 10 }}
       >
-        <Text> {"<"} </Text>
+        <Text
+          style={{
+            fontFamily: styles.fonts.mali.bold,
+            textAlign: 'center',
+            top: -3,
+          }}
+        > {"<"} </Text>
       </TouchableOpacity>
       
       <ThemeModeButton dataIconButton={dataIconButton} />
@@ -155,7 +167,13 @@ const DebugMenu = ({ data }) => {
         //onPress={() => setPage(page < debug.length-1 ? page+1 : 0)}
         style={{ ...styles.simpleButtons, justifyContent: 'center', alignItems: 'center', height: 30, paddingVertical: 2, paddingHorizontal: 6, top: 10 }}
       >
-        <Text> {">"} </Text>
+        <Text
+          style={{
+            fontFamily: styles.fonts.mali.bold,
+            textAlign: 'center',
+            top: -3,
+          }}
+        > {">"} </Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {}}
@@ -173,7 +191,11 @@ const DebugMenu = ({ data }) => {
       >
         <Text
           style={{
+            fontFamily: styles.fonts.mali.bold,
             textAlign: 'center',
+            position: 'absolute',
+            top: -24,
+            right: 3,
           }}
         > {">"} </Text>
       </TouchableOpacity>

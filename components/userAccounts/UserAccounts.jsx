@@ -83,11 +83,12 @@ const UserAccounts = ({ data, style }) => {
           >
           <Text
             style={{
-              fontWeight: 'bold',
+              fontFamily: styles.fonts.mali.bold,
               fontSize: 45 * consts.px,
               color: theme[mode].icons,
               textAlign: "center",
               width: '100%',
+              top: -27*consts.px,
             }} 
           >My Accounts</Text>
         </View>

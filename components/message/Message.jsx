@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 
 const Message = (props) => {
   
-  const { theme, mode, consts, text, bgcolor, style, hidden, viewprops } = props.dataMessage;
+  const { theme, mode, consts, text, bgcolor, style, hidden, viewprops, styles } = props.dataMessage;
   let { scale, lineNumbers } = props.dataMessage;
 
   scale = scale === undefined ? 1 : scale;
@@ -32,10 +32,10 @@ const Message = (props) => {
           <View>
             <Text
               style={{
+                fontFamily: styles.fonts.mali.bold,
                 color: theme[mode].noColor,
                 textAlign: 'center',
                 fontSize: 30 * consts.px,
-                fontWeight: 'bold',
                 width: textLength,
               }} >
                 {newText}

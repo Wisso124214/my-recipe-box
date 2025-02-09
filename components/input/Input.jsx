@@ -104,10 +104,11 @@ const Input = (props) => {
                   right: -65*consts.px,
                   zIndex: 2,
                 },
-                consts: consts,
-                theme: theme,
-                consts: consts,
-                mode: mode,
+                consts,
+                theme,
+                consts,
+                mode,
+                styles,
               }} />
               : null
           }

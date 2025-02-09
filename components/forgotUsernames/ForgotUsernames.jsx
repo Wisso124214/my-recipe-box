@@ -78,8 +78,9 @@ const ForgotUsernames = ({ dataForgotPassword }) => {
         text="Send" 
         theme={theme} 
         mode={mode} 
+        styles={styles}
         onPress={()=> setPagefp(1)}
-        consts={consts} styles={styles} />
+        consts={consts} />
     </View>
   )
 }

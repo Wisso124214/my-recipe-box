@@ -3,7 +3,7 @@ import SvgIconProvider from "../svg/svgIconProvider";
 
 const Menu = ({ items, data }) => {
   
-  const { isShow, theme, consts, mode, setStrPage } = data;
+  const { isShow, theme, consts, mode, setStrPage, styles } = data;
   const maxLengthTitle = 16;
 
   const arr = [
@@ -58,10 +58,11 @@ const Menu = ({ items, data }) => {
             >
               <Text
                 style={{
+                  fontFamily: styles.fonts.mali.bold,
                   color: arr[index].color,
-                  fontSize: 32*consts.px,
-                  fontWeight: 'bold',
-                  margin: 12.5*consts.px,
+                  fontSize: 30*consts.px,
+                  marginLeft: 15*consts.px,
+                  marginVertical: 2*consts.px,
                 }}
               >
                 {arr[index].title.length > maxLengthTitle ? arr[index].title.slice(0, maxLengthTitle) + '...' : arr[index].title}

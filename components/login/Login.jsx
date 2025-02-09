@@ -10,7 +10,7 @@ import bcrypt from 'react-native-bcrypt';
 import axios from 'axios';
 import { SERVER_URL, configFront } from "../../config/config";
 import { redirectPage } from "../../utils/logicSession";
-import { err } from "react-native-svg";
+import Svg, { Circle, err } from "react-native-svg";
 
 const Login = ({ data }) => {
   
@@ -150,32 +150,32 @@ const Login = ({ data }) => {
 
   const compStyles = {
     header: {
+      fontFamily: styles.fonts.mali.bold,
       fontSize: 65 * consts.px,
-      fontWeight: 'bold',
       color: theme[mode].color,
       textShadowColor: theme[mode].shadowTitle,
       textShadowOffset: { width: 1, height: 1 },
       textShadowRadius: 5,
-      marginTop: 20 * consts.px,
+      marginTop: -15 * consts.px,
     },
     text: {
+      fontFamily: styles.fonts.mali.medium,
       fontSize: 33 * consts.px,
       color: theme[mode].color,
-      marginTop: 10 * consts.px,
+      marginTop: -15 * consts.px,
     },
     input: {
+      fontFamily: styles.fonts.mali.regular,
       marginBottom: 50 * consts.px,
     },
     footText: {
-      fontSize: 35 * consts.px,
-      fontWeight: 'bold',
+      fontFamily: styles.fonts.mali.bold,
+      fontSize: 32 * consts.px,
       height: 60 * consts.px,
     },
     iconQuestion: {
-      position: 'relative',
-      top: 10,
-      left: 10,
-      color: theme[mode].icons,
+      fontFamily: styles.fonts.mali.regular,
+      color: theme[mode].noIcons,
       px: 18*consts.px,
     },
   }
@@ -226,7 +226,7 @@ const Login = ({ data }) => {
             <Text style={compStyles.text} >Login to your account</Text>
             
             <View style={{
-              marginTop: 150 * consts.px,
+              marginTop: 100 * consts.px,
               alignItems: 'center',
               width: '100%',
               left: '2%',
@@ -292,7 +292,8 @@ const Login = ({ data }) => {
               theme={theme} 
               mode={mode} 
               consts={consts} 
-              styles={{ marginTop: 50 * consts.px, marginBottom: 260 * consts.px }} 
+              styles={styles}
+              style={{ marginTop: 50 * consts.px, marginBottom: 260 * consts.px }} 
               onPress={handleLogin}
               />
 
@@ -302,8 +303,8 @@ const Login = ({ data }) => {
               <TouchableHighlight
                 style={{
                   position: 'absolute',
-                  top: 721* consts.px,
-                  left: -74 * consts.px,
+                  top: 782* consts.px,
+                  left: -2 * consts.px,
                   width: 50*consts.px,
                   height: 50*consts.px,
                   flex: 1,
@@ -323,18 +324,19 @@ const Login = ({ data }) => {
                   src="styles"
                   strprops="px, color"
                   styleview={{
-                    position: 'absolute',
-                    backgroundColor: theme[mode].backgroundColor,
+                    position: 'relative',
+                    backgroundColor: theme.dark.contrastingGreen,
                     borderRadius: 20*consts.px,
-                    borderColor: theme[mode].icons,
+                    borderColor: compStyles.iconQuestion.color,
                     borderWidth: 3*consts.px,
                     padding: 2*consts.px,
+                    top: -11*consts.px,
+                    left: -11*consts.px,
                   }}
                   stylesvg={{
                     position: 'relative',
                     top: -0.5*consts.px,
                     left: -0.5*consts.px,
-
                   }}
                 /> 
               </TouchableHighlight>
@@ -381,12 +383,13 @@ const Login = ({ data }) => {
                   width: 460 * consts.px,
                 },
                 hidden: isHiddenMssg,
-                theme: theme,
-                consts: consts,
-                mode: mode,
-                text: textMssg,
-                bgcolor: colorMssg,
-                lineNumbers: lineNumbers,
+                theme,
+                consts,
+                mode,
+                textMssg,
+                colorMssg,
+                lineNumbers,
+                styles,
               }}
             />
           </View>

@@ -141,9 +141,10 @@ const ForgotPass3 = ({ dataForgotPassword }) => {
 
       <ContrastingButton 
         text="Change password" 
-        styles={{ ...styles, marginTop: 100*consts.px, width: 400*consts.px }}
+        style={{ ...styles, marginTop: 100*consts.px, width: 400*consts.px }}
         theme={theme} 
         mode={mode} 
+        styles={styles}
         onPress={()=> { setPagefp(0); setStrPage('login') }}
         consts={consts}  />
     </View>

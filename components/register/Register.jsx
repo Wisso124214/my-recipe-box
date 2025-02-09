@@ -12,7 +12,7 @@ import { configFront } from '../../config/config';
 const Register = ({ data }) => {
 
   const { 
-    theme, mode, consts, dataInput, showDebugMenu, setShowDebugMenu, setStrPage, 
+    theme, mode, consts, dataInput, showDebugMenu, setShowDebugMenu, setStrPage, styles,
     devMode, dataMssg, dataButtonBack, setIsInputFocus, dataMessage, isInputFocus, setLoading,
   } = data;
   
@@ -25,33 +25,28 @@ const Register = ({ data }) => {
   //component styles
   const compStyles = {
     header: {
+      fontFamily: styles.fonts.mali.bold,
       fontSize: 65 * consts.px,
-      fontWeight: 'bold',
       color: theme[mode].color,
       textShadowColor: theme[mode].shadowTitle,
       textShadowOffset: { width: 1, height: 1 },
       textShadowRadius: 5,
-      marginTop: 20 * consts.px,
+      marginTop: -35 * consts.px,
     },
     text: {
+      fontFamily: styles.fonts.mali.medium,
       fontSize: 33 * consts.px,
       color: theme[mode].color,
-      marginTop: 10 * consts.px,
+      marginTop: -30 * consts.px,
     },
     input: {
-      marginBottom: 50 * consts.px,
+      fontFamily: styles.fonts.mali.regular,
+      marginBottom: 40 * consts.px,
     },
     footText: {
-      fontSize: 35 * consts.px,
-      fontWeight: 'bold',
+      fontFamily: styles.fonts.mali.bold,
+      fontSize: 32 * consts.px,
       height: 60 * consts.px,
-    },
-    iconQuestion: {
-      position: 'relative',
-      top: 10,
-      left: 10,
-      color: theme[mode].icons,
-      px: 18*consts.px,
     },
   }
   
@@ -128,9 +123,11 @@ const Register = ({ data }) => {
   
   //set the list of usernames, this is for the validation of the username, to be unique
   const SettingListUsernames = async (setListUsernames, username) => {
-    setLoading(true)
-    await getListUsernames(setListUsernames, username)
-    setLoading(false)
+    if (devMode[devMode.power].isFetchingDB) {
+      setLoading(true)
+      await getListUsernames(setListUsernames, username)
+      setLoading(false)
+    }
   }
 
   const handleRegister = async (objValidations) => {
@@ -282,7 +279,7 @@ const Register = ({ data }) => {
             <Text style={compStyles.text} >Create your account</Text>
             
               <View style={{
-                marginTop: 100 * consts.px,
+                marginTop: 50 * consts.px,
                 alignItems: 'center',
               }} >
                 <Input
@@ -402,16 +399,16 @@ const Register = ({ data }) => {
                 <CreatePassword 
                   data={{
                     ...data,
-                    objValidations: objValidations,
-                    compStyles: compStyles,
-                    setIsKeyboardVisible: setIsKeyboardVisible,
-                    nInputSelected: nInputSelected,
-                    setnInputSelected: setnInputSelected,
-                    dataInput: dataInput,
-                    newDataMessage: newDataMessage,
-                    isInputFocus: isInputFocus,
-                    setIsInputFocus: setIsInputFocus,
-                    isKeyboardVisible: isKeyboardVisible,
+                    objValidations,
+                    compStyles,
+                    setIsKeyboardVisible,
+                    nInputSelected,
+                    setnInputSelected,
+                    dataInput,
+                    newDataMessage,
+                    isInputFocus,
+                    setIsInputFocus,
+                    isKeyboardVisible,
                     showPassword: devMode[devMode.power].registerDebugging,
                   }}
                 />
@@ -422,7 +419,8 @@ const Register = ({ data }) => {
                 theme={theme} 
                 mode={mode} 
                 consts={consts} 
-                styles={{ marginTop: 50 * consts.px }} 
+                styles={styles}
+                style={{ marginTop: 50 * consts.px }} 
                 onPress={() => handleRegister(objValidations)}
                 />
               
@@ -438,11 +436,12 @@ const Register = ({ data }) => {
                   borderColor: theme[mode].noColor,
                 },
                 hidden: isHiddenMssg,
-                theme: theme,
-                consts: consts,
-                mode: mode,
+                theme,
+                consts,
+                mode,
                 text: textMssg,
                 bgcolor: colorMssg,
+                styles,
               }}
             />
           </View>
@@ -461,7 +460,6 @@ const Register = ({ data }) => {
         <Text
           style={{
             color: theme[mode].color,
-            
             ...compStyles.footText,
           }}>
           Already have an account? </Text>
