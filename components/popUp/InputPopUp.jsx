@@ -79,6 +79,7 @@ const InputPopUp = ({ data, style }) => {
             textprops: {
               maxLength: maxLengthType[typeSelected],
               ...styles.popUp.placeholderInput,
+              fontFamily: styles.fonts.mali.medium,
               autoFocus: true,
               onChangeText: (text)=>{
                 setValue(text);

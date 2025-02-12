@@ -41,6 +41,7 @@ const ForgotPassword = ({ data }) => {
     input: {
       fontFamily: styles.fonts.mali.regular,
       marginBottom: 50 * consts.px,
+      fontFamily: styles.fonts.mali.medium,
     },
   }
 

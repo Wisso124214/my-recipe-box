@@ -23,15 +23,15 @@ Backend:
 
 Front:
   - Mockups:
-    . ListRecipies scroll (missing categories and bottomMenu)
     . ListCategories scroll
     . ElementCategory
     . Plus
     . EditCategories
     . EditCategory
+    ✔ ListRecipies scroll (missing categories)
     ✔ InputPopUp (missing validation after)
     ✔ DetailsRecipy
-    ✔ DeviceAccounts (missing add functions to exit and delete the main account)
+    ✔ DeviceAccounts (missing backend: add functions to exit and delete the main account)
   ✔✔ ElementRecipy (time, difficulty, ingredients)
   ✔✔ UserAccounts
   ✔✔ Logo
@@ -46,17 +46,17 @@ Front:
   ✔✔ ForgotPassword
 
   - Components:
-   . PopUp Delete Username
+   ✔✔ PopUp Delete Username (confirm delete)
  
   - Functions:
-    . Add function to the Forgot Usernames button on Forgot Password mockup (it must send to the 
+    . (Send email) Add function to the Forgot Usernames button on Forgot Password mockup (it must send to the 
       email the usernames associated and with a toast sending the user to check the email)
   
   - Others: 
     . Add an animation or something to do the iconQuestion more visible and clickeable
-    . Change the input placeholder font to mali
-    . Fix the redirection when log in
-    . Fix the setIdMainSession on login
+    . Fix the redirection when log in (to listRecipies)
+  ✔✔ Fix the setIdMainSession on login
+  ✔✔ Change the input placeholder font to mali
   ✔✔ Fix the iconQuestion position and become it with a contrasting color
   ✔✔ Fix the text components 'cause i changed the family font
   ✔✔ Change the «Sign in» for «Log in» on buttons

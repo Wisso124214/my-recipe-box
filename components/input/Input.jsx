@@ -6,7 +6,7 @@ import Message from '../message/Message.jsx';
 const Input = (props) => {
   const textInputRef = useRef(null);
   
-  const { styles, theme, mode, onChangeText, consts, isInputFocus, setIsInputFocus, styleinput, 
+  const { styles, theme, mode, consts, isInputFocus, setIsInputFocus, styleinput, 
           viewprops, textprops, pinSelected, index, isKeyboardVisible, isPinInput, isRegisterInput, 
           nInputSelected, isLoginInput, dataMessage, defaultValue
         } = props.dataInput;
@@ -24,12 +24,14 @@ const Input = (props) => {
     input: {
       color: theme[mode].color,
       borderColor: theme[mode].icons,
-      fontSize: 32 * consts.px,
+      fontSize: 28 * consts.px,
       borderWidth: 5 * consts.px,
       borderRadius: 50 * consts.px,
       paddingHorizontal: 50 * consts.px,
       width: 415 * consts.px,
       height: 80 * consts.px,
+      fontFamily: styles.fonts.mali.medium,
+      
       ...styleinput,
     },
     icons: {

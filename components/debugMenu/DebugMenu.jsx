@@ -126,6 +126,7 @@ const DebugMenu = ({ data }) => {
         onPress={() => {}}
         style={{ 
           ...styles.simpleButtons, 
+          fontFamily: styles.fonts.mali.medium,
           justifyContent: 'center', 
           alignItems: 'center', 
           height: 23, 
@@ -149,7 +150,16 @@ const DebugMenu = ({ data }) => {
       <TouchableOpacity 
         onPress={() => { setPage(page > 0 ? page-1 : arrdebug.length-1); }}
         //onPress={() => setPage(page > 0 ? page-1 : debug.length-1)}
-        style={{ ...styles.simpleButtons, justifyContent: 'center', alignItems: 'center', height: 30, paddingVertical: 2, paddingHorizontal: 6, top: 10 }}
+        style={{ 
+          ...styles.simpleButtons, 
+          fontFamily: styles.fonts.mali.medium,
+          justifyContent: 'center', 
+          alignItems: 'center', 
+          height: 30, 
+          paddingVertical: 2, 
+          paddingHorizontal: 6, 
+          top: 10, 
+        }}
       >
         <Text
           style={{
@@ -165,7 +175,16 @@ const DebugMenu = ({ data }) => {
       <TouchableOpacity
         onPress={() => { setPage(page < arrdebug.length-1 ? page+1 : 0); }}
         //onPress={() => setPage(page < debug.length-1 ? page+1 : 0)}
-        style={{ ...styles.simpleButtons, justifyContent: 'center', alignItems: 'center', height: 30, paddingVertical: 2, paddingHorizontal: 6, top: 10 }}
+        style={{ 
+          ...styles.simpleButtons, 
+          fontFamily: styles.fonts.mali.medium,
+          justifyContent: 'center', 
+          alignItems: 'center', 
+          height: 30, 
+          paddingVertical: 2, 
+          paddingHorizontal: 6, 
+          top: 10,
+        }}
       >
         <Text
           style={{
@@ -179,6 +198,7 @@ const DebugMenu = ({ data }) => {
         onPress={() => {}}
         style={{ 
           ...styles.simpleButtons, 
+          fontFamily: styles.fonts.mali.medium,
           justifyContent: 'center', 
           alignItems: 'center', 
           height: 23, 

@@ -63,7 +63,10 @@ const ForgotPass1 = ({ dataForgotPassword }) => {
         />
       </Svg>
 
-      <Text style={ compStyles.title } >Enter username</Text>
+      <Text style={{
+        ...compStyles.title,
+        fontFamily: styles.fonts.mali.bold,
+      }} >Enter username</Text>
       <Text style={ compStyles.text } >We will send a code to the associated email.</Text>
       <Input 
         centered

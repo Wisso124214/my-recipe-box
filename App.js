@@ -27,8 +27,8 @@ export default function App() {
       timeLoading: 0,
       screenLoading: false,
       debugMenuEnabled: true,
-      showDebugMenu: true,
-      strpage: 'login',
+      showDebugMenu: false,
+      strpage: 'listRecipies',
       page: 0,
       pagefp: 0,
       varpage: 'strpage',
@@ -138,7 +138,6 @@ export default function App() {
       backgroundColor: '#ddd',
       width: 'min-content',
       marginHorizontal: 5,
-      fontFamily: 'mali',
     },
     icons: {
       small: {
@@ -172,35 +171,17 @@ export default function App() {
         textAlign: 'center',
         marginTop: 30*consts.px,
         marginBottom: 20*consts.px,
-        fontFamily: 'mali-bold',
       },
       input: {
         borderColor: theme[mode].noColor,
         width: 350*consts.px,
         color: theme[mode].noColor,
-        fontFamily: 'mali',
       },
       placeholderInput: {
         cursorColor: theme[mode].noColor,
         selectionColor: mode,
         placeholderTextColor: theme[mode].noIcons+'cc',
-        fontFamily: 'mali',
       },
-      button: {
-        borderRadius: 30*consts.px,
-        padding: 20*consts.px,
-        width: 180*consts.px,
-        height: 70*consts.px,
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontFamily: 'mali',
-      },
-      textButton: {
-        fontSize: 28*consts.px,
-        textAlign: 'center',
-        color: theme[mode].noIcons,
-        fontFamily: 'mali-bold',
-      }
     }
   };
   
@@ -311,10 +292,6 @@ export default function App() {
       duration: 100,
       useNativeDriver: true,
     }).start();
-
-    (async () => {
-      console.log('asd', await getItem('asd'));
-    })()
   }, []);
   
   useEffect(() => {

@@ -165,7 +165,7 @@ const Login = ({ data }) => {
       marginTop: -15 * consts.px,
     },
     input: {
-      fontFamily: styles.fonts.mali.regular,
+      fontFamily: styles.fonts.mali.medium,
       marginBottom: 50 * consts.px,
     },
     footText: {

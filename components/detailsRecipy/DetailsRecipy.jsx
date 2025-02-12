@@ -54,7 +54,7 @@ const DetailsRecipy = ({ data }) => {
         justifyContent: 'center',
       }}
     >
-      <Text style={{color: theme[mode].color, fontFamily: styles.fonts.mali.regular,}} >You have already logged in</Text>
+      <Text style={{color: theme[mode].color, fontFamily: styles.fonts.mali.medium }} >You have already logged in</Text>
       
       <ContrastingButton
         text="Log out"

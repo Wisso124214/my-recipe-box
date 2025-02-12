@@ -56,7 +56,10 @@ const ForgotUsernames = ({ dataForgotPassword }) => {
           />
       </Svg>
 
-      <Text style={ compStyles.title } >Enter email address</Text>
+      <Text style={{
+        ...compStyles.title,
+        fontFamily: styles.fonts.mali.bold,
+      }} >Enter email address</Text>
       <Text style={{
         ...compStyles.text,
         width: 560*consts.px,

@@ -121,7 +121,11 @@ const ForgotPass3 = ({ dataForgotPassword }) => {
         </Svg>
       </View>
 
-      <Text style={{ ...compStyles.title, marginBottom: 80*consts.px }} >Enter new password</Text>
+      <Text style={{ 
+        ...compStyles.title, 
+        marginBottom: 80*consts.px,
+        fontFamily: styles.fonts.mali.bold,
+      }} >Enter new password</Text>
       
       <CreatePassword
         data={{

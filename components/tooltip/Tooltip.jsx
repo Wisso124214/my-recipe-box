@@ -32,7 +32,7 @@ const Tooltip = ({ data, text, showingTime, styleview, styletext }) => {
     >
       <Text
         style={{
-          fontFamily: styles.fonts.mali.regular,
+          fontFamily: styles.fonts.mali.medium,
           color: theme[mode].noColor,
           fontSize: 24*consts.px,
           textAlign: 'center',

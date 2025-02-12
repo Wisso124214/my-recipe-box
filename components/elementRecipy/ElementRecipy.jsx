@@ -96,7 +96,7 @@ const ElementRecipy = ({ data, index, recipy }) => {
                       <Text
                         key={'ingredient-text-'+index+'-'+i+'-'+j}
                         style={{
-                          fontFamily: styles.fonts.mali.regular,
+                          fontFamily: styles.fonts.mali.medium,
                           color: theme[mode].color,
                           paddingLeft: 30*consts.px,
                           fontSize: 14*consts.px,

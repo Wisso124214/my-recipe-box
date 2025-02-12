@@ -1,4 +1,4 @@
-import { TouchableHighlight } from "react-native";
+import { TouchableHighlight, TouchableOpacity } from "react-native";
 import SvgIconProvider from "../svg/svgIconProvider";
 import { size } from "lodash";
 
@@ -13,17 +13,16 @@ const IconButton = ({ dataIconButton, onPress, dCodeIcon, src, strprops, styles,
   sizeButton = sizeButton === undefined ? 50 : sizeButton;
 
   return(
-    <TouchableHighlight
+    <TouchableOpacity
       onPress={onPress}
       style={{ marginHorizontal: 10, width: sizeButton, height: sizeButton, backgroundColor: theme[mode].backgroundColor, borderRadius: 100, ...styleButton }}
-      underlayColor={theme[mode].color+'50'}
     >
       <SvgIconProvider 
           styles={styles}
           src={src}
           strprops={strprops}
           d={dCodeIcon} />
-    </TouchableHighlight>
+    </TouchableOpacity>
   )
 }
 

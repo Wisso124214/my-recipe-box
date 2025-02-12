@@ -40,7 +40,7 @@ const Register = ({ data }) => {
       marginTop: -30 * consts.px,
     },
     input: {
-      fontFamily: styles.fonts.mali.regular,
+      fontFamily: styles.fonts.mali.medium,
       marginBottom: 40 * consts.px,
     },
     footText: {
