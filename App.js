@@ -336,16 +336,9 @@ export default function App() {
       useNativeDriver: true,
     }).start();
 
-    axios.post(`${SERVER_URL}/session`,
-      {
-        date: new Date(),
-      }
-    )
-    .then((res) => {
-      console.log('posted', res.data);
-    })
+    axios.get(`${SERVER_URL}/test-db`)
     .catch((err) => {
-      console.log('error posting', JSON.stringify(err, null, 2));
+      ToastAndroid.showWithGravityAndOffset('Error DB access', ToastAndroid.LONG, ToastAndroid.BOTTOM, 25, 50, );
     })
   }, []);
 

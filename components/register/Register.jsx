@@ -142,7 +142,7 @@ const Register = ({ data }) => {
       objValidations.username.stateValue[0] !== '' &&
       objValidations.email.stateValue[0] !== '' &&
       objValidations.password.stateValue[0] !== '' &&
-      objValidations.confirmPassword.stateValue[0] !== '' 
+      objValidations.confirmPassword.stateValue[0] !== '';
 
     if (!allFilled) {
       setTestMssg('Please fill in all fields');
