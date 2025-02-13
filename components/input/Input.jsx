@@ -8,7 +8,7 @@ const Input = (props) => {
   
   const { styles, theme, mode, consts, isInputFocus, setIsInputFocus, styleinput, 
           viewprops, textprops, pinSelected, index, isKeyboardVisible, isPinInput, isRegisterInput, 
-          nInputSelected, isLoginInput, dataMessage, defaultValue
+          nInputSelected, isLoginInput, dataMessage, defaultValue, setBreadCrumb, breadCrumb,
         } = props.dataInput;
 
   const [value, setValue] = props.dataInput.stateValue || React.useState(defaultValue)
@@ -31,7 +31,7 @@ const Input = (props) => {
       width: 415 * consts.px,
       height: 80 * consts.px,
       fontFamily: styles.fonts.mali.medium,
-      
+
       ...styleinput,
     },
     icons: {
@@ -59,6 +59,12 @@ const Input = (props) => {
       left: 165 * consts.px,
     }
   };
+
+  useEffect(() => {
+    if (isKeyboardVisible && breadCrumb[breadCrumb.length - 1] !== 'keyboard') {
+      setBreadCrumb([...breadCrumb, 'keyboard']);
+    }
+  }, [isKeyboardVisible])
 
   useEffect(() => {
     if (seePassword) {

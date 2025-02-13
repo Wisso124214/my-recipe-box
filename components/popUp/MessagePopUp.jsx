@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
+import { configFront } from '../../config/config';
 
 const MessagePopUp = ({ data, text, style, isVisible, content, stylesViewContent }) => {
 
@@ -30,6 +31,7 @@ const MessagePopUp = ({ data, text, style, isVisible, content, stylesViewContent
             >{ text }</Text>
 
             <TouchableOpacity 
+              activeOpacity={configFront.activeOpacity}
               style={{
                 ...styles.popUp.button,
                 marginTop: 20*consts.px,

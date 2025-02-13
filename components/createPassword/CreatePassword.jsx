@@ -6,10 +6,16 @@ const CreatePassword = ({ data, style }) => {
 
   const { theme, mode, consts, objValidations, dataInput, newDataMessage, isInputFocus,
     setIsInputFocus, isKeyboardVisible, setIsKeyboardVisible, nInputSelected, styles,
-    setnInputSelected, compStyles, showPassword } = data;
+    setnInputSelected, compStyles, showPassword, setBreadCrumb, breadCrumb } = data;
   
   const isSecretWriting = (showPassword === undefined || showPassword === false) ? true : showPassword;
   const [passwordState, setPasswordState] = useState('high');
+
+  useEffect(() => {
+    if (isKeyboardVisible && breadCrumb[breadCrumb.length - 1] !== 'keyboard') {
+      setBreadCrumb([...breadCrumb, 'keyboard']);
+    }
+  }, [isKeyboardVisible])
 
   useEffect(() => {
     if (objValidations.confirmPassword.stateValue[0] && objValidations.password.stateValue[0]) {

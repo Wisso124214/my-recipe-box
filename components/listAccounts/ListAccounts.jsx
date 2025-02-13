@@ -1,11 +1,10 @@
 import { FlatList, Text, Touchable, TouchableOpacity, View } from "react-native";
 import Svg, { Path } from "react-native-svg";
-import SvgIcon from "../svg/SvgIcon";
 import SvgIconProvider from "../svg/svgIconProvider";
 import { useEffect, useState } from "react";
 import ContrastingSmallButton from "../contrastingSmallButton/ContrastingSmallButton";
-import InputPopUp from "../popUp/InputPopUp";
 import MessagePopUp from "../popUp/MessagePopUp";
+import { configFront } from "../../config/config";
 
 const ListAccounts = ({ data, nameParent, style, styleAddButton, onlyUsernames }) => {
   
@@ -276,6 +275,7 @@ const ListAccounts = ({ data, nameParent, style, styleAddButton, onlyUsernames }
             }}
           >
             <TouchableOpacity
+              activeOpacity={configFront.activeOpacity}
               style={{
                 ...styles.popUp.button,
                 marginRight: 10*consts.px,
@@ -293,6 +293,7 @@ const ListAccounts = ({ data, nameParent, style, styleAddButton, onlyUsernames }
                 }} >Cancel</Text>
             </TouchableOpacity>
             <TouchableOpacity
+              activeOpacity={configFront.activeOpacity}
               style={{
                 ...styles.popUp.button,
                 marginLeft: 10*consts.px,
@@ -396,6 +397,7 @@ const ListAccounts = ({ data, nameParent, style, styleAddButton, onlyUsernames }
                 >
                   <View>
                     <TouchableOpacity
+                      activeOpacity={configFront.activeOpacity}
                       onPress={()=>editUsername(account)}
                     >
                       <SvgIconProvider
@@ -415,6 +417,7 @@ const ListAccounts = ({ data, nameParent, style, styleAddButton, onlyUsernames }
                     {
                     account.item.isLocked ?
                       <TouchableOpacity
+                        activeOpacity={configFront.activeOpacity}
                         onPress={()=>{
                           setStrPage('login');
                           setDefaultValueUsernameLogin(account.item.username);
@@ -426,6 +429,7 @@ const ListAccounts = ({ data, nameParent, style, styleAddButton, onlyUsernames }
                         />
                       </TouchableOpacity> : 
                       <TouchableOpacity
+                        activeOpacity={configFront.activeOpacity}
                         onPress={()=>{
                           accounts[account.index].isLocked = true;
                           setRender(!render);
@@ -450,6 +454,7 @@ const ListAccounts = ({ data, nameParent, style, styleAddButton, onlyUsernames }
                 }}
               >
                 <TouchableOpacity
+                  activeOpacity={configFront.activeOpacity}
                   onPress={()=>{
                     //confirm delete
                     setIsMessagePopUpVisible(true);

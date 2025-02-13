@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
 import Svg, { Path } from "react-native-svg"
-import Input from '../input/Input';
 import ContrastingButton from '../contrastingButton/ContrastingButton';
 import ButtonBack from '../buttonBack/ButtonBack';
 import CreatePassword from '../createPassword/CreatePassword';
@@ -9,8 +8,9 @@ import CreatePassword from '../createPassword/CreatePassword';
 
 const ForgotPass3 = ({ dataForgotPassword }) => {
   const { dataPages, compStyles, setPagefp, pagefp } = dataForgotPassword;
-  const { styles, mode, theme, consts, dataInput, showDebugMenu, setShowDebugMenu, dataButtonBack, isInputFocus, setIsInputFocus, setStrPage } = dataPages;
-  const { devMode, dataMssg, dataMessage } = dataPages;
+  const { styles, mode, theme, consts, dataInput, showDebugMenu, setShowDebugMenu, dataButtonBack, 
+    isInputFocus, setIsInputFocus, setStrPage, devMode, dataMssg, dataMessage, setBreadCrumb, breadCrumb,
+  } = dataPages;
 
   const newDataMessage = {
     ...dataMessage,
@@ -48,6 +48,12 @@ const ForgotPass3 = ({ dataForgotPassword }) => {
     },
   };
 
+  useEffect(() => {
+      if (isKeyboardVisible && breadCrumb[breadCrumb.length - 1] !== 'keyboard') {
+        setBreadCrumb([...breadCrumb, 'keyboard']);
+      }
+    }, [isKeyboardVisible])
+
   return(
     <View style={ compStyles.container } >
       <Text style={ compStyles.header } >Forgot Password</Text>
@@ -56,14 +62,18 @@ const ForgotPass3 = ({ dataForgotPassword }) => {
         dataButtonBack={{ 
           ...dataButtonBack, 
           isInputFocus: true,
-          onPress: ()=>{
+          setStrPage,
+          onPress: () => {
             if(isInputFocus && isKeyboardVisible){
               setIsInputFocus(false)
               setIsKeyboardVisible(false)
-            }else{
+            }
+          },
+          ifBreadCrumbEmpty: () => {
+            if(!(isInputFocus && isKeyboardVisible)){
               setPagefp(pagefp-1)
             }
-          }
+          },
         }} 
         styleview={{
           position: 'absolute',

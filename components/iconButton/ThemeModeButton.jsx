@@ -1,5 +1,6 @@
-import { TouchableHighlight, TouchableOpacity } from "react-native";
+import { TouchableOpacity } from "react-native";
 import SvgIconProvider from "../svg/svgIconProvider";
+import { configFront } from "../../config/config";
 
 
 const ThemeModeButton = ({ dataIconButton, scale, styleButton }) => {
@@ -17,9 +18,9 @@ const ThemeModeButton = ({ dataIconButton, scale, styleButton }) => {
 
   return(
     <TouchableOpacity
+      activeOpacity={configFront.activeOpacity}
       onPress={()=>setMode(mode === 'dark' ? 'light' : 'dark' )}
-      style={{ marginHorizontal: 10, width: 50*scale, backgroundColor: theme[mode].backgroundColor, borderRadius: 100, height: 50*scale, ...styleButton }}
-      underlayColor={theme[mode].color+'50'}
+      style={{ marginHorizontal: 10, width: 50*scale, backgroundColor: 'transparent', borderRadius: 100, height: 50*scale, ...styleButton }}
     > 
       {mode === 'dark' ? 
         /**Sun */

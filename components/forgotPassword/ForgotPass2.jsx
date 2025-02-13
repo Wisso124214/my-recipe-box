@@ -7,8 +7,8 @@ import PinInput from '../pinInput/PinInput';
 
 
 const ForgotPass2 = ({ dataForgotPassword }) => {
-  const { dataPages, compStyles, setPagefp, pagefp, devMode } = dataForgotPassword;
-  const { styles, mode, theme, consts, showDebugMenu, setShowDebugMenu, dataButtonBack, isInputFocus, setIsInputFocus, dataPinInput } = dataPages;
+  const { dataPages, compStyles, setPagefp, pagefp, devMode, setBreadCrumb, breadCrumb } = dataForgotPassword;
+  const { styles, mode, theme, consts, showDebugMenu, setShowDebugMenu, dataButtonBack, isInputFocus, setIsInputFocus, dataPinInput, setStrPage } = dataPages;
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
   const [pinSelected, setPinSelected] = React.useState(0);
   const ncomponents = 5;
@@ -19,6 +19,10 @@ const ForgotPass2 = ({ dataForgotPassword }) => {
 
   useEffect(()=>{
     !isKeyboardVisible ? setIsInputFocus(false) : null
+
+    if (isKeyboardVisible && breadCrumb[breadCrumb.length - 1] !== 'keyboard') {
+      setBreadCrumb([...breadCrumb, 'keyboard']);
+    }
   }, [isKeyboardVisible])
 
   return(
@@ -28,14 +32,18 @@ const ForgotPass2 = ({ dataForgotPassword }) => {
         dataButtonBack={{ 
           ...dataButtonBack, 
           isInputFocus: true,
-          onPress: ()=>{
+          setStrPage,
+          onPress: () => {
             if(isInputFocus){
               setIsInputFocus(false)
               setIsKeyboardVisible(false)
-            }else{
+            }
+          },
+          ifBreadCrumbEmpty: () => {
+            if(!isInputFocus){
               setPagefp(pagefp-1)
             }
-          }
+          },
         }} 
         styleview={{
           position: 'absolute',

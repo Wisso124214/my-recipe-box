@@ -4,6 +4,7 @@ import Svg, { Path } from "react-native-svg"
 import Input from '../input/Input';
 import ContrastingButton from '../contrastingButton/ContrastingButton';
 import ButtonBack from '../buttonBack/ButtonBack';
+import { configFront } from '../../config/config';
 
 
 const ForgotPass1 = ({ dataForgotPassword }) => {
@@ -30,13 +31,18 @@ const ForgotPass1 = ({ dataForgotPassword }) => {
         dataButtonBack={{ 
           ...dataButtonBack, 
           isInputFocus: true,
-          onPress: ()=>{
+          setStrPage,
+          onPress: () => {
             if(isInputFocus){
               setIsInputFocus(false);
-            }else{
-              setStrPage('login')
             }
-          }
+          },
+          ifBreadCrumbEmpty: () => {
+            if(!isInputFocus){
+              setStrPage('login')
+              setIsInputFocus(false);
+            }
+          },
         }} 
         styleview={{
           position: 'absolute',
@@ -98,6 +104,7 @@ const ForgotPass1 = ({ dataForgotPassword }) => {
             bottom: 50 * consts.px,
           }} >
           <TouchableOpacity
+            activeOpacity={configFront.activeOpacity}
             onPress={() => { setStrPage('login'); }}
           >
             <Text

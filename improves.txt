@@ -7,7 +7,6 @@ DB:
       . group
       . recipe_group
       . difficulty
-    ✔✔ user_session
   ✔✔ Save the last mode used on DB user's table
  
 
@@ -23,15 +22,15 @@ Backend:
 
 Front:
   - Mockups:
-    . ListCategories scroll
     . ElementCategory
     . Plus
     . EditCategories
     . EditCategory
-    ✔ ListRecipies scroll (missing categories)
     ✔ InputPopUp (missing validation after)
     ✔ DetailsRecipy
     ✔ DeviceAccounts (missing backend: add functions to exit and delete the main account)
+    ✔ ListRecipies scroll (missing plus and select)
+  ✔✔ ListCategories scroll (missing change strPage to editCategory when the categoryButton are pressed)
   ✔✔ ElementRecipy (time, difficulty, ingredients)
   ✔✔ UserAccounts
   ✔✔ Logo
@@ -51,10 +50,13 @@ Front:
   - Functions:
     . (Send email) Add function to the Forgot Usernames button on Forgot Password mockup (it must send to the 
       email the usernames associated and with a toast sending the user to check the email)
+    . (FooterMenu ListRecipies) Add functions to the icons: search, menu and settings
+  ✔✔ (ButtonBack) Add an array with the screens are visited, so the button goes to back to the last screen and not an unique screen
   
   - Others: 
+    . Add retries when the listRecipies does not load
     . Add an animation or something to do the iconQuestion more visible and clickeable
-    . Fix the redirection when log in (to listRecipies)
+  ✔✔ Fix the redirection when log in (to listRecipies)
   ✔✔ Fix the setIdMainSession on login
   ✔✔ Change the input placeholder font to mali
   ✔✔ Fix the iconQuestion position and become it with a contrasting color

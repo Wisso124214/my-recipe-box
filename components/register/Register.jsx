@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Button, View, Text, TouchableOpacity, KeyboardAvoidingView, ScrollView, TouchableWithoutFeedback, Keyboard, Platform, TouchableHighlight, FlatList } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import Logo from "../logo/Logo";
 import Input from "../input/Input";
 import ButtonBack from "../buttonBack/ButtonBack";
@@ -14,6 +14,7 @@ const Register = ({ data }) => {
   const { 
     theme, mode, consts, dataInput, showDebugMenu, setShowDebugMenu, setStrPage, styles,
     devMode, dataMssg, dataButtonBack, setIsInputFocus, dataMessage, isInputFocus, setLoading,
+    breadCrumb, setBreadCrumb, 
   } = data;
   
   const { isHiddenMssg, setIsHiddenMssg, textMssg, setTestMssg, colorMssg, setColorMssg } = dataMssg;
@@ -102,7 +103,11 @@ const Register = ({ data }) => {
     },
   };
 
-
+  useEffect(() => {
+    if (isKeyboardVisible && breadCrumb[breadCrumb.length - 1] !== 'keyboard') {
+      setBreadCrumb([...breadCrumb, 'keyboard']);
+    }
+  }, [isKeyboardVisible])
 
   useEffect(() => {
     SettingListUsernames(setListUsernames, objValidations.username.stateValue[0])
@@ -237,6 +242,7 @@ const Register = ({ data }) => {
         dataButtonBack={{ 
           ...dataButtonBack, 
           showBack: isKeyboardVisible,
+          setStrPage,
           onPress: ()=>{
             setIsInputFocus(false)
             setIsKeyboardVisible(false)
@@ -269,12 +275,12 @@ const Register = ({ data }) => {
               top: 140 * consts.px,
           }} >
             
-            <TouchableHighlight
-                underlayColor={theme[mode].backgroundColor}
-                onPress={() => devMode[devMode.power].debugMenuEnabled ? setShowDebugMenu(!showDebugMenu) : null}
-              >
-                <Logo logoSize={configFront.logoSize * consts.px} />
-            </TouchableHighlight>
+            <TouchableOpacity
+              activeOpacity={configFront.activeOpacity}
+              onPress={() => devMode[devMode.power].debugMenuEnabled ? setShowDebugMenu(!showDebugMenu) : null}
+            >
+              <Logo logoSize={configFront.logoSize * consts.px} />
+            </TouchableOpacity>
             <Text style={compStyles.header} >Welcome!</Text>
             <Text style={compStyles.text} >Create your account</Text>
             
@@ -464,6 +470,7 @@ const Register = ({ data }) => {
           }}>
           Already have an account? </Text>
         <TouchableOpacity
+          activeOpacity={configFront.activeOpacity}
           onPress={() => {
             setStrPage('login');
             setIsHiddenMssg(true);

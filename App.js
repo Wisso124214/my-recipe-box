@@ -7,6 +7,7 @@ import {
   Animated,
   Appearance,
   ActivityIndicator,
+  Image,
 } from 'react-native';
 
 import LoadingScreen from './components/loadingScreen/LoadingScreen';
@@ -93,6 +94,11 @@ export default function App() {
   const [isHiddenMssg, setIsHiddenMssg] = useState(true);
   const [textMssg, setTestMssg] = useState('Login successful');
   const [colorMssg, setColorMssg] = useState(theme[mode].successColor);
+  const [breadCrumb, setBreadCrumb] = useState([]);
+
+  const lightBackgroundImage = require(`./assets/images-bg/cookery-light.png`);
+  const darkBackgroundImage = require(`./assets/images-bg/cookery-dark.png`);
+  const blurRadius = 1;
 
   const consts = {
     px: 392.7/709,
@@ -118,17 +124,26 @@ export default function App() {
         semiBoldItalic: 'mali-semi-bold-italic',
       }
     },
+    transparentContainer: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: '100%',
+      height: '100%',
+    },
     container:
     {
       flex: 1,
-      backgroundColor: theme[mode].backgroundColor,      //backgroundColor: theme[mode].backgroundColor, backgroundColorInterpolation
       alignItems: 'center',
       justifyContent: 'center',
+      width: '100%',
+      height: '100%',
+      backgroundColor: theme[mode].backgroundColor,
     },
     opacity:
     {
       flex: 1,
-      backgroundColor: theme[mode].backgroundColor,
+      backgroundColor: theme[mode].backgroundColor,     //backgroundColor: theme[mode].backgroundColor, backgroundColorInterpolation
       alignItems: 'center',
       justifyContent: 'center',
       opacity: opacityref,
@@ -192,6 +207,8 @@ export default function App() {
     consts,
     isInputFocus,
     setIsInputFocus,
+    setBreadCrumb,
+    breadCrumb,
   }
   
   const dataMssg = {
@@ -201,6 +218,8 @@ export default function App() {
     setTestMssg,
     colorMssg,
     setColorMssg,
+    setBreadCrumb,
+    breadCrumb,
   }
 
   const dataButtonBack = {
@@ -212,6 +231,8 @@ export default function App() {
     onPress: () => {
       setIsInputFocus(false)
     },
+    setBreadCrumb,
+    breadCrumb,
   }
 
   const dataPinInput = {
@@ -221,6 +242,8 @@ export default function App() {
     styles,
     dataInput,
     isPinInput: false,
+    setBreadCrumb,
+    breadCrumb,
   }
 
   const dataIconButton = {
@@ -229,12 +252,16 @@ export default function App() {
     setMode,
     consts,
     styles,
+    setBreadCrumb,
+    breadCrumb,
   }
 
   const dataMessage = {
     theme,
     mode,
     consts,
+    setBreadCrumb,
+    breadCrumb,
   }
 
   const dataPages = {
@@ -258,6 +285,8 @@ export default function App() {
     setTextLoading,
     idMainSession,
     setIdMainSession,
+    setBreadCrumb,
+    breadCrumb,
 
     dataInput,
     dataMssg,
@@ -293,6 +322,17 @@ export default function App() {
       useNativeDriver: true,
     }).start();
   }, []);
+
+  useEffect(() => {
+    let add = '';
+
+    if (isInputFocus)
+      add = 'keyboard';
+    else
+      add = strpage;
+    
+    setBreadCrumb([...breadCrumb, add]);
+  }, [strpage, isInputFocus])
   
   useEffect(() => {
     async () => {
@@ -382,14 +422,44 @@ export default function App() {
 
   //loading font...
   if (!fontLoaded && !fontLoadedError) {
-    return <LoadingScreen data={dataPages} />;
+    return (
+      <View style={ styles.container }>
+
+        <Image
+          resizeMode="cover"
+          source={mode === 'light' ? lightBackgroundImage : darkBackgroundImage }
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+          }}
+          blurRadius={blurRadius}
+        />
+        <LoadingScreen data={dataPages} />
+      </View>
+    )
   }
 
   return (
-      <Animated.View 
-        key={'uniqueKey'}
-        style={ styles.opacity } 
+      <View 
+        key={'backgroundApp'}
+        style={ styles.container } 
       >
+        <Image
+          resizeMode="cover"
+          source={mode === 'light' ? lightBackgroundImage : darkBackgroundImage }
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+          }}
+          blurRadius={blurRadius}
+        />
+        
         { objdebug[strpage] }
         
         {
@@ -425,7 +495,7 @@ export default function App() {
           }}
         />
         
-      </Animated.View>
+      </View>
   );
 }
 

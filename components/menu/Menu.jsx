@@ -1,5 +1,6 @@
 import { Text, Touchable, TouchableOpacity, View } from "react-native";
 import SvgIconProvider from "../svg/svgIconProvider";
+import { configFront } from "../../config/config";
 
 const Menu = ({ items, data }) => {
   
@@ -49,7 +50,7 @@ const Menu = ({ items, data }) => {
           Array.from(arr).map((item, index) => (
             <TouchableOpacity
               key={index}
-              activeOpacity={0.5}
+              activeOpacity={configFront.activeOpacity}
               zIndex={10}
               onPress={()=>arr[index].onPress ? arr[index].onPress() : console.log(arr[index].title)}
               style={{

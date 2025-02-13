@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, TouchableHighlight } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import ButtonBack from "../buttonBack/ButtonBack";
 import IconButton from "../iconButton/IconButton";
 import Svg, { Path } from "react-native-svg";
@@ -80,9 +80,10 @@ const DeviceAccounts = ({ data }) => {
           dataButtonBack={{ 
             ...dataButtonBack,
             isInputFocus: true,
-            onPress: ()=>{
+            setStrPage,
+            ifBreadCrumbEmpty: () => {
               setStrPage('login')
-            }
+            },
           }} 
           styleview={{
             position: 'absolute',
@@ -156,12 +157,12 @@ const DeviceAccounts = ({ data }) => {
         }}
       >
         <TouchableOpacity
+          activeOpacity={1}
           onPress={() => devMode[devMode.power].debugMenuEnabled ? setShowDebugMenu(!showDebugMenu) : null}
           style={{
             position: 'absolute',
             top: 40*consts.px,
           }}
-          activeOpacity={1}
         >
           <Svg
             xmlns="http://www.w3.org/2000/svg"

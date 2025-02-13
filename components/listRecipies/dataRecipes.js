@@ -53,6 +53,7 @@ export const fetchNRecipies = async (quant) => {
         value: Math.floor(Math.random() * 3) + 1,
       };
       editedRecipy.isFavorite = Math.random() >= 0.5;
+      editedRecipy.category = 'category ' + (Math.floor(Math.random() * 10) + 1);
 
       recipies.push(editedRecipy);
     }

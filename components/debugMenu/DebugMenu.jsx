@@ -3,7 +3,8 @@ import { View, Text, TouchableOpacity, Alert, ToastAndroid } from 'react-native'
 import ThemeModeButton from '../iconButton/ThemeModeButton';
 import useSendEmail from '../../hooks/useSendEmail';
 import axios from 'axios'
-import { SERVER_URL } from '../../config/config'
+import { SERVER_URL, configFront } from '../../config/config'
+
 
 const DebugMenu = ({ data }) => {
 
@@ -96,6 +97,7 @@ const DebugMenu = ({ data }) => {
     >
       <TouchableOpacity
         //onPress={handleSendEmail}
+        activeOpacity={configFront.activeOpacity}
         onPress={handleNodeMailer}
         style={{ 
           position: 'absolute',
@@ -123,6 +125,7 @@ const DebugMenu = ({ data }) => {
       </TouchableOpacity>
 
       <TouchableOpacity 
+        activeOpacity={configFront.activeOpacity}
         onPress={() => {}}
         style={{ 
           ...styles.simpleButtons, 
@@ -148,6 +151,7 @@ const DebugMenu = ({ data }) => {
         > {"<"} </Text>
       </TouchableOpacity>
       <TouchableOpacity 
+        activeOpacity={configFront.activeOpacity}
         onPress={() => { setPage(page > 0 ? page-1 : arrdebug.length-1); }}
         //onPress={() => setPage(page > 0 ? page-1 : debug.length-1)}
         style={{ 
@@ -173,6 +177,7 @@ const DebugMenu = ({ data }) => {
       <ThemeModeButton dataIconButton={dataIconButton} />
 
       <TouchableOpacity
+        activeOpacity={configFront.activeOpacity}
         onPress={() => { setPage(page < arrdebug.length-1 ? page+1 : 0); }}
         //onPress={() => setPage(page < debug.length-1 ? page+1 : 0)}
         style={{ 
@@ -195,6 +200,7 @@ const DebugMenu = ({ data }) => {
         > {">"} </Text>
       </TouchableOpacity>
       <TouchableOpacity
+        activeOpacity={configFront.activeOpacity}
         onPress={() => {}}
         style={{ 
           ...styles.simpleButtons, 

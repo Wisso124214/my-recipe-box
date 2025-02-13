@@ -1,7 +1,8 @@
-import { View, StatusBar, Text, Image, TouchableHighlight, TouchableOpacity } from 'react-native';
+import { View, StatusBar, Text, Image, TouchableOpacity } from 'react-native';
 import SvgIconProvider from '../svg/svgIconProvider';
 import Svg, { Circle } from 'react-native-svg';
 import { useState } from 'react';
+import { configFront } from '../../config/config';
 
 const ElementRecipy = ({ data, index, recipy }) => {
 
@@ -24,7 +25,7 @@ const ElementRecipy = ({ data, index, recipy }) => {
   const [isFavorite, setIsFavorite] = useState(recipy.isFavorite);
 
   return (
-    <View style={ styles.container }>
+    <View style={ styles.transparentContainer }>
       <View
         key={'container-'+index}
         style={{
@@ -233,6 +234,7 @@ const ElementRecipy = ({ data, index, recipy }) => {
         </View>
 
         <TouchableOpacity
+          activeOpacity={configFront.activeOpacity}
           key={'fav-icon-'+index}
           onPress={() => {
             setIsFavorite(!isFavorite);

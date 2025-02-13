@@ -1,5 +1,6 @@
-import { View, StatusBar, Text, Image, TouchableHighlight } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import Logo from '../logo/Logo';
+import { configFront } from '../../config/config';
 
 const LoadingScreen = ({ data }) => {
 
@@ -7,14 +8,14 @@ const LoadingScreen = ({ data }) => {
   const logoSize = 300*consts.px;
 
   return (
-    <View style={ styles.container }>
+    <View style={ styles.transparentContainer }>
       
-      <TouchableHighlight
-          underlayColor={theme[mode].backgroundColor}
-          onPress={() => devMode[devMode.power].debugMenuEnabled ? setShowDebugMenu(!showDebugMenu) : null}
-        >
-          <Logo mode={mode} logoSize={logoSize} />
-      </TouchableHighlight>
+      <TouchableOpacity
+        activeOpacity={configFront.activeOpacity}
+        onPress={() => devMode[devMode.power].debugMenuEnabled ? setShowDebugMenu(!showDebugMenu) : null}
+      >
+        <Logo mode={mode} logoSize={logoSize} />
+      </TouchableOpacity>
       
       <Text 
         style={{

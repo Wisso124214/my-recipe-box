@@ -59,7 +59,8 @@ const UserAccounts = ({ data, style }) => {
           dataButtonBack={{ 
             ...dataButtonBack,
             isInputFocus: true,
-            onPress: ()=>{
+            setStrPage,
+            ifBreadCrumbEmpty: ()=>{
               setStrPage('deviceAccounts')
             }
           }}

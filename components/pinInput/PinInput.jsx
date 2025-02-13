@@ -4,8 +4,16 @@ import Input from '../input/Input';
 const PinInput = ({ dataPinInput }) => {
 
   const [value, setValue] = React.useState('');
-  const { mode, theme, consts, styles, dataInput, pinSelected, setPinSelected, index, isKeyboardVisible, setIsKeyboardVisible, ncomponents, isPinInput, devMode } = dataPinInput;
+  const { mode, theme, consts, styles, dataInput, pinSelected, setPinSelected, index, isKeyboardVisible, 
+    setIsKeyboardVisible, ncomponents, isPinInput, devMode, breadCrumb, setBreadCrumb,
+  } = dataPinInput;
   const { setIsInputFocus } = dataInput;
+
+  useEffect(() => {
+    if (isKeyboardVisible && breadCrumb[breadCrumb.length - 1] !== 'keyboard') {
+      setBreadCrumb([...breadCrumb, 'keyboard']);
+    }
+  }, [isKeyboardVisible])
 
   useEffect(()=>{
     setIsInputFocus(true)

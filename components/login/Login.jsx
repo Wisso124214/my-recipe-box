@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Button, View, Text, TouchableOpacity, KeyboardAvoidingView, ScrollView, TouchableWithoutFeedback, Keyboard, Platform, TouchableHighlight } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, TouchableOpacity } from "react-native";
 import Logo from "../logo/Logo";
 import Input from "../input/Input";
 import ButtonBack from "../buttonBack/ButtonBack";
@@ -10,11 +10,13 @@ import bcrypt from 'react-native-bcrypt';
 import axios from 'axios';
 import { SERVER_URL, configFront } from "../../config/config";
 import { redirectPage } from "../../utils/logicSession";
-import Svg, { Circle, err } from "react-native-svg";
 
 const Login = ({ data }) => {
   
-  const { theme, styles, mode, consts, dataInput, showDebugMenu, setShowDebugMenu, setStrPage, devMode, dataMssg, dataButtonBack, setIsInputFocus, isInputFocus, dataMessage, defaultValueUsernameLogin, setLoading } = data;
+  const { theme, styles, mode, consts, dataInput, showDebugMenu, setShowDebugMenu, setStrPage, devMode, 
+    dataMssg, dataButtonBack, setIsInputFocus, isInputFocus, dataMessage, defaultValueUsernameLogin, 
+    setLoading, breadCrumb, setBreadCrumb,
+  } = data;
   const { isHiddenMssg, setIsHiddenMssg, textMssg, setTestMssg, colorMssg, setColorMssg } = dataMssg;
   
   const [isHiddenIconQuestion, setIsHiddenIconQuestion] = useState(true);
@@ -22,6 +24,12 @@ const Login = ({ data }) => {
   const [textInput, setTextInput] = useState([defaultValueUsernameLogin, '']);
   const [lineNumbers, setLineNumbers] = useState(undefined);
   
+  useEffect(() => {
+      if (isKeyboardVisible && breadCrumb[breadCrumb.length - 1] !== 'keyboard') {
+        setBreadCrumb([...breadCrumb, 'keyboard']);
+      }
+    }, [isKeyboardVisible])
+
   const handleLogin = async () => {
     
     if (textInput[0] === '' || textInput[1] === '') {
@@ -83,7 +91,7 @@ const Login = ({ data }) => {
                     console.log('Login successfulllllll');
                     idRes = idRes < 100 ? 100 : idRes;
                     setIdMainSession(id_session);
-                    redirectPage('detailsRecipy', 1000, setStrPage);
+                    redirectPage('listRecipies', 1000, setStrPage);
                   })
                   .catch((error) => {
                     idRes = idRes < 2 ? 2 : idRes;
@@ -191,6 +199,7 @@ const Login = ({ data }) => {
         <ButtonBack 
         dataButtonBack={{ 
           ...dataButtonBack, 
+          setStrPage,
           onPress: ()=>{
             setIsInputFocus(false)
             setIsKeyboardVisible(false)
@@ -216,12 +225,12 @@ const Login = ({ data }) => {
               justifyContent: 'start',
           }} >
             
-            <TouchableHighlight
-                underlayColor={theme[mode].backgroundColor}
-                onPress={() => devMode[devMode.power].debugMenuEnabled ? setShowDebugMenu(!showDebugMenu) : null}
-              >
-                <Logo logoSize={configFront.logoSize * consts.px} />
-            </TouchableHighlight>
+            <TouchableOpacity
+              activeOpacity={configFront.activeOpacity}
+              onPress={() => devMode[devMode.power].debugMenuEnabled ? setShowDebugMenu(!showDebugMenu) : null}
+            >
+              <Logo logoSize={configFront.logoSize * consts.px} />
+            </TouchableOpacity>
             <Text style={compStyles.header} >Welcome back!</Text>
             <Text style={compStyles.text} >Login to your account</Text>
             
@@ -300,7 +309,8 @@ const Login = ({ data }) => {
             {
               isHiddenIconQuestion ? 
               null :
-              <TouchableHighlight
+              <TouchableOpacity
+                activeOpacity={configFront.activeOpacity}
                 style={{
                   position: 'absolute',
                   top: 782* consts.px,
@@ -339,7 +349,7 @@ const Login = ({ data }) => {
                     left: -0.5*consts.px,
                   }}
                 /> 
-              </TouchableHighlight>
+              </TouchableOpacity>
             }
              
             {
@@ -358,6 +368,7 @@ const Login = ({ data }) => {
                   }}>
                   Don't have an account? </Text>
                 <TouchableOpacity
+                  activeOpacity={configFront.activeOpacity}
                   onPress={() => { setStrPage('register'); setIsHiddenMssg(true); }}
                 >
                   <Text

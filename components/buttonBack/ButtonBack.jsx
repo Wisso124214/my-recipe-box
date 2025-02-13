@@ -1,10 +1,11 @@
 import React from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import SvgIconProvider from '../svg/svgIconProvider';
+import { configFront } from "../../config/config";
 
 const ButtonBack = ({ dataButtonBack, styleview }) => {
 
-  const { theme, mode, consts, setIsInputFocus, isInputFocus, onPress } = dataButtonBack;
+  const { theme, mode, consts, setIsInputFocus, isInputFocus, onPress, breadCrumb, setBreadCrumb, setStrPage, ifBreadCrumbEmpty } = dataButtonBack;
   let { showBack } = dataButtonBack;
 
   showBack = showBack === undefined ? isInputFocus : showBack
@@ -26,6 +27,7 @@ const ButtonBack = ({ dataButtonBack, styleview }) => {
       ...styleview,
     }} >
       <TouchableOpacity 
+        activeOpacity={configFront.activeOpacity}
         style={{ 
           position: 'absolute',
           borderRadius: 50 * consts.px,
@@ -34,8 +36,18 @@ const ButtonBack = ({ dataButtonBack, styleview }) => {
           zIndex: 1,
         }}
         onPress={()=>{
-          setIsInputFocus(false)
-          onPress();
+          console.log(breadCrumb[breadCrumb.length - 2])
+          if (breadCrumb[breadCrumb.length - 2] !== undefined) {
+            setIsInputFocus(false)
+          
+            if (breadCrumb[breadCrumb.length - 2] !== 'keyboard') {
+              setStrPage(breadCrumb[breadCrumb.length - 2])
+            }
+            onPress();
+          } else {
+            ifBreadCrumbEmpty();
+          }
+          setBreadCrumb(breadCrumb.slice(0, -1))
         }}
       >
         <SvgIconProvider

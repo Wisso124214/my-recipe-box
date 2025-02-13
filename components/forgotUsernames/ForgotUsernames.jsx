@@ -17,13 +17,17 @@ const ForgotUsernames = ({ dataForgotPassword }) => {
         dataButtonBack={{ 
           ...dataButtonBack, 
           isInputFocus: true,
+          setStrPage,
           onPress: ()=>{
             if(isInputFocus){
               setIsInputFocus(false)
-            }else{
+            }
+          },
+          ifBreadCrumbEmpty: ()=>{
+            if(!isInputFocus){
               setStrPage('login')
             }
-          }
+          },
         }} 
         styleview={{
           position: 'absolute',

@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { Text, Touchable, TouchableOpacity, View } from "react-native";
+import { useState } from "react";
+import { Text, TouchableOpacity, View } from "react-native";
 import Input from "../input/Input";
-import { FontFamilyIcon } from "@radix-ui/react-icons";
+import { configFront } from "../../config/config";
 
 const InputPopUp = ({ data, style }) => {
 
@@ -95,6 +95,7 @@ const InputPopUp = ({ data, style }) => {
             }}
           >
             <TouchableOpacity
+              activeOpacity={configFront.activeOpacity}
               style={{
                 ...styles.popUp.button,
                 marginRight: 10*consts.px,
@@ -111,6 +112,7 @@ const InputPopUp = ({ data, style }) => {
                 }} >Cancel</Text>
             </TouchableOpacity>
             <TouchableOpacity
+              activeOpacity={configFront.activeOpacity}
               style={{
                 ...styles.popUp.button,
                 marginLeft: 10*consts.px,
