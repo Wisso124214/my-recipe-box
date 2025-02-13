@@ -73,13 +73,13 @@ const ForgotUsernames = ({ dataForgotPassword }) => {
         centered
         placeholder="example@example.com"
         style={{ marginBottom: 150*consts.px }}
-        mode={mode}
-        theme={theme}
-        consts={consts}
-        styles={styles}
         dataInput={{
           ...dataInput,
           maxLength: 50,
+          styles,
+          mode,
+          theme,
+          consts,
         }} />
       <ContrastingButton 
         text="Send" 

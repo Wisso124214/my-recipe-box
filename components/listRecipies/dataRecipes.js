@@ -15,6 +15,7 @@ export const fetchNRecipies = async (quant) => {
 
     for (let i = 0; i < quant; i++) {
       const recipy = await fetchOneRecipy();
+      //console.log(recipy);
       let editedRecipy = {};
       let ingredients = [];
       let strMeasures = []; 

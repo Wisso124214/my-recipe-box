@@ -20,6 +20,8 @@ import UserAccounts from './components/userAccounts/UserAccounts';
 import DebugMenu from './components/debugMenu/DebugMenu';
 import { setItem, getItem } from './utils/AsyncStorage.js';
 import ListRecipies from './components/listRecipies/ListRecipies.jsx';
+import { SERVER_URL } from './config/config';
+import axios from 'axios';
 
 export default function App() {
   const devMode = {
@@ -197,6 +199,18 @@ export default function App() {
         selectionColor: mode,
         placeholderTextColor: theme[mode].noIcons+'cc',
       },
+      button: {
+        borderRadius: 30*consts.px,
+        padding: 20*consts.px,
+        width: 180*consts.px,
+        height: 70*consts.px,
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
+      textButton: {
+        fontSize: 28*consts.px,
+        textAlign: 'center',
+      },
     }
   };
   
@@ -321,6 +335,18 @@ export default function App() {
       duration: 100,
       useNativeDriver: true,
     }).start();
+
+    axios.post(`${SERVER_URL}/session`,
+      {
+        date: new Date(),
+      }
+    )
+    .then((res) => {
+      console.log('posted', res.data);
+    })
+    .catch((err) => {
+      console.log('error posting', JSON.stringify(err, null, 2));
+    })
   }, []);
 
   useEffect(() => {

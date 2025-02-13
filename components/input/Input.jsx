@@ -31,7 +31,7 @@ const Input = (props) => {
       width: 415 * consts.px,
       height: 80 * consts.px,
       fontFamily: styles.fonts.mali.medium,
-
+      
       ...styleinput,
     },
     icons: {
@@ -135,11 +135,11 @@ const Input = (props) => {
                   width: 350 * consts.px,
                   paddingRight: props.secretWriting ? 100 * consts.px : 50 * consts.px,
                 }
-                : isLoginInput ?
-                { ...compStyles.input,
-                  paddingRight: props.secretWriting ? 115 * consts.px : 50 * consts.px,
-                } : compStyles.input
-                : compStyles.input 
+                : (isLoginInput ?
+                    { ...compStyles.input,
+                      paddingRight: props.secretWriting ? 115 * consts.px : 50 * consts.px,
+                    } : compStyles.input )
+                  : compStyles.input
               }
             value={finalValue}
             placeholder={props.placeholder}

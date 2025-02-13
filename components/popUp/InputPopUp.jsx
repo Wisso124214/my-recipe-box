@@ -61,18 +61,18 @@ const InputPopUp = ({ data, style }) => {
       <View
         style={ styles.popUp.container }
       >
-        <Text style={ styles.popUp.title }
+        <Text style={{ ...styles.popUp.title, fontFamily: styles.fonts.mali.bold, }}
         >{ `Edit ${typeSelected.split('-')[0]}` }</Text>
 
         <Input
           centered
           placeholder={typeSelected.replace(typeSelected[0], typeSelected[0].toUpperCase()).split('-')[0]}
-          mode={mode}
-          theme={theme}
-          consts={consts}
-          styles={styles}
           dataInput={{
             ...dataInput,
+            mode,
+            theme,
+            consts,
+            styles,
             defaultValue: valueSelected,
             stateValue: [value, setValue],
             styleinput: styles.popUp.input,
@@ -109,6 +109,7 @@ const InputPopUp = ({ data, style }) => {
                 color: theme[mode].noColor,
                 top: -8*consts.px,
                 height: 50*consts.px,
+                fontFamily: styles.fonts.mali.bold,
                 }} >Cancel</Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -125,6 +126,7 @@ const InputPopUp = ({ data, style }) => {
             >
               <Text style={{
                 ...styles.popUp.textButton,
+                fontFamily: styles.fonts.mali.bold,
                 color: theme[mode].color,
                 top: -8*consts.px,
                 height: 50*consts.px,

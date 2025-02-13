@@ -43,6 +43,8 @@ const MessagePopUp = ({ data, text, style, isVisible, content, stylesViewContent
               <Text 
                 style={{
                   ...styles.popUp.textButton,
+                  fontFamily: styles.fonts.mali.bold,
+                  top: -2*consts.px,
                   height: '310%',
                 }}
               >OK</Text>

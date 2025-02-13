@@ -25,12 +25,12 @@ const PinInput = ({ dataPinInput }) => {
       placeholder="X"
       inputMode="numeric"
       style={{ marginBottom: 150*consts.px }}
-      mode={mode}
-      theme={theme}
-      consts={consts}
-      styles={styles}
       dataInput={{ 
         ...dataInput,
+        mode,
+        theme,
+        consts,
+        styles,
         isPinInput: isPinInput,
         ncomponents: ncomponents,
         pinSelected: pinSelected,

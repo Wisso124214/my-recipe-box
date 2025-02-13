@@ -10,7 +10,7 @@ import { configFront } from '../../config/config';
 const ListRecipies = ({ data }) => {
 
   const { mode, consts, styles, theme, setLoading, setStrPage } = data;
-  const quantity = 20;
+  const quantity = 10;
   
   const sizeIcons = 60*consts.px;
   const scaleThemeModeButton = .75;

@@ -12,6 +12,7 @@ const ElementRecipy = ({ data, index, recipy }) => {
   const ingredients = recipy.ingredients;
   const totalIngredients = recipy.ingredients.length;
 
+  const xDetailsRecipy = -12*consts.px;
   const heightElement = 200*consts.px;
   const widthElement = ((consts.widthScreen*0.9))*consts.px;
   const maxLengthTitle = 20;
@@ -21,6 +22,8 @@ const ElementRecipy = ({ data, index, recipy }) => {
   const maxColIngredients = 1;
   const totalColIngredients = Math.ceil(totalIngredients/ingredientsPerColumn);
   const colsToShow = totalColIngredients > maxColIngredients ? maxColIngredients : totalColIngredients;
+  const colorsCategories = ['red', 'blue', 'purple', 'green', 'orange', 'yellow', 'pink', 'brown', 'gray', 'black', 'white'];
+  const maxColorsCategories = 6;
 
   const [isFavorite, setIsFavorite] = useState(recipy.isFavorite);
 
@@ -36,6 +39,35 @@ const ElementRecipy = ({ data, index, recipy }) => {
           marginBottom: 25*consts.px,
         }}
       >
+        {/** Bar category color  */}
+        <View
+          style={{
+            position: 'absolute',
+            height: '100%',
+            width: heightElement,
+            right: 0,
+            borderRadius: 20*consts.px,
+            zIndex: 2,
+            overflow: 'hidden',
+          }}>
+            {
+              (colorsCategories.splice(0, maxColorsCategories)).map((color, i) =>
+                <View 
+                  key={'color-'+index+'-'+i}
+                  style={{
+                    position: 'absolute',
+                    right: 0,
+                    height: 100/colorsCategories.length+'%',
+                    top: 100/colorsCategories.length*i+'%',
+                    width: 12*consts.px,
+                    backgroundColor: color,
+                    zIndex: 3,
+                  }}
+                />
+              )
+            }
+        </View>
+
         <Image
           key={'image-'+index}
           source={{ uri: recipy.strMealThumb}}
@@ -145,7 +177,7 @@ const ElementRecipy = ({ data, index, recipy }) => {
             strprops='color, px, top, left'
             stylesvg={{
               position: 'absolute',
-              left: widthElement - (18*2)*consts.px - 145*consts.px,
+              left: widthElement - (18*2)*consts.px - 145*consts.px + xDetailsRecipy,
               top: -(18*2)*consts.px - 100*consts.px,
             }}
             stylepath={{
@@ -158,7 +190,7 @@ const ElementRecipy = ({ data, index, recipy }) => {
             style={{
               fontFamily: styles.fonts.mali.regular,
               position: 'absolute',
-              left: widthElement - (18*2)*consts.px - 145*consts.px + 20*consts.px,
+              left: widthElement - (18*2)*consts.px - 145*consts.px + 20*consts.px + xDetailsRecipy,
               top: -(18*2)*consts.px - 107*consts.px,
               color: theme[mode].color,
               paddingLeft: 30*consts.px,
@@ -189,7 +221,7 @@ const ElementRecipy = ({ data, index, recipy }) => {
             strprops='color, px, top, left'
             stylesvg={{
               position: 'absolute',
-              left: heightElement - (18*2)*consts.px,
+              left: heightElement - (18*2)*consts.px  + xDetailsRecipy,
             }}
             stylepath={{
               strokeWidth: 5*consts.px,
@@ -204,7 +236,7 @@ const ElementRecipy = ({ data, index, recipy }) => {
             style={{
               position: 'absolute',
               top: 20*consts.px,
-              left: 178.5*consts.px,
+              left: 178.5*consts.px + xDetailsRecipy,
               width: 20,
               height: 20,
             }}
@@ -222,7 +254,7 @@ const ElementRecipy = ({ data, index, recipy }) => {
             style={{
               fontFamily: styles.fonts.mali.regular,
               position: 'absolute',
-              left: 185*consts.px,
+              left: 185*consts.px + xDetailsRecipy,
               top: 7*consts.px,
               color: theme[mode].color,
               paddingLeft: 30*consts.px,
@@ -232,6 +264,8 @@ const ElementRecipy = ({ data, index, recipy }) => {
             {'Serves: '+recipy.serves}
           </Text>
         </View>
+
+        {/*Favorite component */}
 
         <TouchableOpacity
           activeOpacity={configFront.activeOpacity}
@@ -253,7 +287,7 @@ const ElementRecipy = ({ data, index, recipy }) => {
             strprops='color, px, top, left'
             stylesvg={{
               position: 'absolute',
-              left: widthElement - (20*2)*consts.px - 20*consts.px,
+              left: widthElement - (20*2)*consts.px - 15*consts.px + xDetailsRecipy,
               top: -55*consts.px,
             }}
           />
@@ -264,7 +298,7 @@ const ElementRecipy = ({ data, index, recipy }) => {
           key={'difficulty-icon-'+index}
           style={{
             position: 'absolute',
-            right: 70*consts.px,
+            right: 70*consts.px - xDetailsRecipy,
             bottom: 48*consts.px,
             width: 200*consts.px,
           }}
