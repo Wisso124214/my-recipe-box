@@ -248,7 +248,10 @@ const Register = ({ data }) => {
           onPress: ()=>{
             setIsInputFocus(false)
             setIsKeyboardVisible(false)
-          }
+          },
+          ifBreadCrumbEmpty: () => {
+            setStrPage('login')
+          },
         }} />
 
       <View style={{

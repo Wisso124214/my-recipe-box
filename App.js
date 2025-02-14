@@ -474,8 +474,6 @@ export default function App() {
           }}
           blurRadius={blurRadius}
         />
-        
-        <Link href={'/components/'+strpage} style={ styles.transparentContainer } />
 
         { objdebug[strpage] }
         
