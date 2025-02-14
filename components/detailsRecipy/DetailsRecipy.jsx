@@ -7,11 +7,11 @@ import { closeSession } from '../../utils/logicSession';
 
 const DetailsRecipy = ({ data }) => {
 
-  const { mode, theme, consts, setStrPage, idMainSession, setIdMainSession, styles } = data;
+  const { mode, theme, consts, setStrPage, styles } = data;
 
   const handleCloseSession = async () => {
 
-    await closeSession(idMainSession, setIdMainSession);
+    await closeSession();
     setStrPage('login');
   }
 

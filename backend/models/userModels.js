@@ -8,7 +8,8 @@ const userSchema = new mongoose.Schema({
   username: String,
   password: String,
   id_contact: String,
-  id_data: String,
+  id_recipy: String,
+  id_device: String,
 });
 
 const sessionSchema = new mongoose.Schema({

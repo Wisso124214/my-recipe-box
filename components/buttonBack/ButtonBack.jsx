@@ -8,7 +8,8 @@ const ButtonBack = ({ dataButtonBack, styleview }) => {
   const { theme, mode, consts, setIsInputFocus, isInputFocus, onPress, breadCrumb, setBreadCrumb, setStrPage, ifBreadCrumbEmpty } = dataButtonBack;
   let { showBack } = dataButtonBack;
 
-  showBack = showBack === undefined ? isInputFocus : showBack
+  //showBack = showBack === undefined ? isInputFocus : showBack
+  showBack = true;
 
   const compStyles = {
     icon:

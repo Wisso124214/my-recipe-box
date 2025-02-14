@@ -6,18 +6,34 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#803C00"
-    },
+    "runtimeVersion": "sdk-51.0.38",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "splash": {
+        "image": "./assets/splash-light.png",
+        "resizeMode": "cover",
+        "backgroundColor": "#FF7900",
+        "dark": {
+          "image": "./assets/splash-dark.png",
+          "resizeMode": "cover",
+          "backgroundColor": "#803C00"
+        }
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/logo.webp",
         "backgroundColor": "#ffffff"
+      },
+      "splash": {
+        "image": "./assets/splash-light.png",
+        "resizeMode": "cover",
+        "backgroundColor": "#FF7900",
+        "dark": {
+          "image": "./assets/splash-dark.png",
+          "resizeMode": "cover",
+          "backgroundColor": "#803C00"
+        }
       },
       "package": "com.wisso124214.myrecipebox"
     },

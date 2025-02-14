@@ -10,6 +10,7 @@ import bcrypt from 'react-native-bcrypt';
 import axios from 'axios';
 import { SERVER_URL, configFront } from "../../config/config";
 import { redirectPage } from "../../utils/logicSession";
+import { getAndroidId, getIosIdForVendorAsync } from 'expo-application';
 
 const Login = ({ data }) => {
   
@@ -41,6 +42,7 @@ const Login = ({ data }) => {
     }
 
     setLoading(true);
+    
     setIsKeyboardVisible(false);
     setIsInputFocus(false);
 
@@ -62,16 +64,16 @@ const Login = ({ data }) => {
       res.data.forEach(async (objuser) => {
 
         if (objuser.username === textInput[0] && bcrypt.compareSync(textInput[1], objuser.password)) {
-
+          const id_device = getAndroidId() || getIosIdForVendorAsync();
           const id_user = objuser._id;
 
           await axios.get(`${SERVER_URL}/sessions`,
-            { params: { id_user: id_user } }
+            { params: { id_user: id_user, id_device: id_device } }
           ).then(async (res) => {
             let isFound = false;
 
             await res.data.forEach(async (objsession) => {
-              if (objsession.id_user === id_user && !isFound) {
+              if (objsession.id_user === id_user && objsession.id_device === id_device  && !isFound) {
                 isFound = true;
                 const id_session = objsession._id;
                 console.log('id_session: ', id_session);
@@ -80,6 +82,7 @@ const Login = ({ data }) => {
                 date_4.setHours(date_4.getHours() - 4);
 
                 const session = {
+                  id_device: id_device,
                   id_user: id_user,
                   state: 'open',
                   date: date_4,
@@ -90,7 +93,6 @@ const Login = ({ data }) => {
                     setLoading(false);
                     console.log('Login successfulllllll');
                     idRes = idRes < 100 ? 100 : idRes;
-                    setIdMainSession(id_session);
                     redirectPage('listRecipies', 1000, setStrPage);
                   })
                   .catch((error) => {

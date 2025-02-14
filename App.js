@@ -20,6 +20,7 @@ import UserAccounts from './components/userAccounts/UserAccounts';
 import DebugMenu from './components/debugMenu/DebugMenu';
 import { setItem, getItem } from './utils/AsyncStorage.js';
 import ListRecipies from './components/listRecipies/ListRecipies.jsx';
+
 import { SERVER_URL } from './config/config';
 import axios from 'axios';
 
@@ -31,7 +32,7 @@ export default function App() {
       screenLoading: false,
       debugMenuEnabled: true,
       showDebugMenu: false,
-      strpage: 'listRecipies',
+      strpage: 'register',
       page: 0,
       pagefp: 0,
       varpage: 'strpage',
@@ -62,9 +63,12 @@ export default function App() {
     },
   }
 
+  const splashLight = require('./assets/splash-light.png');
+  const splashDark = require('./assets/splash-dark.png');
+
+  const [testingMode, setTestingMode] = useState(Appearance.getColorScheme());
   const [mode, setMode] = useState(Appearance.getColorScheme());
   const [modeSetted, setModeSetted] = useState(false);
-  const [idMainSession, setIdMainSession] = useState('');
   
   const [page, setPage] = useState(devMode[devMode.power].page);
   const [strpage, setStrPage] = useState(devMode[devMode.power].strpage);
@@ -297,8 +301,6 @@ export default function App() {
     loading,
     setLoading,
     setTextLoading,
-    idMainSession,
-    setIdMainSession,
     setBreadCrumb,
     breadCrumb,
 
@@ -336,10 +338,10 @@ export default function App() {
       useNativeDriver: true,
     }).start();
 
-    axios.get(`${SERVER_URL}/test-db`)
+    /*axios.get(`${SERVER_URL}/test-db`)
     .catch((err) => {
       ToastAndroid.showWithGravityAndOffset('Error DB access', ToastAndroid.LONG, ToastAndroid.BOTTOM, 25, 50, );
-    })
+    })*/
   }, []);
 
   useEffect(() => {
@@ -352,21 +354,13 @@ export default function App() {
     
     setBreadCrumb([...breadCrumb, add]);
   }, [strpage, isInputFocus])
-  
-  useEffect(() => {
-    async () => {
-      if (idMainSession !== '')
-        await setItem('idMainSession', idMainSession);
-    }
-  }, [idMainSession])
-
 
   useEffect(() => {
 
-    async () => {
+    (async () => {
       await getItem('mode').then((value) => {
         if (!modeSetted) {
-          if (value === null) {
+          if (!value) {
             setItem('mode', Appearance.getColorScheme()).then(() => {
               setModeSetted(true);
             });
@@ -379,7 +373,7 @@ export default function App() {
           setItem('mode', mode);
         }
       });
-    }
+    })();
 
     Animated.timing(bgColor, {
       toValue: mode === 'dark' ? 1 : 0,
@@ -387,6 +381,9 @@ export default function App() {
       useNativeDriver: true,
     }).start();
 
+    Appearance.setColorScheme(mode);
+    mode ? setTestingMode(Appearance.getColorScheme()) : null;
+    
     setBgColorNavBar(theme[mode].backgroundColor);
   }, [mode]);
 
@@ -442,11 +439,10 @@ export default function App() {
   //loading font...
   if (!fontLoaded && !fontLoadedError) {
     return (
-      <View style={ styles.container }>
-
+      <View style={styles.container}>
         <Image
           resizeMode="cover"
-          source={mode === 'light' ? lightBackgroundImage : darkBackgroundImage }
+          source={mode === 'light' ? splashLight : splashDark }
           style={{
             position: 'absolute',
             top: 0,
@@ -456,7 +452,6 @@ export default function App() {
           }}
           blurRadius={blurRadius}
         />
-        <LoadingScreen data={dataPages} />
       </View>
     )
   }
@@ -486,13 +481,14 @@ export default function App() {
           <View style={ styles.popUp.background } >
             <View style={{
               ...styles.popUp.container,
-              height: 250*consts.px,
+              height: 275*consts.px,
               backgroundColor: theme[mode].noIcons,
             }} >
               <Text style={{
                 ... styles.popUp.title,
                 color: theme[mode].color,
-                top: 10*consts.px,
+                fontFamily: styles.fonts.mali.bold,
+                marginBottom: 20*consts.px,
               }} >{textLoading}</Text>
               <ActivityIndicator size='large' color={ theme[mode].color } />
             </View>

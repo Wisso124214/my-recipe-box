@@ -1,22 +1,59 @@
+Send email:
+
+https://resend.com/
+(inicias sesión con Google)
+
+email: info.my.recipe.box@gmail.com
+pass: Resend2004_MyRecipeBox
+
+
+*Login:
+  - Validar campos (que no estén vacíos)
+  - Obtener y comparar usuarios y claves
+  - Obtener id_user
+  - Buscar datos de la sesión con id_device y id_user
+  - Actualizar sesión
+
+
+*Olvidé contraseña:
+  - Validar si el usuario ingresado existe en la bd (enviar mensaje al usuario si no es válido)
+  - Crear código aleatorio de 5 dígitos (un dígito por dígito sería más aleatorio)
+  - Guardar el código con AsyncStorage (setItem)
+  - Enviar el código al correo
+  - Borrar el código en el teléfono a los 3 minutos: await setItem('code', '').then(...)
+
+  (Cuando ingrese el código)
+  - Validar el código (enviar mensaje al usuario si no es válido)
+
+  (Cuando ingrese la contraseña)
+  - Validar la contraseña (enviar mensaje al usuario si no es válido)
+
+  (Si todo está bien)
+  - Actualizar la contraseña del user en la bd
+
+
+*Olvidé usuarios
+  - Validar si el correo ingresado es válido (enviar mensaje al usuario si no es válido)
+  - Obtener los usuarios asociados al correo (enviar mensaje al usuario si no hay ninguna coincidencia)
+  - Enviar los usuarios al correo
+
 
 DB:
-    - Disengage to the schema seen on class (routes, controllers...)
-    - Fix the refer of the sessionID
     - Add CRUD and tables to:
       . recipe
       . group
       . recipe_group
       . difficulty
+  ✔✔ Fix the refer of the sessionID
+  ✔✔ Disengage to the schema seen on class (routes, controllers...)
   ✔✔ Save the last mode used on DB user's table
  
 
 Backend:
-  - Add id_device on CRUD session's table
-  - Fix login function (the id_user is not on session table, it is on user_session table)
-  - Delete id_user from session table and it's crud functions
   - Disengage the functions of the front
-  - Close session
   - Get users from db and send it to front
+✔✔ Close session
+✔✔ Add id_device on CRUD session's table
 ✔✔ Delete from all back end functions the id_device
 
 
@@ -55,8 +92,12 @@ Front:
   ✔✔ (ButtonBack) Add an array with the screens are visited, so the button goes to back to the last screen and not an unique screen
   
   - Others: 
+    . Change splash by theme (only sees the light splashcreen)
+    . Disengage the navigation with stack native navigator
     . Add retries when the listRecipies does not load
+    . Disengage the time zone (set the default and change it on settings)
     . Add an animation or something to do the iconQuestion more visible and clickeable
+  ✔✔ Update the splash loading (with the bg image)
   ✔✔ Fix the redirection when log in (to listRecipies)
   ✔✔ Fix the setIdMainSession on login
   ✔✔ Change the input placeholder font to mali
