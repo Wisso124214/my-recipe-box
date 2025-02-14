@@ -21,10 +21,6 @@
       }
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/logo.webp",
-        "backgroundColor": "#ffffff"
-      },
       "splash": {
         "image": "./assets/splash-light.png",
         "resizeMode": "cover",
@@ -42,12 +38,14 @@
     },
     "plugins": [
       "expo-secure-store",
-      "expo-font"
+      "expo-font",
+      "expo-router"
     ],
     "extra": {
       "eas": {
-        "projectId": "7c3b2b16-4a92-459a-be99-a58453783f45"
+        "projectId": "23ff6676-2bff-430d-8b8b-ed6003ac4952"
       }
-    }
+    },
+    "owner": "wisso124214"
   }
 }

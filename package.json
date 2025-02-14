@@ -6,8 +6,8 @@
   "scripts": {
     "start": "expo start --clear",
     "backend": "concurrently \"nodemon .\\backend\\scripts\\index.js\" \"nodemon .\\backend\\scripts\\db.js\" \"nodemon .\\backend\\scripts\\mailer.js\"",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
     "web": "expo start --web",
     "lint": "eslint ."
   },
@@ -27,15 +27,17 @@
     "expo": "51.0.39",
     "expo-application": "~5.9.1",
     "expo-constants": "~16.0.2",
+    "expo-dev-client": "~4.0.29",
     "expo-device": "~6.0.2",
     "expo-file-system": "^17.0.1",
+    "expo-font": "~12.0.10",
     "expo-location": "^17.0.1",
     "expo-mail-composer": "~13.0.1",
     "expo-media-library": "^16.0.5",
     "expo-navigation-bar": "~3.0.7",
-    "expo-permissions": "^14.4.0",
     "expo-secure-store": "~13.0.2",
     "expo-status-bar": "~1.12.1",
+    "expo-system-ui": "~3.0.7",
     "express": "^4.21.2",
     "isaac": "^0.0.5",
     "lodash": "^4.17.21",
@@ -62,9 +64,9 @@
     "react-native-svg": "15.2.0",
     "react-native-uuid": "^2.0.2",
     "uuid": "^11.0.2",
-    "expo-font": "~12.0.10",
-    "expo-system-ui": "~3.0.7",
-    "expo-dev-client": "~4.0.29"
+    "react-native-screens": "3.31.1",
+    "expo-router": "~3.5.24",
+    "expo-linking": "~6.3.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.25.9",

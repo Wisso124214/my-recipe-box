@@ -164,6 +164,7 @@ const Register = ({ data }) => {
 
         //set the component loading over the screen
         setLoading(true)
+        const id_contact = await getIdContact(objValidations.email.stateValue[0]);
 
         //the methods and props to be passed to the function
         const dataLogic = { 
@@ -181,7 +182,7 @@ const Register = ({ data }) => {
           }
         }
 
-        saveDataRegister(objValidations.username.stateValue[0], objValidations.password.stateValue[0], objValidations.email.stateValue[0], dataLogic)
+        saveDataRegister(id_contact, objValidations.username.stateValue[0], objValidations.password.stateValue[0], dataLogic)
         .then(() => {
           setLoading(false);
           cleanInputs(objValidations);

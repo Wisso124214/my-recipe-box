@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { Link } from 'expo-router';
 import { useFonts } from 'expo-font';
 import * as NavigationBar from 'expo-navigation-bar';
 import {
@@ -474,6 +475,8 @@ export default function App() {
           blurRadius={blurRadius}
         />
         
+        <Link href={'/components/'+strpage} style={ styles.transparentContainer } />
+
         { objdebug[strpage] }
         
         {

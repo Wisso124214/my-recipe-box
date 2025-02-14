@@ -18,6 +18,4 @@ export const createUserRoutes = (app) => {
       resp.status(500).json({ message: err.message });
     })
   });
-
-  
 }
