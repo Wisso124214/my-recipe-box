@@ -3,7 +3,6 @@ import { ToastAndroid } from 'react-native';
 import { getAndroidId, getIosIdForVendorAsync } from 'expo-application';
 import axios from 'axios';
 import { SERVER_URL } from '../config/config';
-import { setItem, getItem } from './AsyncStorage';
 
 export async function getListUsernames(setListUsernames, username) {
   await axios.get(`${SERVER_URL}/users`,
@@ -19,26 +18,24 @@ export async function getListUsernames(setListUsernames, username) {
   })
 }
 
-export const closeSession = async () => {
-
-  await getItem('idMainSession')
-  .then(async (idMainSession) => {
-    if (idMainSession !== '') {
-      axios.put(`${SERVER_URL}/session/${idMainSession}`, {
-        state: 'closed',
-        date: new Date(Date.now()).toString(),
-      })
-      .then(async () => {
-        await setItem('idMainSession', '')
-        ToastAndroid.showWithGravityAndOffset('Session closed', ToastAndroid.LONG, ToastAndroid.BOTTOM, 25, 50, );
-      })
-      .catch((error) => {
-        handleError(error, 'Error closing session');
-      })
-    } else {
-      ToastAndroid.showWithGravityAndOffset('We does not found an open session', ToastAndroid.LONG, ToastAndroid.BOTTOM, 25, 50, );
-    }
-  })
+export const closeSession = async (setStrPage, setIdMainSession, idMainSession) => {
+  
+  if (idMainSession !== '') {
+    axios.put(`${SERVER_URL}/session/${idMainSession}`, {
+      state: 'closed',
+      date: new Date(Date.now()).toString(),
+    })
+    .then(async () => {
+      setIdMainSession('');
+      setStrPage('login');
+      ToastAndroid.showWithGravityAndOffset('Session closed', ToastAndroid.LONG, ToastAndroid.BOTTOM, 25, 50, );
+    })
+    .catch((error) => {
+      handleError(error, 'Error closing session');
+    })
+  } else {
+    ToastAndroid.showWithGravityAndOffset('We does not found an open session', ToastAndroid.LONG, ToastAndroid.BOTTOM, 25, 50, );
+  }
 }
 
 export const createSession = async (id_user) => {
@@ -91,8 +88,6 @@ export const setSession = async (id_user, state, id_session) => {
 
   const date_4 = new Date();  //-4 GMT
   date_4.setHours(date_4.getHours() - 4);
-
-  console.log('setSession id_user: ', id_user)
 
   const objsession = {
     id_device: id_device,
@@ -183,6 +178,7 @@ export const saveDataRegister = async (username, password, email, data) => {
       bcrypt.hash(password, salt, async (err, hashedPassword) => {
         if(!err) {
 
+          console.log('username: ', username);
           await axios.post(`${SERVER_URL}/user`, {
             id_device: id_device,
             username: username,
@@ -192,7 +188,7 @@ export const saveDataRegister = async (username, password, email, data) => {
           .then(async (objuser) => {
             createSession(objuser.data._id)
             .then(async (id_session) => {
-              await setItem('idMainSession', id_session)
+              methods.setIdMainSession(id_session);
             })
             .catch((error) => {
               methods.setLoading(false);

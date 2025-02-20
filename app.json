@@ -4,7 +4,7 @@
     "slug": "my-recipe-box",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/app-icon.png",
     "userInterfaceStyle": "automatic",
     "runtimeVersion": "sdk-51.0.38",
     "scheme": "my-recipe-box",

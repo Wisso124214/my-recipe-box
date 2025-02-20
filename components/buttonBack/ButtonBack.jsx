@@ -3,7 +3,7 @@ import { View, TouchableOpacity } from 'react-native';
 import SvgIconProvider from '../svg/svgIconProvider';
 import { configFront } from "../../config/config";
 
-const ButtonBack = ({ dataButtonBack, styleview }) => {
+const ButtonBack = ({ dataButtonBack, styleview, styleTouchable }) => {
 
   const { theme, mode, consts, setIsInputFocus, isInputFocus, onPress, breadCrumb, setBreadCrumb, setStrPage, ifBreadCrumbEmpty } = dataButtonBack;
   let { showBack } = dataButtonBack;
@@ -35,9 +35,9 @@ const ButtonBack = ({ dataButtonBack, styleview }) => {
           width: 60 * consts.px,
           height: 60 * consts.px,
           zIndex: 1,
+          ...styleTouchable,
         }}
         onPress={()=>{
-          console.log(breadCrumb[breadCrumb.length - 2])
           if (breadCrumb[breadCrumb.length - 2] !== undefined) {
             setIsInputFocus(false)
           

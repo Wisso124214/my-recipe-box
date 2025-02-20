@@ -9,9 +9,6 @@ import CreatePassword from "../createPassword/CreatePassword";
 import { saveDataRegister, getIdContact, getListUsernames, setMessage, redirectPage } from '../../utils/logicSession';
 import { configFront } from '../../config/config';
 
-import axios from 'axios';
-import { SERVER_URL } from '../../config/config';
-
 const Register = ({ data }) => {
 
   const { 
@@ -139,7 +136,16 @@ const Register = ({ data }) => {
   }
 
   const handleRegister = async (objValidations) => {
-    
+
+    console.log('handleRegister');
+    axios.get(`${SERVER_URL}/users-register`)
+    .then((res) => {
+      console.log('register', res.data, 'id: ', res.data._id);
+    })
+    .catch((err) => {
+      console.log('error registering', JSON.stringify(err, null, 2));
+    })
+
     //check all fields are filled
     const allFilled = 
       objValidations.username.stateValue[0] !== '' &&
@@ -182,7 +188,8 @@ const Register = ({ data }) => {
           }
         }
 
-        saveDataRegister(id_contact, objValidations.username.stateValue[0], objValidations.password.stateValue[0], dataLogic)
+        console.log('validation true');
+        saveDataRegister(id_contact, objValidations.username.stateValue[0], objValidations.password.stateValue[0], dataLogic, setIdMainSession)
         .then(() => {
           setLoading(false);
           cleanInputs(objValidations);
@@ -193,7 +200,7 @@ const Register = ({ data }) => {
           setTestMssg('Error registering. Try again later');
           setColorMssg(theme[mode].errorColor);
           setIsHiddenMssg(false);
-          console.log(error.message);
+          console.log(JSON.stringify(error, null, 2));
         });
         
       } else {
@@ -248,10 +255,7 @@ const Register = ({ data }) => {
           onPress: ()=>{
             setIsInputFocus(false)
             setIsKeyboardVisible(false)
-          },
-          ifBreadCrumbEmpty: () => {
-            setStrPage('login')
-          },
+          }
         }} />
 
       <View style={{

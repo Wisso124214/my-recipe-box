@@ -12,7 +12,7 @@ import InfoDeviceAccount from "./InfoDeviceAccount";
 const DeviceAccounts = ({ data }) => {
   
   const { theme, mode, consts, setStrPage, dataButtonBack, dataIconButton, dataInput, 
-          styles, devMode, setShowDebugMenu, showDebugMenu,
+          styles, devMode, setShowDebugMenu, showDebugMenu, setIdMainSession, idMainSession,
         } = data;
 
   const [isMessagePopUpVisible, setIsMessagePopUpVisible] = useState(false);
@@ -24,8 +24,35 @@ const DeviceAccounts = ({ data }) => {
   
   const [username, setUsername] = useState('UserURU');
   const [email, setEmail] = useState('UserURU@gmail.com');
-  const [isMenuShow, setIsMenuShow] = useState(false);
+  const [isShowMenu, setIsShowMenu] = useState(false);
   
+
+  const itemsMenu = [
+    {
+      title: 'My accounts',
+      d: 'M1 2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H1Zm0 1h13v.925a.448.448 0 0 0-.241.07L7.5 7.967 1.241 3.995A.448.448 0 0 0 1 3.925V3Zm0 1.908V12h13V4.908L7.741 8.88a.45.45 0 0 1-.482 0L1 4.908Z',
+      color: theme[mode].noColor,
+      sizeIcon: 45*consts.px,
+      onPress: ()=>setStrPage('userAccounts'),
+    },
+    {
+      title: 'Log out',
+      d: 'M3 1a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h7.5a.5.5 0 0 0 0-1H3V2h7.5a.5.5 0 0 0 0-1H3Zm9.604 3.896a.5.5 0 0 0-.708.708L13.293 7H6.5a.5.5 0 0 0 0 1h6.793l-1.397 1.396a.5.5 0 0 0 .708.708l2.25-2.25a.5.5 0 0 0 0-.708l-2.25-2.25Z',
+      color: theme[mode].noColor,
+      sizeIcon: 45*consts.px,
+      onPress: ()=>closeSession(setStrPage, setIdMainSession, idMainSession),
+    },
+    {
+      title: 'Delete account',
+      d: 'M5.5 1a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4ZM3 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1H11v8a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4h-.5a.5.5 0 0 1-.5-.5ZM5 4h5v8H5V4Z',
+      color: theme[mode].delete,
+      sizeIcon: 50*consts.px,
+      stylesIcon: {
+        left: -26*consts.px,
+      }
+    },
+  ]
+
   //Info User Account
   const dataIUA = {
     theme: theme,
@@ -82,6 +109,7 @@ const DeviceAccounts = ({ data }) => {
             isInputFocus: true,
             setStrPage,
             ifBreadCrumbEmpty: () => {
+              console.log('ifBreadCrumbEmpty')
               setStrPage('login')
             },
           }} 
@@ -125,7 +153,7 @@ const DeviceAccounts = ({ data }) => {
           }} 
         >
           <IconButton 
-            onPress={()=>{setIsMenuShow(!isMenuShow)}}
+            onPress={()=>{setIsShowMenu(!isShowMenu)}}
             dataIconButton={ dataIconButton }
             dCodeIcon="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"
             sizeButton={60*consts.px}
@@ -252,8 +280,9 @@ const DeviceAccounts = ({ data }) => {
           consts,
           setStrPage,
           styles,
-          isShow: isMenuShow,
+          isShow: isShowMenu,
         }}
+        items={itemsMenu}
       />
 
     </View>

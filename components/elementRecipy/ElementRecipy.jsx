@@ -4,7 +4,7 @@ import Svg, { Circle } from 'react-native-svg';
 import { useState } from 'react';
 import { configFront } from '../../config/config';
 
-const ElementRecipy = ({ data, index, recipy }) => {
+const ElementRecipy = ({ data, index, recipy, objCategories }) => {
 
   const { mode, consts, styles, theme, showDebugMenu, setShowDebugMenu, devMode } = data;
 
@@ -22,15 +22,19 @@ const ElementRecipy = ({ data, index, recipy }) => {
   const maxColIngredients = 1;
   const totalColIngredients = Math.ceil(totalIngredients/ingredientsPerColumn);
   const colsToShow = totalColIngredients > maxColIngredients ? maxColIngredients : totalColIngredients;
-  const colorsCategories = ['red', 'blue', 'purple', 'green', 'orange', 'yellow', 'pink', 'brown', 'gray', 'black', 'white'];
   const maxColorsCategories = 6;
 
   const [isFavorite, setIsFavorite] = useState(recipy.isFavorite);
 
+  // console.log(recipy.strMeal, recipy.categories)
+  console.log('.')
+
   return (
     <View style={ styles.transparentContainer }>
-      <View
+      <TouchableOpacity
         key={'container-'+index}
+        onPress={() => console.log('Pressed recipy: '+recipy.strMeal)}
+        activeOpacity={configFront.activeOpacity}
         style={{
           width: widthElement,
           height: heightElement,
@@ -40,6 +44,7 @@ const ElementRecipy = ({ data, index, recipy }) => {
         }}
       >
         {/** Bar category color  */}
+
         <View
           style={{
             position: 'absolute',
@@ -51,20 +56,37 @@ const ElementRecipy = ({ data, index, recipy }) => {
             overflow: 'hidden',
           }}>
             {
-              (colorsCategories.splice(0, maxColorsCategories)).map((color, i) =>
-                <View 
-                  key={'color-'+index+'-'+i}
-                  style={{
-                    position: 'absolute',
-                    right: 0,
-                    height: 100/colorsCategories.length+'%',
-                    top: 100/colorsCategories.length*i+'%',
-                    width: 12*consts.px,
-                    backgroundColor: color,
-                    zIndex: 3,
-                  }}
-                />
-              )
+              recipy.categories && 
+              recipy.categories.filter((name, i) => i < maxColorsCategories-1).map((name, i) => {
+
+                let color = 'transparent';
+                
+                let nameColor = 'all';
+                if (name) {
+                  nameColor = name;
+                }
+
+                if (name && objCategories[name] && objCategories[name].color) {
+                  color = objCategories[name].color.split(',');
+                  color[2] = mode === 'light' ? ' 30%)' : ' 65%)';
+                  color = color.join(',');
+                }
+                
+                return(
+                  <View 
+                    key={'color-'+index+'-'+i}
+                    style={{
+                      position: 'absolute',
+                      right: 0,
+                      height: 100/recipy.categories.length+'%',
+                      top: 100/recipy.categories.length*i+'%',
+                      width: 12*consts.px,
+                      backgroundColor: color,
+                      zIndex: 3,
+                    }}
+                  />
+                )
+              })
             }
         </View>
 
@@ -334,7 +356,7 @@ const ElementRecipy = ({ data, index, recipy }) => {
           </View>
         </View>
         
-      </View>
+      </TouchableOpacity>
     </View>
   );
 }
