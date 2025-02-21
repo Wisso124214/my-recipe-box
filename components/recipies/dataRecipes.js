@@ -63,6 +63,7 @@ export const editRecipy = (recipy, pushColorCategories) => {
   editedRecipy.categories = [...categories];
 
   for (let c in categories) {
+    console.log('pushColorCategories editRecipy ', categories[c]);
     pushColorCategories(categories[c]);
   }
   
@@ -72,6 +73,7 @@ export const editRecipy = (recipy, pushColorCategories) => {
 
 export const createArrayColors = async () => {
   let arrColors = [];
+  
   for(let i = 0; i < 360; i+=18){
     arrColors.push(`hsl(${i}, 100%, 50%)`);
   }

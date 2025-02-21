@@ -27,7 +27,7 @@ const ElementRecipy = ({ data, index, recipy, objCategories }) => {
   const [isFavorite, setIsFavorite] = useState(recipy.isFavorite);
 
   // console.log(recipy.strMeal, recipy.categories)
-  console.log('.')
+  // console.log('.')
 
   return (
     <View style={ styles.transparentContainer }>

@@ -24,6 +24,7 @@ import { fetchNRecipies } from './components/recipies/dataRecipes.js';
 import { SERVER_URL } from './config/config';
 import axios from 'axios';
 import Loading from './components/loading/Loading.jsx';
+import { SplashScreen } from 'expo-router';
 
 export default function App() {
   const devMode = {
@@ -102,7 +103,7 @@ export default function App() {
   const [colorMssg, setColorMssg] = useState(theme[mode].successColor);
   const [breadCrumb, setBreadCrumb] = useState([]);
   const [idMainSession, setIdMainSession] = useState(null);
-  const [colorsCategories, setColorsCategories] = useState(null);
+  const [colorsCategories, setColorsCategories] = useState({});
   const [arrayColors, setArrayColors] = useState([]);
   const [retriesColorsCategories, setRetriesColorsCategories] = useState([]);
   const [arrayRecipies, setArrayRecipies] = useState([]);
@@ -969,13 +970,6 @@ export default function App() {
   ]
 
   const pushColorCategories = async (category) => {
-    
-    if (!colorsCategories) {
-      const copyRetriesColors = [...retriesColorsCategories];
-      
-      setRetriesColorsCategories([...copyRetriesColors, category]);
-      return;
-    }
 
     if (Object.keys(colorsCategories).includes(category)) {
       return;
@@ -985,6 +979,8 @@ export default function App() {
     await getArrayColor()
     .then((color) => {
       obj = color;
+
+      console.log('obj ', obj)
 
       if (Object.keys(obj).length === 0) {
         const copyRetriesColors = [...retriesColorsCategories];
@@ -1003,6 +999,7 @@ export default function App() {
   const getArrayColor = async () => {
     let obj = {};
     
+    console.log('arrayColors.length: ', JSON.stringify(arrayColors, null, 2))
     if (arrayColors.length !== 0) {
       const copyArrayColors = [...arrayColors];
 
@@ -1020,14 +1017,26 @@ export default function App() {
     .then((colors) => {
       setArrayColors(colors);
     })
+    .catch((error) => {
+      console.log('ERROR ' + error);
+    })
   }
 
   useEffect(() => {
-    if (retriesColorsCategories.length > 0) {
-      pushColorCategories(retriesColorsCategories[0]);
-    }
-
-    console.log('useEffect this retriesColorsCategories')
+    (async () => {
+      if (retriesColorsCategories.length > 0) {
+        const copyRetriesColors = [...retriesColorsCategories];
+        
+        await pushColorCategories(copyRetriesColors[0])
+        .then(() => {
+          console.log('setRetriesColorsCategories ', copyRetriesColors[0])
+          setRetriesColorsCategories(copyRetriesColors.splice(0, 1));
+        })
+        .catch((error) => {
+          console.log('ERROR ' + error);
+        })
+      }
+    })()
   }, [retriesColorsCategories]);
 
   useEffect(() => {
@@ -1041,67 +1050,25 @@ export default function App() {
       }
       setLoading(false);
     })();
-    console.log('useEffect []')
   }, []); // Añadir un array de dependencias vacío para que se ejecute solo una vez
 
   useEffect(() => {
-    if (arrayColors.length > 0 && retriesColorsCategories.length > 0) {
-      const copyRetriesColors = [...retriesColorsCategories];
-
-      for (let c in copyRetriesColors) {
-        setTimeout(() => {
-          pushColorCategories(copyRetriesColors[c]);
-          setRetriesColorsCategories(copyRetriesColors.splice(c, 1));
-        }, 200);
+    (async () => {
+      if (arrayColors.length === 0) {
+        await initializeArrayColors();
       }
-    }
-    console.log('useEffect this arrayColors, retriesColorsCategories')
-  }, [arrayColors, retriesColorsCategories]);
-
-  useEffect(() => {
-    if (arrayColors.length === 0) initializeArrayColors();
-    console.log('useEffect arrayColors')
+    })()
   }, [arrayColors]);
 
   useEffect(() => {
-    if (colorsCategories === null) {
-      (async () => {
-        await getItem('colorsCategories')
-        .then((value) => {
-          if (value) {
-
-            if (value !== null && value !== undefined) {
-              setColorsCategories(JSON.parse(value));
-            } else {
-              setColorsCategories({});
-            }
-          }
-        })
-        .catch((error) => {
-          console.log('ERROR' + error);
-        })
-      })()
-    }
-
-    if (colorsCategories !== null && Object.keys(colorsCategories).length > 0) {
+    if (Object.keys(colorsCategories).length > 0) {
       setItem('colorsCategories', JSON.stringify(colorsCategories))
     }
-
-    console.log('useEffect colorsCategories')
+    console.log('colorsCategories: ', colorsCategories)
   }, [colorsCategories])
 
   useEffect(() => {
-    
-    (async () => {
-      setLoading(true);
-      setArrayRecipies(arrFetchDebug);
-      for (let r in arrFetchDebug) {
-        for (let c in arrFetchDebug[r].categories) {
-          await pushColorCategories(arrFetchDebug[r].categories[c]);
-        }
-      }
-      setLoading(false);
-    })()
+
 
     // console.log('recipies ', arrFetchDebug.length)
     // editRecipy(arrFetchDebug[arrFetchDebug.length-1], pushColorCategories)
@@ -1146,34 +1113,8 @@ export default function App() {
         }
       })
     })()*/
-      console.log('useEffect []2')
+   console.log('[]')
   }, [])
-
-  
-
-  useEffect(() => {
-    if (arrayColors.length > 0 && retriesColorsCategories.length > 0) {
-      const copyRetriesColors = [...retriesColorsCategories];
-
-      for (let c in copyRetriesColors) {
-        setTimeout(() => {
-          pushColorCategories(copyRetriesColors[c]);
-          setRetriesColorsCategories(copyRetriesColors.splice(c, 1));
-        }, 200)
-      }
-    }
-    console.log('useEffect arrayColors2')
-  }, [arrayColors])
-
-  useEffect(() => {
-    if (arrayColors.length === 0)
-      initializeArrayColors();
-    console.log('useEffect arrayColors3')    
-  }, [arrayColors])
-
-  /*useEffect(() => {
-    console.log('cc ',JSON.stringify(colorsCategories, null, 2));
-  }, [colorsCategories])*/
 
   const lightBackgroundImage = require(`./assets/images-bg/cookery-light.png`);
   const darkBackgroundImage = require(`./assets/images-bg/cookery-dark.png`);
@@ -1427,14 +1368,6 @@ export default function App() {
       duration: 100,
       useNativeDriver: true,
     }).start();
-
-    
-
-    /*axios.get(`${SERVER_URL}/test-db`)
-    .catch((err) => {
-      ToastAndroid.showWithGravityAndOffset('Error DB access', ToastAndroid.LONG, ToastAndroid.BOTTOM, 25, 50, );
-    })*/
-    console.log('useEffect []3')
   }, []);
 
   useEffect(() => {
@@ -1463,7 +1396,6 @@ export default function App() {
       add = strpage;
     
     setBreadCrumb([...breadCrumb, add]);
-    console.log('useEffect strpage, isInputFocus')
   }, [strpage, isInputFocus])
 
   useEffect(() => {
@@ -1511,8 +1443,7 @@ export default function App() {
       if (devMode.power === 'on')
         setAppState('running');
     }
-    console.log('useEffect this devMode')
-  }, [devMode]);
+  }, []);
 
   useEffect(() => {
     switch(strpage){
@@ -1534,7 +1465,6 @@ export default function App() {
       if (varpage === 'page') 
         setVarPage('selected');
     }
-    console.log('useEffect page')
   }, [page]);
 
   useEffect(()=>{
@@ -1544,7 +1474,6 @@ export default function App() {
       if (varpage === 'strpage') 
         setVarPage('selected');
     }
-    console.log('useEffect strpage')
   }, [strpage])
 
 
@@ -1566,6 +1495,8 @@ export default function App() {
         />
       </View>
     )
+  } else {
+    SplashScreen.hideAsync();
   }
 
   return (
