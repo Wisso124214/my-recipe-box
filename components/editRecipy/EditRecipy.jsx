@@ -11,6 +11,8 @@ import { arrFetchDebug } from '../../fetchDebug.js';
 import SvgIconProvider from '../svg/svgIconProvider.jsx';
 import Svg, { Circle } from 'react-native-svg';
 import Input from '../input/Input.jsx';
+import ContrastingSmallButton from '../contrastingSmallButton/ContrastingSmallButton.jsx';
+import ContrastingButton from '../contrastingButton/ContrastingButton.jsx';
 
 
 const EditRecipy = ({ data }) => {
@@ -912,6 +914,7 @@ const EditRecipy = ({ data }) => {
                   dataInput={{
                     ...dataInput,
                     styles,
+                    defaultValue: editingRecipy.ingredients[index].measure,
                     isKeyboardVisible: isKeyboardVisible,
                     index: 3,
                     nInputSelected,
@@ -948,6 +951,7 @@ const EditRecipy = ({ data }) => {
                   dataInput={{
                     ...dataInput,
                     styles,
+                    defaultValue: editingRecipy.ingredients[index].unit,
                     isKeyboardVisible: isKeyboardVisible,
                     index: 3,
                     nInputSelected,
@@ -984,6 +988,7 @@ const EditRecipy = ({ data }) => {
                   dataInput={{
                     ...dataInput,
                     styles,
+                    defaultValue: editingRecipy.ingredients[index].name,
                     isKeyboardVisible: isKeyboardVisible,
                     index: 3,
                     nInputSelected,
@@ -1094,6 +1099,19 @@ const EditRecipy = ({ data }) => {
         <Text></Text>
         <Text></Text>
         
+        <ContrastingButton 
+          text="Save" 
+          theme={theme} 
+          mode={mode} 
+          consts={consts} 
+          styles={styles}
+          style={{ 
+            marginTop: 50 * consts.px, 
+            marginBottom: 150 * consts.px,
+            alignSelf: 'center',
+          }} 
+          onPress={()=>console.log('Recipy saved')}
+          />  
         
 
         

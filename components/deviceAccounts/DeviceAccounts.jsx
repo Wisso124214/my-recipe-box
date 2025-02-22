@@ -8,6 +8,7 @@ import Menu from "../menu/Menu";
 import ListAccounts from "../listAccounts/ListAccounts";
 import MessagePopUp from "../popUp/MessagePopUp";
 import InfoDeviceAccount from "./InfoDeviceAccount";
+import { closeSession } from '../../utils/logicSession'
 
 const DeviceAccounts = ({ data }) => {
   

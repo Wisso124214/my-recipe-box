@@ -26,10 +26,6 @@ const ListRecipies = ({ data }) => {
   const [arrCategories, setArrCategories] = useState([]);
   const [objCategories, setObjCategories] = useState({});
 
-  useEffect(() => {
-    console.log('recipies loading: ', loading)
-  }, [loading])
-
   const compStyles = {
     icons: {
       normal: {
@@ -61,7 +57,6 @@ const ListRecipies = ({ data }) => {
 
   useEffect(()=>{
     setRecipies(arrayRecipies)
-    console.log('useEffect arrayRecipies')
   },[]);
 
   useEffect(() => {

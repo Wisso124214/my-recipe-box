@@ -36,7 +36,7 @@ export default function App() {
       screenLoading: false,
       debugMenuEnabled: true,
       showDebugMenu: false,
-      strpage: 'listRecipies',
+      strpage: 'login',
       page: 0,
       pagefp: 0,
       varpage: 'strpage',
@@ -169,7 +169,6 @@ export default function App() {
   useEffect(() => {
     (async () => {
       if (arrayColors.length === 0) {
-        console.log('initializeArrayColors');
         await initializeArrayColors();
       }
     })()
@@ -177,12 +176,8 @@ export default function App() {
 
   useEffect(() => {
     // console.log('colorsCategories: ', Object.keys(colorsCategories).length)
-    console.log('colorsCategories: ', JSON.stringify(colorsCategories, null, 2))
+    // console.log('colorsCategories: ', JSON.stringify(colorsCategories, null, 2))
   }, [colorsCategories])
-
-  useEffect(() => {
-    console.log(breadCrumb);
-  }, [breadCrumb])
 
   useEffect(() => {
     (async () => {
@@ -547,6 +542,7 @@ export default function App() {
       .then((value) => {
         if (value) {
           setIdMainSession(value);
+          setStrPage('listRecipies');
         } else {
           setIdMainSession('');
         }

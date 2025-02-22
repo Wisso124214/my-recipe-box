@@ -3,7 +3,7 @@
 export const config = {
   DB_URL: 'mongodb+srv://luisdavidbustosnunez:C7NfsuYGf42K8Sbv@cluster0.o7x9c.mongodb.net/my-recipe-box',
   PORT: process.env.PORT || 3000,
-  SERVER_IP: '192.168.0.108',
+  SERVER_IP: '192.168.128.180',
   PROTOCOL: 'http',
 
   SMTP: {

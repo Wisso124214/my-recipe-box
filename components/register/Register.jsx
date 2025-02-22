@@ -9,12 +9,16 @@ import CreatePassword from "../createPassword/CreatePassword";
 import { saveDataRegister, getIdContact, getListUsernames, setMessage, redirectPage } from '../../utils/logicSession';
 import { configFront } from '../../config/config';
 
+import axios from 'axios';
+import { SERVER_URL } from '../../config/config';
+
+
 const Register = ({ data }) => {
 
   const { 
     theme, mode, consts, dataInput, showDebugMenu, setShowDebugMenu, setStrPage, styles,
     devMode, dataMssg, dataButtonBack, setIsInputFocus, dataMessage, isInputFocus, setLoading,
-    breadCrumb, setBreadCrumb, 
+    breadCrumb, setBreadCrumb, setIdMainSession,
   } = data;
   
   const { isHiddenMssg, setIsHiddenMssg, textMssg, setTestMssg, colorMssg, setColorMssg } = dataMssg;
@@ -138,13 +142,13 @@ const Register = ({ data }) => {
   const handleRegister = async (objValidations) => {
 
     console.log('handleRegister');
-    axios.get(`${SERVER_URL}/users-register`)
-    .then((res) => {
-      console.log('register', res.data, 'id: ', res.data._id);
-    })
-    .catch((err) => {
-      console.log('error registering', JSON.stringify(err, null, 2));
-    })
+    // axios.get(`${SERVER_URL}/users-register`)
+    // .then((res) => {
+    //   console.log('register', res.data, 'id: ', res.data._id);
+    // })
+    // .catch((err) => {
+    //   console.log('error registering', JSON.stringify(err, null, 2));
+    // })
 
     //check all fields are filled
     const allFilled = 
@@ -185,15 +189,16 @@ const Register = ({ data }) => {
             setColorMssg,
             setIsHiddenMssg,
             setLoading,
+            setIdMainSession,
           }
         }
 
         console.log('validation true');
-        saveDataRegister(id_contact, objValidations.username.stateValue[0], objValidations.password.stateValue[0], dataLogic, setIdMainSession)
+        saveDataRegister(objValidations.username.stateValue[0], objValidations.password.stateValue[0], id_contact, dataLogic, setIdMainSession)
         .then(() => {
           setLoading(false);
           cleanInputs(objValidations);
-          redirectPage('detailsRecipy', 1000, setStrPage);
+          redirectPage('listRecipies', 1000, setStrPage);
         })
         .catch((error) => {
           setLoading(false);
@@ -255,6 +260,9 @@ const Register = ({ data }) => {
           onPress: ()=>{
             setIsInputFocus(false)
             setIsKeyboardVisible(false)
+          },
+          ifBreadCrumbEmpty: () => {
+            setStrPage('login');
           }
         }} />
 
