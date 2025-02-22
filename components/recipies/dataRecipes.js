@@ -1,36 +1,36 @@
-export const fetchOneRecipy = async (pushColorCategories) => {
+export const fetchOneRecipe = async (pushColorCategories) => {
   try {
     const response = await fetch('https://www.themealdb.com/api/json/v1/1/random.php');
-    const recipy = await response.json();
+    const recipe = await response.json();
 
-    return editRecipy(recipy, pushColorCategories);
+    return editRecipe(recipe, pushColorCategories);
     
   } catch (error) {
     console.log(JSON.stringify(error, null, 2));
   }
 }
 
-export const editRecipy = (recipy, pushColorCategories) => {
+export const editRecipe = (recipe, pushColorCategories) => {
 
-  let editedRecipy = {};
+  let editedRecipe = {};
   let ingredients = [];
   let strMeasures = []; 
   let strIngredients = []; 
 
-  for(let r in recipy.meals[0]){
+  for(let r in recipe.meals[0]){
     if(r.includes('strIngredient') || r.includes('strMeasure')){
-      if (recipy.meals[0][r] !== '' && recipy.meals[0][r] !== null) {
+      if (recipe.meals[0][r] !== '' && recipe.meals[0][r] !== null) {
         if(r.includes('strIngredient')){
-          strIngredients.push(recipy.meals[0][r]);
+          strIngredients.push(recipe.meals[0][r]);
         } else {
           strMeasures.push({
-            measure: parseInt(recipy.meals[0][r].split(' ')[0][0], 10) ? recipy.meals[0][r].split(' ')[0] : '',
-            unit: recipy.meals[0][r].split(' ')[1] ? recipy.meals[0][r].split(' ')[1] : '',
+            measure: parseInt(recipe.meals[0][r].split(' ')[0][0], 10) ? recipe.meals[0][r].split(' ')[0] : '',
+            unit: recipe.meals[0][r].split(' ')[1] ? recipe.meals[0][r].split(' ')[1] : '',
           });
         }
       }
     } else {
-      editedRecipy[r] = recipy.meals[0][r];
+      editedRecipe[r] = recipe.meals[0][r];
     }
   }
 
@@ -41,34 +41,34 @@ export const editRecipy = (recipy, pushColorCategories) => {
       unit: strMeasures[s].unit,
     });
   }
-  editedRecipy.ingredients = ingredients;
-  editedRecipy.timePrep = Math.floor(Math.random() * 60) + 1;
-  editedRecipy.timeCook = Math.floor(Math.random() * 120) + 1;
-  editedRecipy.serves = Math.floor(Math.random() * 10) + 1;
-  editedRecipy.difficulty = {
+  editedRecipe.ingredients = ingredients;
+  editedRecipe.timePrep = Math.floor(Math.random() * 60) + 1;
+  editedRecipe.timeCook = Math.floor(Math.random() * 120) + 1;
+  editedRecipe.serves = Math.floor(Math.random() * 10) + 1;
+  editedRecipe.difficulty = {
     name: ['easy', 'medium', 'hard'][Math.floor(Math.random() * 3)],
     value: Math.floor(Math.random() * 3) + 1,
   };
-  editedRecipy.isFavorite = Math.random() >= 0.5;
-  editedRecipy.category = 'category ' + (Math.floor(Math.random() * 10) + 1);
+  editedRecipe.isFavorite = Math.random() >= 0.5;
+  editedRecipe.category = 'category ' + (Math.floor(Math.random() * 10) + 1);
   
   let categories = ['all'];
-  categories.push(recipy.meals[0].strCategory.toLowerCase());
-  if (recipy.meals[0].strTags) {
-    for (let t in recipy.meals[0].strTags.split(',')) {
-      categories.push((recipy.meals[0].strTags.split(',')[t]).toLowerCase());
+  categories.push(recipe.meals[0].strCategory.toLowerCase());
+  if (recipe.meals[0].strTags) {
+    for (let t in recipe.meals[0].strTags.split(',')) {
+      categories.push((recipe.meals[0].strTags.split(',')[t]).toLowerCase());
     }
   }
   
-  editedRecipy.categories = [...categories];
+  editedRecipe.categories = [...categories];
 
   for (let c in categories) {
-    console.log('pushColorCategories editRecipy ', categories[c]);
+    console.log('pushColorCategories editRecipe ', categories[c]);
     pushColorCategories(categories[c]);
   }
   
-  console.log(JSON.stringify(editedRecipy, null, 2));
-  return editedRecipy;
+  console.log(JSON.stringify(editedRecipe, null, 2));
+  return editedRecipe;
 }
 
 export const createArrayColors = async () => {
@@ -86,8 +86,8 @@ export const fetchNRecipies = async (quant, pushColorCategories) => {
 
     for (let i = 0; i < quant; i++) {
       
-      const editedRecipy = await fetchOneRecipy(pushColorCategories);
-      recipies.push(editedRecipy);
+      const editedRecipe = await fetchOneRecipe(pushColorCategories);
+      recipies.push(editedRecipe);
     }
 
     return recipies;

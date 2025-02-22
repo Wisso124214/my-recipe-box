@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, ActivityIndicator, FlatList } from 'react-native';
-import ElementRecipy from '../elementRecipy/ElementRecipy';
+import ElementRecipe from '../elementRecipe/ElementRecipe';
 import { useEffect, useState, useRef } from 'react';
 import ThemeModeButton from '../iconButton/ThemeModeButton';
 import IconButton from '../iconButton/IconButton';
@@ -13,7 +13,7 @@ import SvgIconProvider from '../svg/svgIconProvider';
 const ListRecipies = ({ data }) => {
 
   const { mode, consts, styles, theme, loading, setLoading, setStrPage, dataButtonBack, arrayRecipies, 
-    colorsCategories, setRecipySelected, setEditingRecipy, 
+    colorsCategories, setRecipeSelected, setEditingRecipe, 
   } = data;
   
   const sizeIcons = 60*consts.px;
@@ -185,18 +185,18 @@ const ListRecipies = ({ data }) => {
               keyExtractor={(item, index) => index.toString()}
               renderItem={({ item, index }) => {
                 
-                const recipy = { ...recipies[index] };
-                recipy.categories = [...recipy.categories, 'all'];
+                const recipe = { ...recipies[index] };
+                recipe.categories = [...recipe.categories, 'all'];
 
                 return(
-                  recipy && recipy.categories && (recipy.categories.includes(categorySelected)) ?
-                    <ElementRecipy
+                  recipe && recipe.categories && (recipe.categories.includes(categorySelected)) ?
+                    <ElementRecipe
                       key={index}
                       data={data}
                       index={index}
-                      recipy={recipy}
+                      recipe={recipe}
                       objCategories={objCategories}
-                      setRecipySelected={setRecipySelected}
+                      setRecipeSelected={setRecipeSelected}
                       setStrPage={setStrPage}
                     />
                   : null
@@ -221,8 +221,8 @@ const ListRecipies = ({ data }) => {
           borderColor: theme[mode].icons+'80',
         }}
         onPress={()=>{
-          setStrPage('editRecipy')
-          setEditingRecipy(null)
+          setStrPage('editRecipe')
+          setEditingRecipe(null)
         }}
       >
         <SvgIconProvider
@@ -299,7 +299,7 @@ const ListRecipies = ({ data }) => {
             isInputFocus: true,
             setStrPage,
             ifBreadCrumbEmpty: () => {
-              setStrPage('detailsRecipy')
+              setStrPage('detailsRecipe')
             },
           }} 
           styleview={{

@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import { View, Text, ToastAndroid, Pressable, ScrollView, Image, TextInput } from 'react-native';
-import IconButton from '../iconButton/IconButton';
-import ThemeModeButton from '../iconButton/ThemeModeButton';
-import { closeSession } from '../../utils/logicSession';
-import ButtonBack from '../buttonBack/ButtonBack';
-import Menu from '../menu/Menu';
+import IconButton from '../iconButton/IconButton.jsx';
+import ThemeModeButton from '../iconButton/ThemeModeButton.jsx';
+import { closeSession } from '../../utils/logicSession.js';
+import ButtonBack from '../buttonBack/ButtonBack.jsx';
+import Menu from '../menu/Menu.jsx';
 import { getItem, setItem } from '../../utils/asyncStorage.js';
 
 import { arrFetchDebug } from '../../fetchDebug.js';
@@ -15,14 +15,14 @@ import ContrastingSmallButton from '../contrastingSmallButton/ContrastingSmallBu
 import ContrastingButton from '../contrastingButton/ContrastingButton.jsx';
 
 
-const EditRecipy = ({ data }) => {
+const EditRecipe = ({ data }) => {
 
   const { mode, theme, consts, setStrPage, styles, dataButtonBack, setIdMainSession, idMainSession,
-    colorsCategories, recipySelected, setIsInputFocus, dataInput, breadCrumb, setBreadCrumb, editingRecipy,
+    colorsCategories, recipeSelected, setIsInputFocus, dataInput, breadCrumb, setBreadCrumb, editingRecipe,
   } = data;
   const [isShowMenu, setIsShowMenu] = React.useState(false);
   const [isTitleCropped, setIsTitleCropped] = React.useState(false);
-  const [recipy, setRecipy] = React.useState({});
+  const [recipe, setRecipe] = React.useState({});
   const [isTitleOverflowing, setIsTitleOverflowing] = React.useState(true);
   const [isPrevHeight, setIsPrevHeight] = React.useState(true);
   const [isActualHeight, setIsActualHeight] = React.useState(true);
@@ -36,21 +36,21 @@ const EditRecipy = ({ data }) => {
   
   const [isKeyboardVisible, setIsKeyboardVisible] = React.useState(false);
   const [nInputSelected, setnInputSelected] = React.useState(0);
-  const [difficultySelected, setDifficultySelected] = React.useState(editingRecipy === null ? '' : editingRecipy.difficulty.name);
+  const [difficultySelected, setDifficultySelected] = React.useState(editingRecipe === null ? '' : editingRecipe.difficulty.name);
   const [dropdownDifficulty, setDropdownDifficulty] = React.useState(false);
   const [colorDropdownDifficulty, setColorDropdownDifficulty] = React.useState(theme[mode].icons);
-  const [uriImage, setUriImage] = React.useState(editingRecipy === null ? '' : editingRecipy.strMealThumb);
-  const [categories, setCategories] = React.useState(editingRecipy === null ? [] : editingRecipy.categories);
+  const [uriImage, setUriImage] = React.useState(editingRecipe === null ? '' : editingRecipe.strMealThumb);
+  const [categories, setCategories] = React.useState(editingRecipe === null ? [] : editingRecipe.categories);
   const [dropdownCategories, setDropdownCategories] = React.useState(false);
   const [yScroll, setYScroll] = React.useState(0);
-  const [nIngredients, setNIngredients] = React.useState(editingRecipy === null ? 1 : editingRecipy.ingredients.length);
-  const [isFavorite, setIsFavorite] = React.useState(editingRecipy === null ? false : editingRecipy.isFavorite);
+  const [nIngredients, setNIngredients] = React.useState(editingRecipe === null ? 1 : editingRecipe.ingredients.length);
+  const [isFavorite, setIsFavorite] = React.useState(editingRecipe === null ? false : editingRecipe.isFavorite);
 
-  const [titleRecipy, setTitleRecipy] = React.useState(editingRecipy === null ? '' : editingRecipy.strMeal);
-  const [timePrep, setTimePrep] = React.useState(editingRecipy === null ? '' : editingRecipy.timePrep.toString());
-  const [timeCook, setTimeCook] = React.useState(editingRecipy === null ? '' : editingRecipy.timeCook.toString());
-  const [serves, setServes] = React.useState(editingRecipy === null ? '' : editingRecipy.serves.toString());
-  const [preparation, setPreparation] = React.useState(editingRecipy === null ? '' : editingRecipy.strInstructions);
+  const [titleRecipe, setTitleRecipe] = React.useState(editingRecipe === null ? '' : editingRecipe.strMeal);
+  const [timePrep, setTimePrep] = React.useState(editingRecipe === null ? '' : editingRecipe.timePrep.toString());
+  const [timeCook, setTimeCook] = React.useState(editingRecipe === null ? '' : editingRecipe.timeCook.toString());
+  const [serves, setServes] = React.useState(editingRecipe === null ? '' : editingRecipe.serves.toString());
+  const [preparation, setPreparation] = React.useState(editingRecipe === null ? '' : editingRecipe.strInstructions);
 
   const compStyles = {
     header: {
@@ -111,9 +111,9 @@ const EditRecipy = ({ data }) => {
   }
 
   useEffect(() => {
-    setRecipy(recipySelected)
-    setIsFavorite(recipy.isFavorite)
-  }, [recipy])
+    setRecipe(recipeSelected)
+    setIsFavorite(recipe.isFavorite)
+  }, [recipe])
   
   const itemsMenu = [
     {
@@ -183,7 +183,7 @@ const EditRecipy = ({ data }) => {
       }}
       >
         <Input
-          placeholder="Title recipy"
+          placeholder="Title recipe"
           style={{
             ...compStyles.input,
             top: 10*consts.px,
@@ -193,7 +193,7 @@ const EditRecipy = ({ data }) => {
           dataInput={{
             ...dataInput,
             styles,
-            stateValue: [titleRecipy, setTitleRecipy],
+            stateValue: [titleRecipe, setTitleRecipe],
             isKeyboardVisible: isKeyboardVisible,
             index: 0,
             nInputSelected,
@@ -221,7 +221,7 @@ const EditRecipy = ({ data }) => {
         />
       </View>
           
-      {/**Data recipy */}
+      {/**Data recipe */}
 
       <ScrollView
         contentOffset={{ x: 0, y: yScroll }}
@@ -239,9 +239,9 @@ const EditRecipy = ({ data }) => {
 
         {/*Difficulty component */}
         {
-          recipy.difficulty &&
+          recipe.difficulty &&
           <View
-            key={'difficulty-icon-recipy'}
+            key={'difficulty-icon-recipe'}
             style={{
               position: 'relative',
               width: consts.widthScreen*0.8*consts.px,
@@ -249,7 +249,7 @@ const EditRecipy = ({ data }) => {
             }}
           >
             <Pressable
-              key={'difficulty-view-recipy'}
+              key={'difficulty-view-recipe'}
               style={{
                 position: 'relative',
                 paddingHorizontal: 22*consts.px,
@@ -261,7 +261,7 @@ const EditRecipy = ({ data }) => {
               onPress={() => setDropdownDifficulty((prev)=>!prev)}
             >
               <Text
-                key={'difficulty-text-recipy'}
+                key={'difficulty-text-recipe'}
                 style={{
                   fontFamily: styles.fonts.mali.bold,
                   color: difficultySelected === '' ? colorDropdownDifficulty+'cc' : colorDropdownDifficulty,
@@ -290,7 +290,7 @@ const EditRecipy = ({ data }) => {
             {
               dropdownDifficulty &&
               <View
-                key={'difficulty-dropdown-recipy'}
+                key={'difficulty-dropdown-recipe'}
                 style={{
                   position: 'absolute',
                   top: 70*consts.px,
@@ -541,7 +541,7 @@ const EditRecipy = ({ data }) => {
           {
             dropdownCategories &&
             <View
-              key={'categories-dropdown-recipy-view'}
+              key={'categories-dropdown-recipe-view'}
               style={{
                 position: 'relative',
                 justifyContent: 'space-around',
@@ -614,7 +614,7 @@ const EditRecipy = ({ data }) => {
           }}
         >
           <View
-            key={'clock-icon-recipy'}
+            key={'clock-icon-recipe'}
             style={{
               position: 'relative',
               top: 60*consts.px,
@@ -750,7 +750,7 @@ const EditRecipy = ({ data }) => {
           </View>
 
           <View
-            key={'dish-icon-recipy'}
+            key={'dish-icon-recipe'}
             style={{
               position: 'relative',
               top: 18*consts.px,
@@ -779,7 +779,7 @@ const EditRecipy = ({ data }) => {
               viewBox='-1 -1 20 20'
             />
             <Svg
-              key={'dish-svg-recipy'}
+              key={'dish-svg-recipe'}
               viewBox="0 0 16 16"
               xmlns="http://www.w3.org/2000/svg"
               style={{
@@ -791,7 +791,7 @@ const EditRecipy = ({ data }) => {
               }}
             >
               <Circle
-                key={'dish-circle-recipy'}
+                key={'dish-circle-recipe'}
                 cx={5*consts.px} 
                 cy={5*consts.px} 
                 r={5*consts.px} 
@@ -914,7 +914,7 @@ const EditRecipy = ({ data }) => {
                   dataInput={{
                     ...dataInput,
                     styles,
-                    defaultValue: editingRecipy.ingredients[index].measure,
+                    defaultValue: editingRecipe.ingredients[index].measure,
                     isKeyboardVisible: isKeyboardVisible,
                     index: 3,
                     nInputSelected,
@@ -951,7 +951,7 @@ const EditRecipy = ({ data }) => {
                   dataInput={{
                     ...dataInput,
                     styles,
-                    defaultValue: editingRecipy.ingredients[index].unit,
+                    defaultValue: editingRecipe.ingredients[index].unit,
                     isKeyboardVisible: isKeyboardVisible,
                     index: 3,
                     nInputSelected,
@@ -988,7 +988,7 @@ const EditRecipy = ({ data }) => {
                   dataInput={{
                     ...dataInput,
                     styles,
-                    defaultValue: editingRecipy.ingredients[index].name,
+                    defaultValue: editingRecipe.ingredients[index].name,
                     isKeyboardVisible: isKeyboardVisible,
                     index: 3,
                     nInputSelected,
@@ -1110,7 +1110,7 @@ const EditRecipy = ({ data }) => {
             marginBottom: 150 * consts.px,
             alignSelf: 'center',
           }} 
-          onPress={()=>console.log('Recipy saved')}
+          onPress={()=>console.log('Recipe saved')}
           />  
         
 
@@ -1187,4 +1187,4 @@ const EditRecipy = ({ data }) => {
   )
 }
 
-export default EditRecipy;
+export default EditRecipe;

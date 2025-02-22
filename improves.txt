@@ -62,14 +62,14 @@ Front:
     . EditCategories
     . Plus
     . EditCategory
-    ✔ DetailsRecipy (FIRST SHOW RECIPY AND THEN CREATE THE EDIT RECIPY)
+    ✔ DetailsRecipe (FIRST SHOW RECIPY AND THEN CREATE THE EDIT RECIPY)
     ✔ ListRecipies scroll (missing plus, select and search)
 
     ✔ InputPopUp (missing validation after)
     ✔ DeviceAccounts (missing backend: add functions to exit and delete the main account)
   ✔✔ ElementCategory
   ✔✔ ListCategories scroll (missing change strPage to editCategory when the categoryButton are pressed)
-  ✔✔ ElementRecipy (time, difficulty, ingredients)
+  ✔✔ ElementRecipe (time, difficulty, ingredients)
   ✔✔ UserAccounts
   ✔✔ Logo
   ✔✔ SvgIcon

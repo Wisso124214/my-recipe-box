@@ -5,7 +5,7 @@ import ThemeModeButton from '../iconButton/ThemeModeButton';
 import { closeSession } from '../../utils/logicSession';
 import ButtonBack from '../buttonBack/ButtonBack';
 import Menu from '../menu/Menu';
-import { fetchOneRecipy } from './dataRecipes.js';
+import { fetchOneRecipe } from './dataRecipes.js';
 import { getItem, setItem } from '../../utils/asyncStorage.js';
 
 import { arrFetchDebug } from '../../fetchDebug.js';
@@ -13,14 +13,14 @@ import SvgIconProvider from '../svg/svgIconProvider.jsx';
 import Svg, { Circle } from 'react-native-svg';
 
 
-const DetailsRecipy = ({ data }) => {
+const DetailsRecipe = ({ data }) => {
 
   const { mode, theme, consts, setStrPage, styles, dataButtonBack, setIdMainSession, idMainSession,
-    colorsCategories, recipySelected, setEditingRecipy,
+    colorsCategories, recipeSelected, setEditingRecipe,
   } = data;
   const [isShowMenu, setIsShowMenu] = React.useState(false);
   const [isTitleCropped, setIsTitleCropped] = React.useState(false);
-  const [recipy, setRecipy] = React.useState({});
+  const [recipe, setRecipe] = React.useState({});
   const [isTitleOverflowing, setIsTitleOverflowing] = React.useState(true);
   const [isPrevHeight, setIsPrevHeight] = React.useState(true);
   const [isActualHeight, setIsActualHeight] = React.useState(true);
@@ -91,29 +91,29 @@ const DetailsRecipy = ({ data }) => {
 
   const handleError = (error) => {
     console.log('Error: ', error)
-    ToastAndroid.showWithGravity('Error getting recipy data' + error, ToastAndroid.SHORT, ToastAndroid.CENTER)
+    ToastAndroid.showWithGravity('Error getting recipe data' + error, ToastAndroid.SHORT, ToastAndroid.CENTER)
   }
 
   useEffect(() => {
-    setIsFavorite(recipy.isFavorite)
-  }, [recipy])
+    setIsFavorite(recipe.isFavorite)
+  }, [recipe])
 
   useEffect(() => {
-    setRecipy(recipySelected)
+    setRecipe(recipeSelected)
     /*(async () => {
 
       try {
-        await getItem('recipySelected')
-        .then((recipySelected) => {
-          if (recipySelected && !isRefreshData) {
-            setRecipy(recipySelected);
+        await getItem('recipeSelected')
+        .then((recipeSelected) => {
+          if (recipeSelected && !isRefreshData) {
+            setRecipe(recipeSelected);
           } else {
             try {
-              fetchOneRecipy(recipySelected)
-              .then((recipy) => {
-                console.log('recipy: ', JSON.stringify(recipy, null, 2))
-                setRecipy(recipy)
-                setItem('recipySelected', recipy)
+              fetchOneRecipe(recipeSelected)
+              .then((recipe) => {
+                console.log('recipe: ', JSON.stringify(recipe, null, 2))
+                setRecipe(recipe)
+                setItem('recipeSelected', recipe)
               })
             } catch (error) {
               handleError(error)
@@ -154,8 +154,8 @@ const DetailsRecipy = ({ data }) => {
       color: theme[mode].noColor,
       sizeIcon: 45*consts.px,
       onPress: ()=>{
-        setEditingRecipy(recipy)
-        setStrPage('editRecipy')
+        setEditingRecipe(recipe)
+        setStrPage('editRecipe')
       },
     },
   ]
@@ -226,12 +226,12 @@ const DetailsRecipy = ({ data }) => {
               textAlign: 'center',
             }}
           >
-            {recipy.strMeal}
+            {recipe.strMeal}
           </Text>
         </Pressable>
       </View>
           
-      {/**Data recipy */}
+      {/**Data recipe */}
 
       <ScrollView
         style={{
@@ -248,9 +248,9 @@ const DetailsRecipy = ({ data }) => {
 
         {/*Difficulty component */}
         {
-          recipy.difficulty &&
+          recipe.difficulty &&
           <View
-            key={'difficulty-icon-recipy'}
+            key={'difficulty-icon-recipe'}
             style={{
               position: 'relative',
               width: consts.widthScreen*0.8*consts.px,
@@ -258,21 +258,21 @@ const DetailsRecipy = ({ data }) => {
             }}
           >
             <View
-              key={'difficulty-view-recipy'}
+              key={'difficulty-view-recipe'}
               style={{
                 position: 'relative',
                 alignSelf: 'flex-end',
-                backgroundColor: theme[mode].difficulty[recipy.difficulty.name].background,
+                backgroundColor: theme[mode].difficulty[recipe.difficulty.name].background,
                 paddingHorizontal: 22*consts.px,
                 borderRadius: 50*consts.px,
                 width: consts.widthScreen*0.8*consts.px,
   
                 borderWidth: 3*consts.px,
-                borderColor: theme[mode].difficulty[recipy.difficulty.name].border,
+                borderColor: theme[mode].difficulty[recipe.difficulty.name].border,
               }}
             >
               <Text
-                key={'difficulty-text-recipy'}
+                key={'difficulty-text-recipe'}
                 style={{
                   fontFamily: styles.fonts.mali.bold,
                   color: theme[mode].color,
@@ -283,14 +283,14 @@ const DetailsRecipy = ({ data }) => {
                   textTransform: 'capitalize',
                 }}
               >
-                {recipy.difficulty.name}
+                {recipe.difficulty.name}
               </Text>
             </View>
           </View>
         }
 
         <Image
-          source={{ uri: recipy.strMealThumb }}
+          source={{ uri: recipe.strMealThumb }}
           style={{
             width: '100%',
             height: 400*consts.px,
@@ -308,8 +308,8 @@ const DetailsRecipy = ({ data }) => {
           }}
         >
           {
-            recipy.categories && colorsCategories &&
-            Array(Math.ceil(recipy.categories.length/2)).fill(0).map((_, index) => (
+            recipe.categories && colorsCategories &&
+            Array(Math.ceil(recipe.categories.length/2)).fill(0).map((_, index) => (
               <View
                 key={`categories-${index}`}
                 style={{
@@ -323,14 +323,14 @@ const DetailsRecipy = ({ data }) => {
                   Array(2).fill(0).map((_, index_sub) => {
                     let color;
 
-                    if (recipy.categories[(index)*2+index_sub]) {
-                      color = colorsCategories[recipy.categories[(index)*2+index_sub]].color.split(',');
+                    if (recipe.categories[(index)*2+index_sub]) {
+                      color = colorsCategories[recipe.categories[(index)*2+index_sub]].color.split(',');
                       color[2] = mode === 'light' ? ' 70%)' : ' 25%)';
                       color = color.join(',');
                     }
 
                     return (
-                      recipy.categories[(index)*2+index_sub] && recipy.categories[(index)*2+index_sub] !== 'all' &&
+                      recipe.categories[(index)*2+index_sub] && recipe.categories[(index)*2+index_sub] !== 'all' &&
                       <View
                         key={'categories-sub-'+index_sub}
                         style={{
@@ -356,7 +356,7 @@ const DetailsRecipy = ({ data }) => {
                             textTransform: 'capitalize',
                           }}
                         >
-                          {recipy.categories[(index)*2+index_sub]}
+                          {recipe.categories[(index)*2+index_sub]}
                         </Text>
                       </View>
                     )
@@ -377,7 +377,7 @@ const DetailsRecipy = ({ data }) => {
           }}
         >
           <View
-            key={'clock-icon-recipy'}
+            key={'clock-icon-recipe'}
             style={{
               position: 'relative',
               top: 60*consts.px,
@@ -406,7 +406,7 @@ const DetailsRecipy = ({ data }) => {
               }}
             />
             <Text
-              key={'clock-text-recipy'}
+              key={'clock-text-recipe'}
               style={{
                 fontFamily: styles.fonts.mali.medium,
                 position: 'relative',
@@ -417,12 +417,12 @@ const DetailsRecipy = ({ data }) => {
                 fontSize: 24*consts.px,
               }}
             >
-              {'Prep:  '+recipy.timePrep+' min\nCook:  '+recipy.timeCook+' min'}
+              {'Prep:  '+recipe.timePrep+' min\nCook:  '+recipe.timeCook+' min'}
             </Text>
           </View>
 
           <View
-            key={'dish-icon-recipy'}
+            key={'dish-icon-recipe'}
             style={{
               position: 'relative',
               top: 18*consts.px,
@@ -451,7 +451,7 @@ const DetailsRecipy = ({ data }) => {
               viewBox='-1 -1 20 20'
             />
             <Svg
-              key={'dish-svg-recipy'}
+              key={'dish-svg-recipe'}
               viewBox="0 0 16 16"
               xmlns="http://www.w3.org/2000/svg"
               style={{
@@ -463,7 +463,7 @@ const DetailsRecipy = ({ data }) => {
               }}
             >
               <Circle
-                key={'dish-circle-recipy'}
+                key={'dish-circle-recipe'}
                 cx={5*consts.px} 
                 cy={5*consts.px} 
                 r={5*consts.px} 
@@ -471,7 +471,7 @@ const DetailsRecipy = ({ data }) => {
               />
             </Svg>
             <Text
-              key={'dish-text-recipy'}
+              key={'dish-text-recipe'}
               style={{
                 fontFamily: styles.fonts.mali.medium,
                 position: 'relative',
@@ -481,7 +481,7 @@ const DetailsRecipy = ({ data }) => {
                 fontSize: 24*consts.px,
               }}
             >
-              {'Serves:  '+recipy.serves}
+              {'Serves:  '+recipe.serves}
             </Text>
           </View>
         </View>
@@ -500,8 +500,8 @@ const DetailsRecipy = ({ data }) => {
         <Text></Text>
 
         {
-          recipy.ingredients ? 
-            recipy.ingredients.map((ingredient, index) => (
+          recipe.ingredients ? 
+            recipe.ingredients.map((ingredient, index) => (
               <View
                 key={`ingredient-${index}`}
                 style={{
@@ -556,8 +556,8 @@ const DetailsRecipy = ({ data }) => {
         <Text></Text>
 
         {
-          recipy.strInstructions &&
-          recipy.strInstructions.split('\n').map((instruction, index) => (
+          recipe.strInstructions &&
+          recipe.strInstructions.split('\n').map((instruction, index) => (
             <React.Fragment key={`instruction-${index}`}>
               <Text
                 key={`instruction-text-${index}`}
@@ -655,4 +655,4 @@ const DetailsRecipy = ({ data }) => {
   )
 }
 
-export default DetailsRecipy;
+export default DetailsRecipe;

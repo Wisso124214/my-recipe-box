@@ -28,7 +28,8 @@ const Input = (props) => {
       borderWidth: 5 * consts.px,
       borderRadius: 50 * consts.px,
       paddingHorizontal: 50 * consts.px,
-      width: 415 * consts.px,
+      // width: 415 * consts.px,
+      width: 350 * consts.px,
       height: 80 * consts.px,
       fontFamily: styles.fonts.mali.medium,
       
@@ -95,7 +96,7 @@ const Input = (props) => {
       {...viewprops} 
       style={ isRegisterInput && finalValue.length > 0 ? 
         { ...props.style, 
-          left: (415 - 350)/-2 * consts.px,
+          // left: (415 - 350)/-2 * consts.px,
         } 
         : props.style }
     >

@@ -4,15 +4,15 @@ import Svg, { Circle } from 'react-native-svg';
 import { useState } from 'react';
 import { configFront } from '../../config/config';
 
-const ElementRecipy = ({ data, index, recipy, objCategories, setRecipySelected, setStrPage }) => {
+const ElementRecipe = ({ data, index, recipe, objCategories, setRecipeSelected, setStrPage }) => {
 
   const { mode, consts, styles, theme, showDebugMenu, setShowDebugMenu, devMode } = data;
 
-  const strMeal = recipy.strMeal;
-  const ingredients = recipy.ingredients;
-  const totalIngredients = recipy.ingredients.length;
+  const strMeal = recipe.strMeal;
+  const ingredients = recipe.ingredients;
+  const totalIngredients = recipe.ingredients.length;
 
-  const xDetailsRecipy = -12*consts.px;
+  const xDetailsRecipe = -12*consts.px;
   const heightElement = 200*consts.px;
   const widthElement = ((consts.widthScreen*0.9))*consts.px;
   const maxLengthTitle = 20;
@@ -24,9 +24,9 @@ const ElementRecipy = ({ data, index, recipy, objCategories, setRecipySelected, 
   const colsToShow = totalColIngredients > maxColIngredients ? maxColIngredients : totalColIngredients;
   const maxColorsCategories = 6;
 
-  const [isFavorite, setIsFavorite] = useState(recipy.isFavorite);
+  const [isFavorite, setIsFavorite] = useState(recipe.isFavorite);
 
-  // console.log(recipy.strMeal, recipy.categories)
+  // console.log(recipe.strMeal, recipe.categories)
   // console.log('.')
 
   return (
@@ -34,8 +34,8 @@ const ElementRecipy = ({ data, index, recipy, objCategories, setRecipySelected, 
       <TouchableOpacity
         key={'container-'+index}
         onPress={() => {
-          setRecipySelected(recipy)
-          setStrPage('detailsRecipy')
+          setRecipeSelected(recipe)
+          setStrPage('detailsRecipe')
         }}
         activeOpacity={configFront.activeOpacity}
         style={{
@@ -59,9 +59,9 @@ const ElementRecipy = ({ data, index, recipy, objCategories, setRecipySelected, 
             overflow: 'hidden',
           }}>
             {
-              recipy.categories && 
-              recipy.categories.filter((name, i) => i < maxColorsCategories).map((name, i) => {
-                const top = recipy.categories.length > maxColorsCategories ? maxColorsCategories : recipy.categories.length;
+              recipe.categories && 
+              recipe.categories.filter((name, i) => i < maxColorsCategories).map((name, i) => {
+                const top = recipe.categories.length > maxColorsCategories ? maxColorsCategories : recipe.categories.length;
                 let color = 'transparent';
                 
                 let nameColor = 'all';
@@ -95,7 +95,7 @@ const ElementRecipy = ({ data, index, recipy, objCategories, setRecipySelected, 
 
         <Image
           key={'image-'+index}
-          source={{ uri: recipy.strMealThumb}}
+          source={{ uri: recipe.strMealThumb}}
           style={{
             width: heightElement,
             height: '100%',
@@ -202,7 +202,7 @@ const ElementRecipy = ({ data, index, recipy, objCategories, setRecipySelected, 
             strprops='color, px, top, left'
             stylesvg={{
               position: 'absolute',
-              left: widthElement - (18*2)*consts.px - 145*consts.px + xDetailsRecipy,
+              left: widthElement - (18*2)*consts.px - 145*consts.px + xDetailsRecipe,
               top: -(18*2)*consts.px - 100*consts.px,
             }}
             stylepath={{
@@ -215,14 +215,14 @@ const ElementRecipy = ({ data, index, recipy, objCategories, setRecipySelected, 
             style={{
               fontFamily: styles.fonts.mali.regular,
               position: 'absolute',
-              left: widthElement - (18*2)*consts.px - 145*consts.px + 20*consts.px + xDetailsRecipy,
+              left: widthElement - (18*2)*consts.px - 145*consts.px + 20*consts.px + xDetailsRecipe,
               top: -(18*2)*consts.px - 107*consts.px,
               color: theme[mode].color,
               paddingLeft: 30*consts.px,
               fontSize: 16*consts.px,
             }}
           >
-            {'Prep: '+recipy.timePrep+' min\nCook: '+recipy.timeCook+' min'}
+            {'Prep: '+recipe.timePrep+' min\nCook: '+recipe.timeCook+' min'}
           </Text>
         </View>
         
@@ -246,7 +246,7 @@ const ElementRecipy = ({ data, index, recipy, objCategories, setRecipySelected, 
             strprops='color, px, top, left'
             stylesvg={{
               position: 'absolute',
-              left: heightElement - (18*2)*consts.px  + xDetailsRecipy,
+              left: heightElement - (18*2)*consts.px  + xDetailsRecipe,
             }}
             stylepath={{
               strokeWidth: 5*consts.px,
@@ -261,7 +261,7 @@ const ElementRecipy = ({ data, index, recipy, objCategories, setRecipySelected, 
             style={{
               position: 'absolute',
               top: 20*consts.px,
-              left: 178.5*consts.px + xDetailsRecipy,
+              left: 178.5*consts.px + xDetailsRecipe,
               width: 20,
               height: 20,
             }}
@@ -279,14 +279,14 @@ const ElementRecipy = ({ data, index, recipy, objCategories, setRecipySelected, 
             style={{
               fontFamily: styles.fonts.mali.regular,
               position: 'absolute',
-              left: 185*consts.px + xDetailsRecipy,
+              left: 185*consts.px + xDetailsRecipe,
               top: 7*consts.px,
               color: theme[mode].color,
               paddingLeft: 30*consts.px,
               fontSize: 16*consts.px,
             }}
           >
-            {'Serves: '+recipy.serves}
+            {'Serves: '+recipe.serves}
           </Text>
         </View>
 
@@ -297,7 +297,7 @@ const ElementRecipy = ({ data, index, recipy, objCategories, setRecipySelected, 
           key={'fav-icon-'+index}
           onPress={() => {
             setIsFavorite(!isFavorite);
-            recipy.isFavorite = !recipy.isFavorite;
+            recipe.isFavorite = !recipe.isFavorite;
           }}
         >
           <SvgIconProvider
@@ -312,7 +312,7 @@ const ElementRecipy = ({ data, index, recipy, objCategories, setRecipySelected, 
             strprops='color, px, top, left'
             stylesvg={{
               position: 'absolute',
-              left: widthElement - (20*2)*consts.px - 15*consts.px + xDetailsRecipy,
+              left: widthElement - (20*2)*consts.px - 15*consts.px + xDetailsRecipe,
               top: -55*consts.px,
             }}
           />
@@ -323,7 +323,7 @@ const ElementRecipy = ({ data, index, recipy, objCategories, setRecipySelected, 
           key={'difficulty-icon-'+index}
           style={{
             position: 'absolute',
-            right: 70*consts.px - xDetailsRecipy,
+            right: 70*consts.px - xDetailsRecipe,
             bottom: 48*consts.px,
             width: 200*consts.px,
           }}
@@ -334,13 +334,13 @@ const ElementRecipy = ({ data, index, recipy, objCategories, setRecipySelected, 
             style={{
               position: 'absolute',
               alignSelf: 'flex-end',
-              backgroundColor: theme[mode].difficulty[recipy.difficulty.name].background,
+              backgroundColor: theme[mode].difficulty[recipe.difficulty.name].background,
               paddingHorizontal: 22*consts.px,
               borderRadius: 50*consts.px,
               height: 35*consts.px,
 
               borderWidth: 2*consts.px,
-              borderColor: theme[mode].difficulty[recipy.difficulty.name].border,
+              borderColor: theme[mode].difficulty[recipe.difficulty.name].border,
             }}
           >
             <Text
@@ -355,7 +355,7 @@ const ElementRecipy = ({ data, index, recipy, objCategories, setRecipySelected, 
                 textTransform: 'capitalize',
               }}
             >
-              {recipy.difficulty.name.split('').length > maxLengthDifficulty ? (recipy.difficulty.name).split('').filter((word, i) =>i < maxLengthDifficulty).join('')+'...' : recipy.difficulty.name}
+              {recipe.difficulty.name.split('').length > maxLengthDifficulty ? (recipe.difficulty.name).split('').filter((word, i) =>i < maxLengthDifficulty).join('')+'...' : recipe.difficulty.name}
             </Text>
           </View>
         </View>
@@ -365,4 +365,4 @@ const ElementRecipy = ({ data, index, recipy, objCategories, setRecipySelected, 
   );
 }
 
-export default ElementRecipy;
+export default ElementRecipe;

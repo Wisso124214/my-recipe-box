@@ -12,13 +12,13 @@ import LoadingScreen from './components/loadingScreen/LoadingScreen';
 import Login from './components/login/Login';
 import ForgotPassword from './components/forgotPassword/ForgotPassword';
 import Register from './components/register/Register';
-import DetailsRecipy from './components/recipies/DetailsRecipy.jsx';
+import DetailsRecipe from './components/recipies/DetailsRecipe.jsx';
 import DeviceAccounts from './components/deviceAccounts/DeviceAccounts';
 import UserAccounts from './components/userAccounts/UserAccounts';
 import DebugMenu from './components/debugMenu/DebugMenu';
 import { setItem, getItem } from './utils/asyncStorage.js';
 import ListRecipies from './components/recipies/ListRecipies.jsx';
-import { createArrayColors, editRecipy } from './components/recipies/dataRecipes.js';
+import { createArrayColors, editRecipe } from './components/recipies/dataRecipes.js';
 import { fetchNRecipies } from './components/recipies/dataRecipes.js';
 import { arrFetchDebug, objCategories } from './fetchDebug.js';
 
@@ -26,7 +26,7 @@ import { SERVER_URL } from './config/config';
 import axios from 'axios';
 import Loading from './components/loading/Loading.jsx';
 import { SplashScreen } from 'expo-router';
-import EditRecipy from './components/editRecipy/EditRecipy.jsx';
+import EditRecipe from './components/editRecipe/EditRecipe.jsx';
 
 export default function App() {
   const devMode = {
@@ -105,8 +105,8 @@ export default function App() {
   const [colorMssg, setColorMssg] = useState(theme[mode].successColor);
   const [breadCrumb, setBreadCrumb] = useState([]);
   const [idMainSession, setIdMainSession] = useState(null);
-  const [recipySelected, setRecipySelected] = useState(arrFetchDebug[0]);
-  const [editingRecipy, setEditingRecipy] = useState(null);
+  const [recipeSelected, setRecipeSelected] = useState(arrFetchDebug[0]);
+  const [editingRecipe, setEditingRecipe] = useState(null);
   
   const [colorsCategories, setColorsCategories] = useState({});
   const [arrayRecipies, setArrayRecipies] = useState([]);
@@ -232,7 +232,7 @@ export default function App() {
 
   useEffect(() => {
     // console.log('recipies ', arrFetchDebug.length)
-    // editRecipy(arrFetchDebug[arrFetchDebug.length-1], pushColorCategories)
+    // editRecipe(arrFetchDebug[arrFetchDebug.length-1], pushColorCategories)
 
     //FETCH DATA
     /*
@@ -255,7 +255,7 @@ export default function App() {
             for (let r in recipies) {
               recipies[r] && recipies[r].strMeal && console.log(`recipies[${r}]: ${recipies[r].strMeal}`)
             }
-            const newRecipies = recipies.filter(recipy => recipy !== null && recipy !== undefined)
+            const newRecipies = recipies.filter(recipe => recipe !== null && recipe !== undefined)
             setArrayRecipies(newRecipies);
 
             await setItem('arrayRecipies', JSON.stringify(newRecipies))
@@ -494,10 +494,10 @@ export default function App() {
     pushColorCategories,
     arrayRecipies,
     colorsCategories,
-    setRecipySelected,
-    recipySelected,
-    editingRecipy,
-    setEditingRecipy,
+    setRecipeSelected,
+    recipeSelected,
+    editingRecipe,
+    setEditingRecipe,
 
 
     dataInput,
@@ -513,11 +513,11 @@ export default function App() {
     login:  <Login data={dataPages} />,
     forgotPassword:  <ForgotPassword data={dataPages} />,
     register:  <Register data={dataPages} />,
-    detailsRecipy:  <DetailsRecipy data={dataPages} />,
+    detailsRecipe:  <DetailsRecipe data={dataPages} />,
     deviceAccounts: <DeviceAccounts data={dataPages} />,
     userAccounts: <UserAccounts data={dataPages} />,
     listRecipies: <ListRecipies data={dataPages} />,
-    editRecipy: <EditRecipy data={dataPages} />, 
+    editRecipe: <EditRecipe data={dataPages} />, 
   }
   const arrdebug = Object.keys(objdebug);
   
