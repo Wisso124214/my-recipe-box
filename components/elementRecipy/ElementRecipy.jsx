@@ -4,7 +4,7 @@ import Svg, { Circle } from 'react-native-svg';
 import { useState } from 'react';
 import { configFront } from '../../config/config';
 
-const ElementRecipy = ({ data, index, recipy, objCategories }) => {
+const ElementRecipy = ({ data, index, recipy, objCategories, setRecipySelected, setStrPage }) => {
 
   const { mode, consts, styles, theme, showDebugMenu, setShowDebugMenu, devMode } = data;
 
@@ -33,7 +33,10 @@ const ElementRecipy = ({ data, index, recipy, objCategories }) => {
     <View style={ styles.transparentContainer }>
       <TouchableOpacity
         key={'container-'+index}
-        onPress={() => console.log('Pressed recipy: '+recipy.strMeal)}
+        onPress={() => {
+          setRecipySelected(recipy)
+          setStrPage('detailsRecipy')
+        }}
         activeOpacity={configFront.activeOpacity}
         style={{
           width: widthElement,
@@ -57,8 +60,8 @@ const ElementRecipy = ({ data, index, recipy, objCategories }) => {
           }}>
             {
               recipy.categories && 
-              recipy.categories.filter((name, i) => i < maxColorsCategories-1).map((name, i) => {
-
+              recipy.categories.filter((name, i) => i < maxColorsCategories).map((name, i) => {
+                const top = recipy.categories.length > maxColorsCategories ? maxColorsCategories : recipy.categories.length;
                 let color = 'transparent';
                 
                 let nameColor = 'all';
@@ -78,8 +81,8 @@ const ElementRecipy = ({ data, index, recipy, objCategories }) => {
                     style={{
                       position: 'absolute',
                       right: 0,
-                      height: 100/recipy.categories.length+'%',
-                      top: 100/recipy.categories.length*i+'%',
+                      height: 100/top+'%',
+                      top: 100/top*i+'%',
                       width: 12*consts.px,
                       backgroundColor: color,
                       zIndex: 3,
@@ -349,9 +352,10 @@ const ElementRecipy = ({ data, index, recipy, objCategories }) => {
                 textAlign: 'center',
                 top: -2*consts.px,
                 alignSelf: 'center',
+                textTransform: 'capitalize',
               }}
             >
-              {(recipy.difficulty.name.split('')[0].toUpperCase() + recipy.difficulty.name.slice(1)).split('').length > maxLengthDifficulty ? (recipy.difficulty.name.split('')[0].toUpperCase() + recipy.difficulty.name.slice(1)).split('').filter((word, i) =>i < maxLengthDifficulty).join('')+'...' : (recipy.difficulty.name.split('')[0].toUpperCase() + recipy.difficulty.name.slice(1))}
+              {recipy.difficulty.name.split('').length > maxLengthDifficulty ? (recipy.difficulty.name).split('').filter((word, i) =>i < maxLengthDifficulty).join('')+'...' : recipy.difficulty.name}
             </Text>
           </View>
         </View>

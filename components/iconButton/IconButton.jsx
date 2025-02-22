@@ -18,10 +18,11 @@ const IconButton = ({ dataIconButton, onPress, dCodeIcon, src, strprops, styles,
       style={{ marginHorizontal: 10, width: sizeButton, height: sizeButton, backgroundColor: 'transparent', borderRadius: 100, ...styleButton }}
     >
       <SvgIconProvider 
-          styles={styles}
-          src={src}
-          strprops={strprops}
-          d={dCodeIcon} />
+        styles={styles}
+        src={src}
+        strprops={strprops}
+        d={dCodeIcon} 
+      />
     </TouchableOpacity>
   )
 }

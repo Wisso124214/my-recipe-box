@@ -19,6 +19,7 @@ const Menu = ({ items = [], data }) => {
           position: 'absolute',
           top: 240*consts.px,
           right: 70*consts.px,
+          zIndex: 2,
         }}
       >
         {

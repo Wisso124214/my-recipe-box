@@ -75,7 +75,7 @@ const InputPopUp = ({ data, style }) => {
             styles,
             defaultValue: valueSelected,
             stateValue: [value, setValue],
-            styleinput: styles.popUp.input,
+            styleInput: styles.popUp.input,
             textprops: {
               maxLength: maxLengthType[typeSelected],
               ...styles.popUp.placeholderInput,

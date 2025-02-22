@@ -1,4 +1,4 @@
-import { View, Text, VirtualizedList, TouchableOpacity, ActivityIndicator, FlatList } from 'react-native';
+import { View, Text, TouchableOpacity, ActivityIndicator, FlatList } from 'react-native';
 import ElementRecipy from '../elementRecipy/ElementRecipy';
 import { useEffect, useState, useRef } from 'react';
 import ThemeModeButton from '../iconButton/ThemeModeButton';
@@ -6,12 +6,14 @@ import IconButton from '../iconButton/IconButton';
 import Svg, { Path } from "react-native-svg"
 import { configFront } from '../../config/config';
 import ButtonBack from '../buttonBack/ButtonBack';
+import SvgIcon from '../svg/SvgIcon';
+import SvgIconProvider from '../svg/svgIconProvider';
 
 
 const ListRecipies = ({ data }) => {
 
   const { mode, consts, styles, theme, loading, setLoading, setStrPage, dataButtonBack, arrayRecipies, 
-    colorsCategories,
+    colorsCategories, setRecipySelected, setEditingRecipy, 
   } = data;
   
   const sizeIcons = 60*consts.px;
@@ -21,6 +23,8 @@ const ListRecipies = ({ data }) => {
   
   const [recipies, setRecipies] = useState([]);
   const [categorySelected, setCategorySelected] = useState('all');
+  const [arrCategories, setArrCategories] = useState([]);
+  const [objCategories, setObjCategories] = useState({});
 
   useEffect(() => {
     console.log('recipies loading: ', loading)
@@ -55,20 +59,16 @@ const ListRecipies = ({ data }) => {
     }
   }
 
-  let arrCategories = [];
-  let objCategories = {};
-
   useEffect(()=>{
     setRecipies(arrayRecipies)
     console.log('useEffect arrayRecipies')
   },[]);
 
   useEffect(() => {
-    if(colorsCategories !== null && colorsCategories.length > 0){
-      arrCategories = Object.keys(colorsCategories);
-      objCategories = {...colorsCategories};
+    if(colorsCategories !== null && Object.keys(colorsCategories).length > 0){
+      setArrCategories(Object.keys(colorsCategories));
+      setObjCategories({...colorsCategories});
     }
-    console.log('useEffect colorsCategories')
   }, [colorsCategories])
 
   return (
@@ -201,6 +201,8 @@ const ListRecipies = ({ data }) => {
                       index={index}
                       recipy={recipy}
                       objCategories={objCategories}
+                      setRecipySelected={setRecipySelected}
+                      setStrPage={setStrPage}
                     />
                   : null
                 )
@@ -209,6 +211,79 @@ const ListRecipies = ({ data }) => {
           </View>
         </View>
       }
+
+      <TouchableOpacity
+        activeOpacity={configFront.activeOpacity}
+        style={{
+          position: 'absolute',
+          backgroundColor: theme[mode].icons,
+          borderRadius: 50,
+          width: 100*consts.px,
+          height: 100*consts.px,
+          bottom: 150*consts.px,
+          right: 50*consts.px,
+          borderWidth: 2,
+          borderColor: theme[mode].icons+'80',
+        }}
+        onPress={()=>{
+          setStrPage('editRecipy')
+          setEditingRecipy(null)
+        }}
+      >
+        <SvgIconProvider
+          d="M8 2.75a.5.5 0 00-1 0V7H2.75a.5.5 0 000 1H7v4.25a.5.5 0 001 0V8h4.25a.5.5 0 000-1H8V2.75z"
+          styles={{
+            px: 100*consts.px*0.7,
+            color: theme[mode].noIcons,
+          }}
+          src="styles"
+          strprops="px, color"
+          styleview={{
+            position: 'absolute',
+            color: theme[mode].noIcons,
+            top: 15*consts.px,
+            left: 15*consts.px,
+          }}
+          stylesvg={{
+            position: 'relative',
+            top: -0.5*consts.px,
+            left: -0.5*consts.px,
+          }}
+          stylepath={{
+            strokeWidth: 1*consts.px,
+            stroke: theme[mode].noIcons,
+          }}
+        /> 
+      </TouchableOpacity>
+        
+
+      {/* <IconButton
+        onPress={()=>console.log('Plus')}
+        dataIconButton={data.dataIconButton}
+        dCodeIcon="M8 2.75a.5.5 0 00-1 0V7H2.75a.5.5 0 000 1H7v4.25a.5.5 0 001 0V8h4.25a.5.5 0 000-1H8V2.75z"
+        src="styles"
+        styles={{
+          color: theme[mode].noIcons,
+          px: 100*consts.px*0.7,
+          top: 3.75,
+          left: 3.75,
+          borderWidth: 3,
+          borderColor: theme[mode].noIcons,
+          
+        }}
+        sizeButton={100*consts.px}
+        styleButton={{
+          position: 'absolute',
+          backgroundColor: theme[mode].icons,
+          borderRadius: 50,
+          width: 100*consts.px,
+          height: 100*consts.px,
+          bottom: 150*consts.px,
+          right: 50*consts.px,
+          borderWidth: 3,
+          borderColor: theme[mode].icons+'dd',
+        }}
+      /> */}
 
       {/**Footer Menu */}
 

@@ -83,6 +83,7 @@ Front:
   ✔✔ ForgotPassword
 
   - Components:
+     . Create hook useCategories, with useContext to access colorsCategories (and others, when it is needed)
    ✔✔ PopUp Delete Username (confirm delete)
  
   - Functions:

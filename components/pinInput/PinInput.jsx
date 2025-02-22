@@ -37,7 +37,7 @@ const PinInput = ({ dataPinInput }) => {
         isKeyboardVisible: isKeyboardVisible,
         setIsKeyboardVisible: setIsKeyboardVisible,
         index: index,
-        styleinput: {
+        styleInput: {
           width: 100*consts.px,
           height: 100*consts.px,
           paddingRight: 20*consts.px,
