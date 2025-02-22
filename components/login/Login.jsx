@@ -93,7 +93,7 @@ const Login = ({ data }) => {
                     setLoading(false);
                     console.log('Login successfulllllll');
                     idRes = idRes < 100 ? 100 : idRes;
-                    redirectPage('listRecipies', 1000, setStrPage);
+                    redirectPage('listRecipes', 1000, setStrPage);
                   })
                   .catch((error) => {
                     idRes = idRes < 2 ? 2 : idRes;

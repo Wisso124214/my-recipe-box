@@ -198,7 +198,7 @@ const Register = ({ data }) => {
         .then(() => {
           setLoading(false);
           cleanInputs(objValidations);
-          redirectPage('listRecipies', 1000, setStrPage);
+          redirectPage('listRecipes', 1000, setStrPage);
         })
         .catch((error) => {
           setLoading(false);

@@ -80,17 +80,17 @@ export const createArrayColors = async () => {
   return arrColors;
 }
 
-export const fetchNRecipies = async (quant, pushColorCategories) => {
+export const fetchNRecipes = async (quant, pushColorCategories) => {
   try {
-    const recipies = [];
+    const recipes = [];
 
     for (let i = 0; i < quant; i++) {
       
       const editedRecipe = await fetchOneRecipe(pushColorCategories);
-      recipies.push(editedRecipe);
+      recipes.push(editedRecipe);
     }
 
-    return recipies;
+    return recipes;
   } catch (error) {
     console.log(JSON.stringify(error, null, 2));
     return error;

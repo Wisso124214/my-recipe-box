@@ -12,14 +12,14 @@ import LoadingScreen from './components/loadingScreen/LoadingScreen';
 import Login from './components/login/Login';
 import ForgotPassword from './components/forgotPassword/ForgotPassword';
 import Register from './components/register/Register';
-import DetailsRecipe from './components/recipies/DetailsRecipe.jsx';
+import DetailsRecipe from './components/recipes/DetailsRecipe.jsx';
 import DeviceAccounts from './components/deviceAccounts/DeviceAccounts';
 import UserAccounts from './components/userAccounts/UserAccounts';
 import DebugMenu from './components/debugMenu/DebugMenu';
 import { setItem, getItem } from './utils/asyncStorage.js';
-import ListRecipies from './components/recipies/ListRecipies.jsx';
-import { createArrayColors, editRecipe } from './components/recipies/dataRecipes.js';
-import { fetchNRecipies } from './components/recipies/dataRecipes.js';
+import ListRecipes from './components/recipes/ListRecipes.jsx';
+import { createArrayColors, editRecipe } from './components/recipes/dataRecipes.js';
+import { fetchNRecipes } from './components/recipes/dataRecipes.js';
 import { arrFetchDebug, objCategories } from './fetchDebug.js';
 
 import { SERVER_URL } from './config/config';
@@ -109,7 +109,7 @@ export default function App() {
   const [editingRecipe, setEditingRecipe] = useState(null);
   
   const [colorsCategories, setColorsCategories] = useState({});
-  const [arrayRecipies, setArrayRecipies] = useState([]);
+  const [arrayRecipes, setArrayRecipes] = useState([]);
   const [retriesColorsCategories, setRetriesColorsCategories] = useState([]);
   const [arrayColors, setArrayColors] = useState([]);
 
@@ -200,7 +200,7 @@ export default function App() {
   useEffect(() => {
     // (async () => {
     //   setLoading(true);
-    //   setArrayRecipies(arrFetchDebug);
+    //   setArrayRecipes(arrFetchDebug);
     //   for (let r in arrFetchDebug) {
     //     for (let c in arrFetchDebug[r].categories) {
     //       await pushColorCategories(arrFetchDebug[r].categories[c]);
@@ -209,7 +209,7 @@ export default function App() {
     //   setLoading(false);
     // })();
     setLoading(true);
-    setArrayRecipies(arrFetchDebug);
+    setArrayRecipes(arrFetchDebug);
     setColorsCategories(objCategories)
       // for (let r in arrFetchDebug) {
       //   for (let c in arrFetchDebug[r].categories) {
@@ -231,7 +231,7 @@ export default function App() {
   // }, [colorsCategories])
 
   useEffect(() => {
-    // console.log('recipies ', arrFetchDebug.length)
+    // console.log('recipes ', arrFetchDebug.length)
     // editRecipe(arrFetchDebug[arrFetchDebug.length-1], pushColorCategories)
 
     //FETCH DATA
@@ -239,30 +239,30 @@ export default function App() {
     (async () => {
       setLoading(true);
 
-      await getItem('arrayRecipies')
+      await getItem('arrayRecipes')
       .then( async (value) => {
         if (value && !reloadFetchData && !fetchedData) {
-          setArrayRecipies(JSON.toString(value));
+          setArrayRecipes(JSON.toString(value));
         } else {
           setLoading(true);
           pushColorCategories('all');
-          await fetchNRecipies(15, pushColorCategories)
-          .then(async (recipies) => {
+          await fetchNRecipes(15, pushColorCategories)
+          .then(async (recipes) => {
             setLoading(false);
             pushColorCategories('own');
-            console.log('recipies: ', recipies.length);
+            console.log('recipes: ', recipes.length);
             
-            for (let r in recipies) {
-              recipies[r] && recipies[r].strMeal && console.log(`recipies[${r}]: ${recipies[r].strMeal}`)
+            for (let r in recipes) {
+              recipes[r] && recipes[r].strMeal && console.log(`recipes[${r}]: ${recipes[r].strMeal}`)
             }
-            const newRecipies = recipies.filter(recipe => recipe !== null && recipe !== undefined)
-            setArrayRecipies(newRecipies);
+            const newRecipes = recipes.filter(recipe => recipe !== null && recipe !== undefined)
+            setArrayRecipes(newRecipes);
 
-            await setItem('arrayRecipies', JSON.stringify(newRecipies))
+            await setItem('arrayRecipes', JSON.stringify(newRecipes))
             .then(async () => {
-              await getItem('arrayRecipies')
+              await getItem('arrayRecipes')
               .then((value) => {
-                console.log('arrayRecipies: ', value);
+                console.log('arrayRecipes: ', value);
               }
             })
             .catch((error) => {
@@ -492,7 +492,7 @@ export default function App() {
     idMainSession,
     setIdMainSession,
     pushColorCategories,
-    arrayRecipies,
+    arrayRecipes,
     colorsCategories,
     setRecipeSelected,
     recipeSelected,
@@ -516,7 +516,7 @@ export default function App() {
     detailsRecipe:  <DetailsRecipe data={dataPages} />,
     deviceAccounts: <DeviceAccounts data={dataPages} />,
     userAccounts: <UserAccounts data={dataPages} />,
-    listRecipies: <ListRecipies data={dataPages} />,
+    listRecipes: <ListRecipes data={dataPages} />,
     editRecipe: <EditRecipe data={dataPages} />, 
   }
   const arrdebug = Object.keys(objdebug);
@@ -542,7 +542,7 @@ export default function App() {
       .then((value) => {
         if (value) {
           setIdMainSession(value);
-          setStrPage('listRecipies');
+          setStrPage('listRecipes');
         } else {
           setIdMainSession('');
         }

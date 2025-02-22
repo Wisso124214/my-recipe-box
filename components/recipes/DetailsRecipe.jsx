@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import { View, Text, ToastAndroid, Pressable, ScrollView, Image } from 'react-native';
-import IconButton from '../iconButton/IconButton';
-import ThemeModeButton from '../iconButton/ThemeModeButton';
-import { closeSession } from '../../utils/logicSession';
-import ButtonBack from '../buttonBack/ButtonBack';
-import Menu from '../menu/Menu';
+import IconButton from '../iconButton/IconButton.jsx';
+import ThemeModeButton from '../iconButton/ThemeModeButton.jsx';
+import { closeSession } from '../../utils/logicSession.js';
+import ButtonBack from '../buttonBack/ButtonBack.jsx';
+import Menu from '../menu/Menu.jsx';
 import { fetchOneRecipe } from './dataRecipes.js';
 import { getItem, setItem } from '../../utils/asyncStorage.js';
 
@@ -168,7 +168,7 @@ const DetailsRecipe = ({ data }) => {
           isInputFocus: true,
           setStrPage,
           ifBreadCrumbEmpty: () => {
-            setStrPage('listRecipies')
+            setStrPage('listRecipes')
             },
           }} 
           styleview={{

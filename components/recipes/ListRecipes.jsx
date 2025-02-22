@@ -10,9 +10,9 @@ import SvgIcon from '../svg/SvgIcon';
 import SvgIconProvider from '../svg/svgIconProvider';
 
 
-const ListRecipies = ({ data }) => {
+const ListRecipes = ({ data }) => {
 
-  const { mode, consts, styles, theme, loading, setLoading, setStrPage, dataButtonBack, arrayRecipies, 
+  const { mode, consts, styles, theme, loading, setLoading, setStrPage, dataButtonBack, arrayRecipes, 
     colorsCategories, setRecipeSelected, setEditingRecipe, 
   } = data;
   
@@ -21,7 +21,7 @@ const ListRecipies = ({ data }) => {
   const topIconMenu = 2;
   const topFooterMenu = 1400*consts.px;
   
-  const [recipies, setRecipies] = useState([]);
+  const [recipes, setRecipes] = useState([]);
   const [categorySelected, setCategorySelected] = useState('all');
   const [arrCategories, setArrCategories] = useState([]);
   const [objCategories, setObjCategories] = useState({});
@@ -56,7 +56,7 @@ const ListRecipies = ({ data }) => {
   }
 
   useEffect(()=>{
-    setRecipies(arrayRecipies)
+    setRecipes(arrayRecipes)
   },[]);
 
   useEffect(() => {
@@ -166,9 +166,9 @@ const ListRecipies = ({ data }) => {
         </View>
       </View>
 
-      {/**List Recipies */}
+      {/**List Recipes */}
       {
-        !loading && recipies.length > 0 &&
+        !loading && recipes.length > 0 &&
         <View 
           style={{
             position: 'relative',
@@ -180,12 +180,12 @@ const ListRecipies = ({ data }) => {
           <View style={{ flex: 1 }} >
             <FlatList
               showsVerticalScrollIndicator={false}
-              data={recipies}
+              data={recipes}
               initialNumToRender={10}
               keyExtractor={(item, index) => index.toString()}
               renderItem={({ item, index }) => {
                 
-                const recipe = { ...recipies[index] };
+                const recipe = { ...recipes[index] };
                 recipe.categories = [...recipe.categories, 'all'];
 
                 return(
@@ -382,4 +382,4 @@ const ListRecipies = ({ data }) => {
   );
 }
 
-export default ListRecipies;
+export default ListRecipes;

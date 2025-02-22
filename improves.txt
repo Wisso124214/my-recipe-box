@@ -63,7 +63,7 @@ Front:
     . Plus
     . EditCategory
     ✔ DetailsRecipe (FIRST SHOW RECIPY AND THEN CREATE THE EDIT RECIPY)
-    ✔ ListRecipies scroll (missing plus, select and search)
+    ✔ ListRecipes scroll (missing plus, select and search)
 
     ✔ InputPopUp (missing validation after)
     ✔ DeviceAccounts (missing backend: add functions to exit and delete the main account)
@@ -89,17 +89,17 @@ Front:
   - Functions:
     . (Send email) Add function to the Forgot Usernames button on Forgot Password mockup (it must send to the 
       email the usernames associated and with a toast sending the user to check the email)
-    . (FooterMenu ListRecipies) Add functions to the icons: search, menu and settings
+    . (FooterMenu ListRecipes) Add functions to the icons: search, menu and settings
   ✔✔ (ButtonBack) Add an array with the screens are visited, so the button goes to back to the last screen and not an unique screen
   
   - Others: 
     . Change splash by theme (only sees the light splashcreen)
     . Disengage the navigation with stack native navigator
-    . Add retries when the listRecipies does not load
+    . Add retries when the listRecipes does not load
     . Disengage the time zone (set the default and change it on settings)
     . Add an animation or something to do the iconQuestion more visible and clickeable
   ✔✔ Update the splash loading (with the bg image)
-  ✔✔ Fix the redirection when log in (to listRecipies)
+  ✔✔ Fix the redirection when log in (to listRecipes)
   ✔✔ Fix the setIdMainSession on login
   ✔✔ Change the input placeholder font to mali
   ✔✔ Fix the iconQuestion position and become it with a contrasting color

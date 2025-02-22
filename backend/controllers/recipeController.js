@@ -1,10 +1,10 @@
 import { Recipe } from '../models/recipeModels.js';
 
 export const createRecipeControllers = (app) => {
-  app.get('/recipies', async (req, res) => {
+  app.get('/recipes', async (req, res) => {
     try {
-      const recipies = await Recipe.find();
-      res.json(recipies);
+      const recipes = await Recipe.find();
+      res.json(recipes);
     } catch (error) {
       res.status(500).json({ message: error.message });
       console.log(JSON.stringify(error, null, 2));

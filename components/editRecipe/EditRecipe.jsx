@@ -156,7 +156,7 @@ const EditRecipe = ({ data }) => {
             }
           },
           ifBreadCrumbEmpty: () => {
-            setStrPage('listRecipies')
+            setStrPage('listRecipes')
             },
           }} 
           styleview={{
