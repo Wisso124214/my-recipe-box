@@ -6,14 +6,16 @@ import IconButton from '../iconButton/IconButton';
 import Svg, { Path } from "react-native-svg"
 import { configFront } from '../../config/config';
 import ButtonBack from '../buttonBack/ButtonBack';
-import SvgIcon from '../svg/SvgIcon';
 import SvgIconProvider from '../svg/svgIconProvider';
+import { fetchCategories } from '../../fetchDebug.js'
 
+import axios from 'axios';
+import { SERVER_URL } from '../../config/config.js';
 
 const ListRecipes = ({ data }) => {
 
   const { mode, consts, styles, theme, loading, setLoading, setStrPage, dataButtonBack, arrayRecipes, 
-    colorsCategories, setRecipeSelected, setEditingRecipe, 
+    colorsCategories, setRecipeSelected, setEditingRecipe, setColorsCategories,
   } = data;
   
   const sizeIcons = 60*consts.px;
@@ -56,7 +58,30 @@ const ListRecipes = ({ data }) => {
   }
 
   useEffect(()=>{
-    setRecipes(arrayRecipes)
+    (async () => {
+      setLoading(true);
+      try {
+        await axios.get(`${SERVER_URL}/recipes`)
+        .then((response) => {
+          let arr = []
+          for (let r in response.data) {
+            let obj = JSON.parse(response.data[r].recipe);
+            obj.idDB = response.data[r]._id;
+
+            arr.push(obj);
+          }
+
+          let arrSorted = [...arr];
+          arrSorted.sort((a, b) => a.strMeal.localeCompare(b.strMeal))
+
+          setRecipes(arrSorted);
+        })
+      } catch (error) {
+        console.log('ERROR ' + error);
+      }
+      setColorsCategories(fetchCategories)
+      setLoading(false);
+    })();
   },[]);
 
   useEffect(() => {

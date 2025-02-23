@@ -1,4 +1,4 @@
-export const objCategories = {
+export const fetchCategories = {
   'all': {
     'color': 'hsl(108, 100%, 50%)',
   },
@@ -70,6 +70,12 @@ export const objCategories = {
   },
   'shellfish': {
     'color': 'hsl(72, 100%, 50%)',
+  },
+  'others': {
+    'color': 'hsl(352, 100%, 50%)',
+  },
+  'own': {
+    'color': 'hsl(256, 100%, 50%)',
   },
 }
 

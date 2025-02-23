@@ -20,13 +20,13 @@ import { setItem, getItem } from './utils/asyncStorage.js';
 import ListRecipes from './components/recipes/ListRecipes.jsx';
 import { createArrayColors, editRecipe } from './components/recipes/dataRecipes.js';
 import { fetchNRecipes } from './components/recipes/dataRecipes.js';
-import { arrFetchDebug, objCategories } from './fetchDebug.js';
+import { arrFetchDebug } from './fetchDebug.js';
 
-import { SERVER_URL } from './config/config';
-import axios from 'axios';
 import Loading from './components/loading/Loading.jsx';
 import { SplashScreen } from 'expo-router';
 import EditRecipe from './components/editRecipe/EditRecipe.jsx';
+import axios from 'axios';
+import { SERVER_URL } from './config/config.js';
 
 export default function App() {
   const devMode = {
@@ -36,7 +36,7 @@ export default function App() {
       screenLoading: false,
       debugMenuEnabled: true,
       showDebugMenu: false,
-      strpage: 'login',
+      strpage: 'editRecipe',
       page: 0,
       pagefp: 0,
       varpage: 'strpage',
@@ -113,8 +113,11 @@ export default function App() {
   const [retriesColorsCategories, setRetriesColorsCategories] = useState([]);
   const [arrayColors, setArrayColors] = useState([]);
 
-  const [fetchedData, setFetchedData] = useState(false);
-  const reloadFetchData = true;
+  /*useEffect(() => {
+    for (let a in arrFetchDebug) {
+      axios.post(`${SERVER_URL}/recipe`, { recipe: JSON.stringify(arrFetchDebug[a]) })
+    }
+  }, [])*/
   
   const pushColorCategories = async (category) => {
   
@@ -208,17 +211,6 @@ export default function App() {
     //   }
     //   setLoading(false);
     // })();
-    setLoading(true);
-    setArrayRecipes(arrFetchDebug);
-    setColorsCategories(objCategories)
-      // for (let r in arrFetchDebug) {
-      //   for (let c in arrFetchDebug[r].categories) {
-      //     // pushColorCategories(arrFetchDebug[r].categories[c]);
-      //   }
-      // }
-      setLoading(false);
-
-      
   }, []);
   
   
@@ -498,6 +490,7 @@ export default function App() {
     recipeSelected,
     editingRecipe,
     setEditingRecipe,
+    setColorsCategories,
 
 
     dataInput,

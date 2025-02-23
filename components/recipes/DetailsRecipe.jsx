@@ -11,6 +11,10 @@ import { getItem, setItem } from '../../utils/asyncStorage.js';
 import { arrFetchDebug } from '../../fetchDebug.js';
 import SvgIconProvider from '../svg/svgIconProvider.jsx';
 import Svg, { Circle } from 'react-native-svg';
+import YoutubeIframe from 'react-native-youtube-iframe';
+
+import axios from 'axios';
+import { SERVER_URL } from '../../config/config.js';
 
 
 const DetailsRecipe = ({ data }) => {
@@ -156,6 +160,23 @@ const DetailsRecipe = ({ data }) => {
       onPress: ()=>{
         setEditingRecipe(recipe)
         setStrPage('editRecipe')
+      },
+    },
+    {
+      title: 'Erase recipe',
+      d: "M5.5 1a.5.5 0 000 1h4a.5.5 0 000-1h-4zM3 3.5a.5.5 0 01.5-.5h8a.5.5 0 010 1H11v8a1 1 0 01-1 1H5a1 1 0 01-1-1V4h-.5a.5.5 0 01-.5-.5zM5 4h5v8H5V4z",
+      color: theme[mode].noColor,
+      sizeIcon: 45*consts.px,
+      onPress: () => {
+        axios.delete(`${SERVER_URL}/recipe/${recipe.idDB}`)
+        .then(() => {
+          ToastAndroid.showWithGravity('Recipe deleted', ToastAndroid.SHORT, ToastAndroid.CENTER)
+        })
+        .catch((error) => {
+          console.log('Error deleting recipe: ', error)
+          ToastAndroid.showWithGravity('Error deleting recipe', ToastAndroid.SHORT, ToastAndroid.CENTER)
+        })
+        setStrPage('listRecipes')
       },
     },
   ]
@@ -554,6 +575,23 @@ const DetailsRecipe = ({ data }) => {
         
         <Text></Text>
         <Text></Text>
+        
+        {
+          recipe.strYoutube &&
+          <View
+            style={{
+              flex: 1,
+              marginBottom: 100*consts.px,
+            }}
+          >
+            <YoutubeIframe 
+              videoId={recipe.strYoutube.split('v=')[1]}
+              height={consts.widthScreen*0.45*consts.px}
+              width={consts.widthScreen*0.8*consts.px}
+              play={false}
+            />
+          </View>
+        }
 
         {
           recipe.strInstructions &&

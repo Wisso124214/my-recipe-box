@@ -11,39 +11,34 @@ import { arrFetchDebug } from '../../fetchDebug.js';
 import SvgIconProvider from '../svg/svgIconProvider.jsx';
 import Svg, { Circle } from 'react-native-svg';
 import Input from '../input/Input.jsx';
-import ContrastingSmallButton from '../contrastingSmallButton/ContrastingSmallButton.jsx';
 import ContrastingButton from '../contrastingButton/ContrastingButton.jsx';
+
+import axios from 'axios';
+import { SERVER_URL } from '../../config/config.js';
 
 
 const EditRecipe = ({ data }) => {
 
   const { mode, theme, consts, setStrPage, styles, dataButtonBack, setIdMainSession, idMainSession,
     colorsCategories, recipeSelected, setIsInputFocus, dataInput, breadCrumb, setBreadCrumb, editingRecipe,
+    setFetchedData,
   } = data;
   const [isShowMenu, setIsShowMenu] = React.useState(false);
-  const [isTitleCropped, setIsTitleCropped] = React.useState(false);
   const [recipe, setRecipe] = React.useState({});
-  const [isTitleOverflowing, setIsTitleOverflowing] = React.useState(true);
-  const [isPrevHeight, setIsPrevHeight] = React.useState(true);
-  const [isActualHeight, setIsActualHeight] = React.useState(true);
   const maxLengthDifficulty = 30;
-  const topTitle = 125*consts.px;
-  
-  const isRefreshData = true;
-  
+  const topTitle = 125*consts.px;  
   
   const uriEmptyImage = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQx0-gLc9F8xGB0C4ttKDkIlRwdtzGDv9OJTGRvX20tixfCfqecGpmeasvUfOmq5kVdMMA'
   
   const [isKeyboardVisible, setIsKeyboardVisible] = React.useState(false);
   const [nInputSelected, setnInputSelected] = React.useState(0);
-  const [difficultySelected, setDifficultySelected] = React.useState(editingRecipe === null ? '' : editingRecipe.difficulty.name);
+  const [difficultySelected, setDifficultySelected] = React.useState(editingRecipe === null ? { name: '', value: 0 } : editingRecipe.difficulty);
   const [dropdownDifficulty, setDropdownDifficulty] = React.useState(false);
   const [colorDropdownDifficulty, setColorDropdownDifficulty] = React.useState(theme[mode].icons);
   const [uriImage, setUriImage] = React.useState(editingRecipe === null ? '' : editingRecipe.strMealThumb);
   const [categories, setCategories] = React.useState(editingRecipe === null ? [] : editingRecipe.categories);
   const [dropdownCategories, setDropdownCategories] = React.useState(false);
   const [yScroll, setYScroll] = React.useState(0);
-  const [nIngredients, setNIngredients] = React.useState(editingRecipe === null ? 1 : editingRecipe.ingredients.length);
   const [isFavorite, setIsFavorite] = React.useState(editingRecipe === null ? false : editingRecipe.isFavorite);
 
   const [titleRecipe, setTitleRecipe] = React.useState(editingRecipe === null ? '' : editingRecipe.strMeal);
@@ -51,6 +46,8 @@ const EditRecipe = ({ data }) => {
   const [timeCook, setTimeCook] = React.useState(editingRecipe === null ? '' : editingRecipe.timeCook.toString());
   const [serves, setServes] = React.useState(editingRecipe === null ? '' : editingRecipe.serves.toString());
   const [preparation, setPreparation] = React.useState(editingRecipe === null ? '' : editingRecipe.strInstructions);
+  const [ingredients, setIngredients] = React.useState(editingRecipe === null ? [{ name: '', measure: '', unit: '' }] : editingRecipe.ingredients);
+  const [youtubeLink, setYoutubeLink] = React.useState(editingRecipe === null ? '' : editingRecipe.strYoutube);
 
   const compStyles = {
     header: {
@@ -110,6 +107,12 @@ const EditRecipe = ({ data }) => {
     },
   }
 
+  const setPropIngredient = (index, type, value) => {
+    let copyIngredients = [...ingredients];
+    copyIngredients[index][type] = value;
+    setIngredients(copyIngredients);
+  }
+
   useEffect(() => {
     setRecipe(recipeSelected)
     setIsFavorite(recipe.isFavorite)
@@ -126,10 +129,10 @@ const EditRecipe = ({ data }) => {
   ]
 
   useEffect(() => {
-    if (difficultySelected === '') {
+    if (difficultySelected.name === '') {
       setColorDropdownDifficulty(theme[mode].icons);
     } else {
-      let color = theme[mode].difficulty[difficultySelected].border.split(',');
+      let color = theme[mode].difficulty[difficultySelected.name].border.split(',');
       color[2] = mode === 'light' ? ' 30%)' : ' 65%)';
       color = color.join(',');
 
@@ -142,6 +145,9 @@ const EditRecipe = ({ data }) => {
       setBreadCrumb([...breadCrumb, 'keyboard']);
     }
   }, [isKeyboardVisible])
+
+  const toast = (message) => ToastAndroid.showWithGravityAndOffset(message, ToastAndroid.LONG, ToastAndroid.BOTTOM, 25, 50);
+
 
   return(
     <View style={styles.transparentContainer} >
@@ -264,15 +270,15 @@ const EditRecipe = ({ data }) => {
                 key={'difficulty-text-recipe'}
                 style={{
                   fontFamily: styles.fonts.mali.bold,
-                  color: difficultySelected === '' ? colorDropdownDifficulty+'cc' : colorDropdownDifficulty,
+                  color: difficultySelected.name === '' ? colorDropdownDifficulty+'cc' : colorDropdownDifficulty,
                   fontSize: 26*consts.px,
                   textAlign: 'center',
                   top: -2*consts.px,
                   alignSelf: 'center',
-                  textTransform: difficultySelected === '' ? 'none' : 'capitalize',
+                  textTransform: difficultySelected.name === '' ? 'none' : 'capitalize',
                 }}
               >
-                {difficultySelected === '' ? 'Select difficulty...' : difficultySelected}
+                {difficultySelected.name === '' ? 'Select difficulty...' : difficultySelected.name}
               </Text>
 
               <SvgIconProvider
@@ -319,7 +325,10 @@ const EditRecipe = ({ data }) => {
                         marginVertical: 5*consts.px,
                       }}
                       onPress={() => {
-                        setDifficultySelected(difficulty);
+                        setDifficultySelected({
+                          name: difficulty,
+                          value: difficulty === 'easy' ? 1 : difficulty === 'medium' ? 2 : difficulty === 'medium' ? 3 : 0,
+                        });
                         setDropdownDifficulty(false);
                       }}
                       >
@@ -555,7 +564,7 @@ const EditRecipe = ({ data }) => {
               }}
             >
               {
-                Object.keys(colorsCategories).filter(category => !categories.includes(category) && category !== 'all').map((category, index) => {
+                Object.keys(colorsCategories).filter(category => !categories.includes(category) && category !== 'all' && category !== 'own').map((category, index) => {
                   let thisColor;
 
                   if (colorsCategories[category]) {
@@ -891,7 +900,7 @@ const EditRecipe = ({ data }) => {
           }}
         >
           {
-            Array(nIngredients).fill(0).map((_, index) => (
+            ingredients.map((ingredient, index) => (
               <View
                 key={`ingredient-${index}`}
                 style={{
@@ -914,7 +923,7 @@ const EditRecipe = ({ data }) => {
                   dataInput={{
                     ...dataInput,
                     styles,
-                    defaultValue: editingRecipe.ingredients[index].measure,
+                    defaultValue: editingRecipe && editingRecipe.ingredients[index] ? editingRecipe.ingredients[index].measure : ingredients[index].measure,
                     isKeyboardVisible: isKeyboardVisible,
                     index: 3,
                     nInputSelected,
@@ -924,6 +933,7 @@ const EditRecipe = ({ data }) => {
                         setIsInputFocus(true)
                         setIsKeyboardVisible(true)
                       },
+                      onChangeText: (text) => setPropIngredient(index, 'measure', text),
                       onBlur: () => {
                         setIsInputFocus(false)
                       },
@@ -951,7 +961,7 @@ const EditRecipe = ({ data }) => {
                   dataInput={{
                     ...dataInput,
                     styles,
-                    defaultValue: editingRecipe.ingredients[index].unit,
+                    defaultValue: editingRecipe && editingRecipe.ingredients[index] ? editingRecipe.ingredients[index].unit : ingredients[index].unit,
                     isKeyboardVisible: isKeyboardVisible,
                     index: 3,
                     nInputSelected,
@@ -961,6 +971,7 @@ const EditRecipe = ({ data }) => {
                         setIsInputFocus(true)
                         setIsKeyboardVisible(true)
                       },
+                      onChangeText: (text) => setPropIngredient(index, 'unit', text),
                       onBlur: () => {
                         setIsInputFocus(false)
                       },
@@ -988,7 +999,7 @@ const EditRecipe = ({ data }) => {
                   dataInput={{
                     ...dataInput,
                     styles,
-                    defaultValue: editingRecipe.ingredients[index].name,
+                    defaultValue: editingRecipe && editingRecipe.ingredients[index] ? editingRecipe.ingredients[index].name : ingredients[index].name,
                     isKeyboardVisible: isKeyboardVisible,
                     index: 3,
                     nInputSelected,
@@ -998,6 +1009,7 @@ const EditRecipe = ({ data }) => {
                         setIsInputFocus(true)
                         setIsKeyboardVisible(true)
                       },
+                      onChangeText: (text) => setPropIngredient(index, 'name', text),
                       onBlur: () => {
                         setIsInputFocus(false)
                       },
@@ -1017,7 +1029,7 @@ const EditRecipe = ({ data }) => {
             ))
           }
           <IconButton
-            onPress={() => setNIngredients((prev)=>prev+1)}
+            onPress={() => setIngredients([...ingredients, { measure: '', unit: '', name: '' }])}
             dataIconButton={data.dataIconButton}
             dCodeIcon="M7.5.877a6.623 6.623 0 100 13.246A6.623 6.623 0 007.5.877zM1.827 7.5a5.673 5.673 0 1111.346 0 5.673 5.673 0 01-11.346 0zM7.5 4a.5.5 0 01.5.5V7h2.5a.5.5 0 110 1H8v2.5a.5.5 0 01-1 0V8H4.5a.5.5 0 010-1H7V4.5a.5.5 0 01.5-.5z"
             sizeButton={compStyles.icons.small.px}
@@ -1034,6 +1046,8 @@ const EditRecipe = ({ data }) => {
         
         <Text></Text>
         
+        
+
         <Text
           style={{
             ...compStyles.text,
@@ -1047,6 +1061,38 @@ const EditRecipe = ({ data }) => {
         
         <Text></Text>
         <Text></Text>
+            <Input
+              placeholder="Youtube link"
+              style={{
+                ...compStyles.input,
+                left: -20*consts.px,
+              }}
+              inputMode="text"
+              dataInput={{
+                ...dataInput,
+                styles,
+                stateValue: [youtubeLink, setYoutubeLink],
+                isKeyboardVisible: isKeyboardVisible,
+                index: 1,
+                nInputSelected,
+                textprops: {
+                  maxLength: 500,
+                  onFocus: () => {
+                    setIsInputFocus(true)
+                    setIsKeyboardVisible(true)
+                  },
+                  onBlur: () => {
+                    setIsInputFocus(false)
+                  },
+                },
+                styleInput: {
+                  width: consts.widthScreen*0.8*consts.px,
+                  fontFamily: styles.fonts.mali.medium,
+                  color: theme[mode].color,
+                  marginBottom: 30*consts.px,
+                },
+              }}
+            />
 
         <Input
           placeholder="Instructions..."
@@ -1110,8 +1156,90 @@ const EditRecipe = ({ data }) => {
             marginBottom: 150 * consts.px,
             alignSelf: 'center',
           }} 
-          onPress={()=>console.log('Recipe saved')}
-          />  
+          onPress={()=>{
+            if (titleRecipe === '') {
+              toast('Please, write a title for the recipe');
+              return;
+            }
+            if (difficultySelected.name === '') {
+              toast('Please, select a difficulty');
+              return;
+            }
+            if (categories.length === 0) {
+              toast('Please, add at least one category');
+              return;
+            }
+            if (timePrep === '') {
+              toast('Please, add the time for preparation');
+              return;
+            }
+            if (timeCook === '') {
+              toast('Please, add the time for cooking');
+              return;
+            }
+            if (serves === '') {
+              toast('Please, add the number of serves');
+              return;
+            }
+            
+            if (ingredients.length === 0) {
+              toast('Please, add at least one ingredient');
+              return;
+            }
+
+            for (let i in ingredients) {
+              if (ingredients[i].name === '') {
+                toast('Please, the name for the ingredients cannot be empty');
+                return;
+              }
+            }
+
+            if (youtubeLink === '') {
+              toast('Please, add the youtube link');
+              return;
+            }
+
+            if (preparation === '') {
+              toast('Please, add the preparation instructions');
+              return;
+            }
+
+            console.log(!categories.includes('all'), categories)
+            if (!categories.includes('all')) {
+              categories.unshift('all');
+            }
+
+            if (!categories.includes('own')) {
+              categories.push('own');
+            }
+            
+            const newRecipe = {
+              strMeal: titleRecipe,
+              strMealThumb: uriImage === '' ? uriEmptyImage : uriImage,
+              categories: categories,
+              difficulty: difficultySelected,
+              timePrep: timePrep,
+              timeCook: timeCook,
+              serves: serves,
+              isFavorite: isFavorite,
+              ingredients: ingredients,
+              strYoutube: youtubeLink,
+              strInstructions: preparation,
+            }
+
+            axios.post(`${SERVER_URL}/recipe`, { recipe: JSON.stringify(newRecipe), })
+            .then((response) => {
+              toast('Recipe saved successfully');
+              setFetchedData((prev)=>!prev);
+            })
+            .then(() => {
+              setStrPage('listRecipes');
+            })
+            .catch((error) => {
+              console.log(JSON.stringify(error, null, 2));
+            });
+          }}
+        />  
         
 
         
