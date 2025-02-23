@@ -1,8 +1,11 @@
-import { View, StatusBar, Text, Image, TouchableOpacity } from 'react-native';
+import { View, StatusBar, Text, Image, TouchableOpacity, ToastAndroid } from 'react-native';
 import SvgIconProvider from '../svg/svgIconProvider';
 import Svg, { Circle } from 'react-native-svg';
 import { useState } from 'react';
 import { configFront } from '../../config/config';
+
+import axios from 'axios';
+import { SERVER_URL } from '../../config/config.js';
 
 const ElementRecipe = ({ data, index, recipe, objCategories, setRecipeSelected, setStrPage }) => {
 
@@ -295,9 +298,22 @@ const ElementRecipe = ({ data, index, recipe, objCategories, setRecipeSelected, 
         <TouchableOpacity
           activeOpacity={configFront.activeOpacity}
           key={'fav-icon-'+index}
+          onLongPress={console.log(recipe.strMeal, recipe.isFavorite)}
           onPress={() => {
             setIsFavorite(!isFavorite);
             recipe.isFavorite = !recipe.isFavorite;
+
+            axios.put(`${SERVER_URL}/recipe/${recipe.idDB}`, {isFavorite: recipe.isFavorite})
+            .catch(err => {
+              console.log(err);
+            });
+          }}
+          style={{
+            position: 'absolute',
+            width: 50*consts.px,
+            height: 50*consts.px,
+            left: widthElement - (20*2)*consts.px - 25*consts.px + xDetailsRecipe,
+            top: -82*consts.px,
           }}
         >
           <SvgIconProvider
@@ -310,11 +326,6 @@ const ElementRecipe = ({ data, index, recipe, objCategories, setRecipeSelected, 
               left: 3,
             }}
             strprops='color, px, top, left'
-            stylesvg={{
-              position: 'absolute',
-              left: widthElement - (20*2)*consts.px - 15*consts.px + xDetailsRecipe,
-              top: -55*consts.px,
-            }}
           />
         </TouchableOpacity>
 
