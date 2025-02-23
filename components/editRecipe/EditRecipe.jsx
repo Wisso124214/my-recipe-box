@@ -21,7 +21,6 @@ const EditRecipe = ({ data }) => {
 
   const { mode, theme, consts, setStrPage, styles, dataButtonBack, setIdMainSession, idMainSession,
     colorsCategories, recipeSelected, setIsInputFocus, dataInput, breadCrumb, setBreadCrumb, editingRecipe,
-    setFetchedData,
   } = data;
   const [isShowMenu, setIsShowMenu] = React.useState(false);
   const [recipe, setRecipe] = React.useState({});
@@ -1230,9 +1229,6 @@ const EditRecipe = ({ data }) => {
             axios.post(`${SERVER_URL}/recipe`, { recipe: JSON.stringify(newRecipe), })
             .then((response) => {
               toast('Recipe saved successfully');
-              setFetchedData((prev)=>!prev);
-            })
-            .then(() => {
               setStrPage('listRecipes');
             })
             .catch((error) => {
